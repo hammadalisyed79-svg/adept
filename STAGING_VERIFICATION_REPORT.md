@@ -12,7 +12,7 @@
 | Gate | Status |
 |------|--------|
 | **Local staging verification** | **COMPLETE** |
-| **Private hosted staging URL** | **NOT DEPLOYED** — no authorized hosting credentials/CLI available |
+| **Private hosted staging URL** | **NOT DEPLOYED** — see `HOSTED_STAGING_STATUS.md` (Vercel login / token missing) |
 | **Email delivery to sales@** | **BLOCKED** — SMTP credentials not supplied |
 | **Public production deploy** | **NOT PERFORMED** (forbidden / not authorized) |
 | **READY FOR PUBLIC LAUNCH** | **NO** |
