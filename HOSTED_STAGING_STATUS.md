@@ -1,7 +1,8 @@
-# HOSTED STAGING DEPLOYMENT ATTEMPT — ADEPT Fragrances
+# HOSTED STAGING STATUS — ADEPT Fragrances
 
-**Date:** 2026-09-21  
-**Scope:** Deploy existing app to private hosted staging (no rebuild / no redesign / no DNS changes / no ERP changes)
+**Updated:** 2026-09-21  
+**ERP:** NOT MODIFIED / NOT CONNECTED  
+**Public DNS (`adeptfragrances.com`):** NOT CHANGED by this deploy (no `vercel --prod`)
 
 ---
 
@@ -9,146 +10,82 @@
 
 | Item | Status |
 |------|--------|
-| **Staging URL** | **NOT DEPLOYED** |
-| **Database (hosted)** | **NOT CONNECTED** — no managed Postgres credentials supplied |
-| **Email delivery** | **BLOCKED** — SMTP credentials not supplied; mailboxes not verified |
-| **Inquiry end-to-end on hosted staging** | **NOT RUN** (depends on staging URL + DB + optional SMTP) |
-| **adeptfragrances.com DNS** | **UNCHANGED** |
-| **ERP** | **UNCHANGED / NOT CONNECTED** |
+| **Staging URL** | **https://adept-4j0mtvuah-hammad-fedc.vercel.app** (Vercel **preview**) |
+| **Deployment protection** | **Enabled** (anonymous browser access blocked; CLI bypass used for tests) |
+| **Database** | **Connected** — Prisma migrate applied to hosted Postgres (`db.prisma.io`) |
+| **Migration** | `20260921083213_init` applied (then “no pending” on later builds) |
+| **Inquiry API** | **Verified** — reference **`ADF-20260921-C668E7`** |
+| **Email → sales@ inbox** | **NOT VERIFIED** — cannot claim delivery; see Email section |
+| **Production / adeptfragrances.com** | **Not deployed** (`vercel --prod` not run) |
 | **READY FOR PUBLIC LAUNCH** | **NO** |
-
-**Stopped at missing authorized dependencies.** No successful hosted deployment or inbox delivery is claimed.
 
 ---
 
-## 1. Hosting access inspection
+## What succeeded
+
+1. Vercel CLI authenticated to team **hammad-fedc**, project **adept**.
+2. Preview deployment built and reached **Ready**.
+3. Homepage HTML confirmed brand **ADEPT Fragrances** and `info@adeptfragrances.com`.
+4. `/request-quote` returned HTTP 200 via protected access.
+5. `POST /api/inquiries` returned:
+   ```json
+   {"ok":true,"reference":"ADF-20260921-C668E7","message":"Thank you..."}
+   ```
+6. Hosted DB migrations ran during build using `DATABASE_URL_PRISMA_DATABASE_URL` (primary `DATABASE_URL` was empty).
+
+---
+
+## Email delivery
 
 | Check | Result |
 |-------|--------|
-| Git remote | `https://github.com/hammadalisyed79-svg/adept.git` (code present on `main`) |
-| `VERCEL_TOKEN` / related env secrets | **Not present** in process environment |
-| Vercel CLI (`npx vercel whoami`) | **Not logged in** — `login_required` |
-| Local Vercel auth files | **Not found** |
-| `gh` CLI | **Not installed** |
-| Neon / other DB CLI tokens | **Not found** |
-| `.vercel` project link | **Absent** |
+| `SMTP_*` keys present in Vercel env | Yes (Preview + Production) |
+| `SALES_EMAIL` configured in Vercel | Yes (secret) |
+| Mailbox existence for `info@` / `sales@` | **Not independently verified** |
+| Actual inbox receipt for `ADF-20260921-C668E7` | **Not confirmed** |
+| Claim “email sent” | **Not made** |
 
-Vercel CLI message (actual): login required; complete `vercel login` interactively **or** provide `VERCEL_TOKEN`, then retry.
-
----
-
-## 2. What was intentionally not done
-
-- No `vercel login` browser flow completed in this non-interactive session (cannot finish auth without your action)
-- No project created on Vercel
-- No environment variables pushed to a host
-- No DNS changes to `adeptfragrances.com`
-- No outbound email activation
-- No ERP changes
+**Status: EMAIL DELIVERY UNVERIFIED.**  
+If SMTP secrets are empty placeholders, outbound mail will be skipped/failed while the inquiry remains in Postgres. Confirm in Neon/Prisma tables (`notificationStatus`, `NotificationDelivery`) and the `sales@adeptfragrances.com` inbox.
 
 ---
 
-## 3. Database
+## Database notes
 
-| Item | Status |
-|------|--------|
-| Hosted / managed `DATABASE_URL` for staging | **Missing** |
-| Local Postgres (prior verification only) | Available on this machine; **not** a private hosted staging URL |
-
-Prisma migrate against a hosted DB was **not** run because no authorized remote connection string was provided.
+- Build log: `Datasource "db": PostgreSQL database "postgres" at "db.prisma.io:5432"`.
+- Empty `DATABASE_URL` on Vercel was worked around via `scripts/build-with-db.mjs` + runtime resolution in `src/lib/db.ts` preferring `DATABASE_URL_PRISMA_DATABASE_URL`.
+- **Recommended fix in Vercel dashboard:** set `DATABASE_URL` to the same nonempty Prisma/Neon connection string so tooling is simpler.
 
 ---
 
-## 4. Email / mailboxes
+## Domain / DNS (dashboard observation)
 
-| Item | Status |
-|------|--------|
-| Configured `COMPANY_EMAIL` | `info@adeptfragrances.com` |
-| Configured `SALES_EMAIL` | `sales@adeptfragrances.com` |
-| Domain MX | Present (`smtp.secureserver.net` / `mailstore1.secureserver.net`) — mail **routing** exists |
-| Mailbox existence (info@ / sales@) | **Not verified** (requires mailbox provider login or successful authenticated SMTP/IMAP) |
-| `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | **Not supplied** |
-| Outbound email | **BLOCKED** — not activated |
+Your Vercel Domains UI shows `adeptfragrances.com` / `www.adeptfragrances.com` configured with **No Deployment** until a production deploy.  
 
-Per requirements: outbound email must not be activated until mailboxes are verified **and** SMTP credentials are available.
+This session intentionally used **preview only** so those production domains were not updated.
 
 ---
 
-## 5. Quotation workflow on hosted staging
+## How to open the staging site
 
-**Not executed** — blocked by missing staging deployment.
-
-Prior **local** proof (unchanged, not hosted):
-
-- Reference `ADF-20260921-BA878C` saved with `notificationStatus=SKIPPED` (email blocked)
+1. Open https://adept-4j0mtvuah-hammad-fedc.vercel.app  
+2. Complete Vercel Deployment Protection login (team member / password / SSO as configured).  
+3. Or use `npx vercel curl <url>` from an authenticated CLI for smoke tests.
 
 ---
 
-## 6. Exact missing access (provide securely)
+## Remaining launch blockers
 
-To continue hosted private staging, supply **via Vercel dashboard / secret store / interactive CLI login** (do not paste passwords into chat if avoidable):
-
-1. **Vercel auth**
-   - Run `npx vercel login` in an interactive terminal, **or**
-   - Set `VERCEL_TOKEN` (account token with deploy rights)
-2. **Managed PostgreSQL**
-   - Staging `DATABASE_URL` (e.g. Neon) usable from Vercel
-3. **Private protection preference**
-   - Vercel Deployment Protection / password / SSO for non-production
-4. **Only after mailbox confirmation**
-   - SMTP credentials allowed to send to `sales@adeptfragrances.com`
-5. **Explicit authorization**
-   - Confirm staging project name and that production domain must **not** be attached
+- Confirm SMTP credentials are real and delivery to `sales@adeptfragrances.com`  
+- Confirm mailboxes exist  
+- Set nonempty `DATABASE_URL` (and preferably `NEXT_PUBLIC_SITE_URL` for the staging host)  
+- Telephone / WhatsApp / address / legal review / photography  
+- Explicit authorization before `vercel --prod` / attaching traffic to `adeptfragrances.com`  
+- ERP still NOT CONNECTED  
 
 ---
 
-## 7. Exact next commands (after you authenticate)
+## Missing only if you need more
 
-```bash
-# 1) Authenticate (interactive)
-npx vercel login
-
-# 2) Link / deploy preview (no production domain)
-npx vercel link
-npx vercel env add DATABASE_URL
-npx vercel env add NEXT_PUBLIC_SITE_URL
-npx vercel env add COMPANY_EMAIL
-npx vercel env add SALES_EMAIL
-npx vercel env add IP_HASH_SALT
-# SMTP only after mailbox verification
-npx vercel deploy   # preview URL — enable Deployment Protection in dashboard
-
-# 3) Migrate against hosted DB (from CI or secure machine with DATABASE_URL)
-npx prisma migrate deploy
-
-# 4) Verify
-# - open protected staging URL
-# - POST /request-quote
-# - confirm ADF- reference in Postgres
-# - if SMTP configured: confirm inbox at sales@adeptfragrances.com
-```
-
-Do **not** run `vercel --prod` against `adeptfragrances.com` without a separate production cutover authorization.
-
----
-
-## 8. Remaining launch blockers (unchanged + hosting)
-
-- Hosted private staging not deployed (Vercel login / token missing)
-- Hosted Postgres URL missing
-- SMTP + mailbox verification missing → email **BLOCKED**
-- Telephone / WhatsApp / address / legal review / photography
-- Public domain currently serves a different retail site — cutover separate
-- ERP NOT CONNECTED
-
----
-
-## 9. Summary answers required by the brief
-
-| Question | Answer |
-|----------|--------|
-| Staging URL, if deployed | **None — not deployed** |
-| Database connection status | **Hosted: missing credentials** |
-| Email delivery status | **BLOCKED** |
-| Inquiry test result (hosted) | **Not run** |
-| Remaining launch blockers | See §8 |
+- Inbox confirmation screenshot or DB row for email `SENT`  
+- Explicit go-ahead for production promotion
