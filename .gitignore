@@ -37,7 +37,11 @@ yarn-error.log*
 .env
 .env*.local
 .env.vercel
+.env.vercel.*
 !.env.example
+
+# inquiry backups (may contain PII)
+/backups/
 
 # vercel
 .vercel

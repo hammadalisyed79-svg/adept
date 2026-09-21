@@ -70,5 +70,19 @@ function run(command, args) {
 }
 
 run("npx", ["prisma", "generate"]);
-run("npx", ["prisma", "migrate", "deploy"]);
+
+// Migrations are NOT part of normal builds.
+// Set RUN_DB_MIGRATE=true only for an authorized, one-off staging migrate deploy.
+if (process.env.RUN_DB_MIGRATE === "true") {
+  console.log(
+    "[db] RUN_DB_MIGRATE=true — pre-migrate safety snapshot, then prisma migrate deploy.",
+  );
+  run("node", ["scripts/pre-migrate-safety.mjs"]);
+  run("npx", ["prisma", "migrate", "deploy"]);
+} else {
+  console.log(
+    "[db] Skipping migrate during build (set RUN_DB_MIGRATE=true only for authorized staging migrate).",
+  );
+}
+
 run("npx", ["next", "build"]);
