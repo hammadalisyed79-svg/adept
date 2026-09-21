@@ -60,4 +60,6 @@ next-env.d.ts
 hosted-home.html
 hosted-packaging.html
 .env.vercel.preview
+public-home.html
+indol-home.html
 
