@@ -26,19 +26,22 @@ export const company = {
    * Contact defaults are placeholders until mailboxes are confirmed.
    * Override via env for staging/production.
    */
-  email: process.env.COMPANY_EMAIL ?? "info@adeptfragrances.com",
-  salesEmail: process.env.SALES_EMAIL ?? "sales@adeptfragrances.com",
-  telephone: process.env.COMPANY_TELEPHONE ?? "+00 000 000 0000",
-  whatsapp: process.env.COMPANY_WHATSAPP ?? "+000000000000",
+  email:
+    process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
+  salesEmail:
+    process.env.SALES_EMAIL?.trim() || "sales@adeptfragrances.com",
+  telephone: process.env.COMPANY_TELEPHONE?.trim() || "+00 000 000 0000",
+  whatsapp: process.env.COMPANY_WHATSAPP?.trim() || "+000000000000",
   /** Leave empty until a verified address is confirmed. */
-  address: process.env.COMPANY_ADDRESS ?? "",
+  address: process.env.COMPANY_ADDRESS?.trim() || "",
   addressVerified: process.env.COMPANY_ADDRESS_VERIFIED === "true",
   /** Proposed public domain — do not treat as confirmed DNS ownership. */
-  domain: process.env.COMPANY_DOMAIN ?? "https://www.adeptfragrances.com",
+  domain:
+    process.env.COMPANY_DOMAIN?.trim() || "https://www.adeptfragrances.com",
   domainVerified: process.env.COMPANY_DOMAIN_VERIFIED === "true",
   social: {
-    linkedin: process.env.SOCIAL_LINKEDIN ?? "",
-    instagram: process.env.SOCIAL_INSTAGRAM ?? "",
+    linkedin: process.env.SOCIAL_LINKEDIN?.trim() || "",
+    instagram: process.env.SOCIAL_INSTAGRAM?.trim() || "",
   },
 } as const;
 
@@ -52,10 +55,9 @@ export function getWhatsAppUrl(message?: string): string {
 }
 
 export function getSiteUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    company.domain.replace(/\/$/, "")
-  );
+  const fromPublic = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  if (fromPublic) return fromPublic;
+  return company.domain.replace(/\/$/, "");
 }
 
 /** True when telephone still uses the unset placeholder. */
