@@ -55,3 +55,9 @@ next-env.d.ts
 *.db
 *.db-journal
 /prisma/dev.db
+
+.tmp-smoke/
+hosted-home.html
+hosted-packaging.html
+.env.vercel.preview
+
