@@ -27,8 +27,8 @@ export default async function RequestQuotePage({ searchParams }: Props) {
         title="Request a quote"
         description="Tell us what you need. Required fields capture the essentials; optional fields deepen the brief without blocking submission."
       />
-      <Section>
-        <Container className="mx-auto max-w-3xl">
+      <Section className="bg-white">
+        <Container className="mx-auto max-w-4xl">
           <InquiryForm defaultType={defaultType} sourcePage="/request-quote" />
         </Container>
       </Section>

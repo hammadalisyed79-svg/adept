@@ -38,7 +38,7 @@ export const navigation: readonly NavItem[] = [
     ],
   },
   { href: "/industries", label: "Industries" },
-  { href: "/process", label: "Our Process" },
+  { href: "/process", label: "Process" },
   { href: "/insights", label: "Insights" },
   { href: "/contact", label: "Contact" },
 ] as const;

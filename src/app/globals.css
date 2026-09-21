@@ -54,4 +54,7 @@ body {
   .animate-fade-up-delay-2 {
     animation: none;
   }
+  .group:hover .motion-safe\:group-hover\:scale-\[1\.03\] {
+    transform: none;
+  }
 }

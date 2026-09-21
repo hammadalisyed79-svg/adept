@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
+import { industryMediaBySlug } from "@/content/media";
 
 export const metadata: Metadata = {
   title: "Industries",
@@ -21,20 +23,29 @@ export default function IndustriesPage() {
       />
       <Section>
         <Container>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             {industries.map((ind) => (
               <Link
                 key={ind.slug}
                 href={`/industries/${ind.slug}`}
-                className="group border border-charcoal/10 bg-white p-8 transition hover:border-champagne/50"
+                className="group overflow-hidden border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
               >
-                <h2 className="font-display text-3xl text-charcoal group-hover:text-champagne-deep">
-                  {ind.title}
-                </h2>
-                <p className="mt-4 text-charcoal-muted leading-relaxed">{ind.summary}</p>
-                <span className="mt-6 inline-block text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
-                  View industry →
-                </span>
+                <MediaImage
+                  mediaKey={industryMediaBySlug[ind.slug] ?? "fragranceOils"}
+                  aspectClassName="aspect-[16/9]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="p-7">
+                  <h2 className="font-display text-2xl text-charcoal group-hover:text-champagne-deep md:text-3xl">
+                    {ind.title}
+                  </h2>
+                  <p className="mt-3 max-w-prose text-sm leading-relaxed text-charcoal-muted md:text-base">
+                    {ind.summary}
+                  </p>
+                  <span className="mt-5 inline-block text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                    View industry →
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

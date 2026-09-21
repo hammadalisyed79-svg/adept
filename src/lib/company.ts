@@ -21,7 +21,7 @@ export const company = {
   tagline: "Precision in Fragrance. Excellence in Manufacturing.",
   heroHeadline: "Everything You Need to Create a Fragrance Brand.",
   heroSupporting:
-    "From fragrance concentrates and packaging components to complete manufacturing solutions, ADEPT supports your business from concept to finished product.",
+    "Fragrance concentrates, packaging components and manufacturing solutions — coordinated from concept to finished product.",
   positioning:
     "A complete B2B supplier of fragrance concentrates, perfume packaging components, accessories, private-label services, and manufacturing solutions.",
   email: process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",

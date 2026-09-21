@@ -7,6 +7,21 @@ import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/Button";
 import { navigation, type NavItem } from "@/lib/navigation";
 
+const childHints: Record<string, string> = {
+  "/services/fragrance-trading": "Concentrates & sampling",
+  "/services/toll-manufacturing": "Blending to filling",
+  "/services/private-label": "Brief to finished goods",
+  "/packaging": "Full component range",
+  "/packaging/perfume-bottles": "Glass & stock formats",
+  "/packaging/caps": "Closures & finishes",
+  "/packaging/pumps-and-collars": "Dispensing systems",
+  "/packaging/labels-and-stickers": "Print & materials",
+  "/packaging/folding-cartons": "Secondary cartons",
+  "/packaging/rigid-boxes": "Presentation packaging",
+  "/packaging/accessories": "Finishing details",
+  "/packaging/complete-packaging-sets": "Coordinated systems",
+};
+
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -34,11 +49,11 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-5 py-4 md:px-8">
+    <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-5 py-3.5 md:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-6 xl:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
           {navigation.map((item) =>
             item.children ? (
               <div key={item.label} className="relative group">
@@ -53,19 +68,24 @@ export function Header() {
                 >
                   {item.label}
                 </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[15rem] translate-y-2 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <ul className="mt-3 max-h-[70vh] overflow-auto border border-charcoal/10 bg-white py-2 shadow-sm">
+                <div className="invisible absolute left-0 top-full z-50 min-w-[17rem] translate-y-1 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <ul className="mt-3 border border-charcoal/10 bg-white py-3 shadow-sm">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className={`block px-4 py-2.5 text-sm transition-colors ${
+                          className={`block px-5 py-3 transition-colors ${
                             isActive(child.href)
                               ? "bg-ivory text-charcoal"
                               : "text-charcoal-muted hover:bg-ivory hover:text-charcoal"
                           }`}
                         >
-                          {child.label}
+                          <span className="block text-sm">{child.label}</span>
+                          {childHints[child.href] && (
+                            <span className="mt-0.5 block text-xs text-charcoal-muted/80">
+                              {childHints[child.href]}
+                            </span>
+                          )}
                         </Link>
                       </li>
                     ))}
@@ -144,7 +164,7 @@ export function Header() {
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className="block py-2 text-sm text-charcoal-muted"
+                          className="block py-2.5 text-sm text-charcoal-muted"
                           onClick={closeMenu}
                         >
                           {child.label}
@@ -168,7 +188,7 @@ export function Header() {
           <Link
             href="/request-quote"
             onClick={closeMenu}
-            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-champagne px-6 py-3 text-sm font-medium tracking-wide text-charcoal transition-colors duration-soft hover:bg-champagne-soft"
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 bg-champagne px-6 py-3 text-sm font-medium tracking-wide text-charcoal transition-colors duration-soft hover:bg-champagne-soft"
           >
             Request a Quote
           </Link>

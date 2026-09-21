@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
+import { EditorialImageCard } from "@/components/media/EditorialImageCard";
+import { MediaImage } from "@/components/media/MediaImage";
+import { PackagingVisualGrid } from "@/components/media/PackagingVisualGrid";
+import { ProcessTimeline } from "@/components/media/ProcessTimeline";
 import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
-import { packagingCategories } from "@/content/packaging";
 import { industries } from "@/content/industries";
-import { processSteps } from "@/content/process";
+import { divisionMediaByHref, industryMediaBySlug } from "@/content/media";
 import { company, getWhatsAppUrl, isTelephonePlaceholder, isWhatsAppPlaceholder } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
@@ -18,109 +21,76 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-charcoal/10">
-        <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(180,154,115,0.18),_transparent_55%),linear-gradient(160deg,#F4F1EB_0%,#FAF8F4_45%,#ECE7DE_100%)]"
-          aria-hidden
-        />
-        <div
-          className="absolute -right-24 top-10 h-72 w-72 rounded-full border border-champagne/20"
-          aria-hidden
-        />
-        <Container className="relative grid gap-12 py-20 md:grid-cols-[1.35fr_0.9fr] md:items-end md:py-28">
-          <div>
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-charcoal/10 bg-ivory">
+        <Container className="grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-14">
+          <div className="order-1">
             <p className="text-xs font-medium uppercase tracking-wideish text-champagne-deep">
               {company.name}
             </p>
-            <h1 className="mt-4 max-w-xl font-display text-4xl leading-[1.1] text-charcoal md:text-6xl">
+            <h1 className="mt-4 max-w-xl font-display text-4xl leading-[1.08] text-charcoal md:text-5xl lg:text-6xl">
               {company.heroHeadline}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal-muted">
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-charcoal-muted">
               {company.heroSupporting}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/packaging">Explore Packaging</Button>
+              <Button href="/packaging">Explore Our Solutions</Button>
               <Button href="/request-quote" variant="secondary">
                 Request a Quote
               </Button>
             </div>
           </div>
-          <aside className="border border-charcoal/10 bg-white/70 p-8 backdrop-blur-sm">
-            <p className="text-xs uppercase tracking-wideish text-champagne-deep">Company</p>
-            <p className="mt-4 font-display text-2xl leading-snug text-charcoal">
-              {company.positioning}
+          <div className="order-2">
+            <MediaImage
+              mediaKey="heroFragranceSolutions"
+              priority
+              hoverScale={false}
+              aspectClassName="aspect-[4/3] md:aspect-[5/4]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="border border-charcoal/10"
+            />
+            <p className="mt-3 text-xs tracking-wideish text-charcoal-muted">
+              Visual placeholder — replace with approved ADEPT photography
             </p>
-            <p className="mt-5 text-sm text-charcoal-muted">{company.tagline}</p>
-            <div className="mt-8 border-t border-charcoal/10 pt-6 text-sm text-charcoal-muted">
-              <p>
-                Fragrance concentrates, packaging components, private-label services, and
-                manufacturing solutions — for B2B buyers, not retail perfume shoppers.
-              </p>
-            </div>
-          </aside>
+          </div>
         </Container>
       </section>
 
-      <Section>
-        <Container className="max-w-3xl">
-          <SectionHeading
-            eyebrow="Introduction"
-            title="A complete B2B fragrance supply partner"
-            description="ADEPT Fragrances supports brand builders across concentrates, packaging components, toll manufacturing, and private-label pathways. We distinguish trading and sourcing from manufacturing so commercial scope stays accurate."
-          />
-        </Container>
-      </Section>
-
+      {/* Four divisions */}
       <Section className="bg-white">
         <Container>
           <SectionHeading
             eyebrow="Business divisions"
             title="Four core business divisions"
-            description="Each division is equally important to how ADEPT serves fragrance brands — from raw materials and components through production and finished-product coordination."
+            description="Fragrance concentrates, packaging, manufacturing and private label — coordinated for B2B brand builders."
           />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
             {divisions.map((d, i) => (
-              <Link
+              <EditorialImageCard
                 key={d.href}
                 href={d.href}
-                className="group flex flex-col border border-charcoal/10 bg-ivory p-7 transition duration-soft hover:border-champagne/50"
-              >
-                <span className="text-xs tracking-wideish text-champagne-deep">0{i + 1}</span>
-                <p className="mt-2 text-xs uppercase tracking-wideish text-charcoal-muted">{d.mode}</p>
-                <h3 className="mt-3 font-display text-2xl text-charcoal group-hover:text-champagne-deep">
-                  {d.title}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-charcoal-muted">{d.summary}</p>
-                <span className="mt-6 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
-                  Learn more
-                </span>
-              </Link>
+                mediaKey={divisionMediaByHref[d.href] ?? "packagingComponents"}
+                index={`0${i + 1}`}
+                label={d.mode}
+                title={d.title}
+                description={d.summary}
+                aspectClassName="aspect-[16/10]"
+              />
             ))}
           </div>
         </Container>
       </Section>
 
+      {/* Packaging visual grid */}
       <Section>
         <Container>
           <SectionHeading
             eyebrow="Packaging & Components"
-            title="Packaging & components collection"
-            description="An extensible range of perfume packaging categories. Individual products appear in the catalogue only when specifications are verified — categories describe intended commercial coverage, not automatic stock."
+            title="Build Every Detail of the Pack."
+            description="Source individual components or coordinate a complete packaging system through ADEPT."
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {packagingCategories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={cat.href}
-                className="border border-charcoal/10 bg-white p-5 transition hover:border-champagne/40"
-              >
-                <h3 className="font-display text-lg text-charcoal">{cat.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-charcoal-muted line-clamp-3">
-                  {cat.summary}
-                </p>
-              </Link>
-            ))}
-          </div>
+          <PackagingVisualGrid className="mt-12" />
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/packaging">All packaging</Button>
             <Button href="/catalogue" variant="secondary">
@@ -130,23 +100,139 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* Complete solution */}
+      <Section className="bg-white">
+        <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <MediaImage
+            mediaKey="completeBrandSolution"
+            hoverScale={false}
+            aspectClassName="aspect-[4/3]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+          />
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wideish text-champagne-deep">
+              Complete solutions
+            </p>
+            <h2 className="mt-3 font-display text-3xl leading-tight text-charcoal md:text-4xl">
+              One Project. Every Component.
+            </h2>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-charcoal-muted md:text-lg">
+              Source individual components or coordinate fragrance, packaging and production as
+              one project.
+            </p>
+            <ul className="mt-8 space-y-3 text-sm text-charcoal-muted">
+              {[
+                "Fragrance concentrate",
+                "Bottle · Pump · Collar · Cap",
+                "Label · Rigid / folding box",
+              ].map((item) => (
+                <li key={item} className="flex gap-3 border-l-2 border-champagne pl-4">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9">
+              <Button href="/request-quote">Discuss Your Project</Button>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Manufacturing feature */}
+      <Section className="bg-charcoal text-ivory">
+        <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
+              Toll manufacturing
+            </p>
+            <h2 className="mt-3 font-display text-3xl leading-tight text-ivory md:text-4xl">
+              From Compound to Finished Product.
+            </h2>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-ivory/75">
+              Blending, processing, filling and packaging support — scoped project by project.
+              Imagery is illustrative and does not depict verified ADEPT facilities.
+            </p>
+            <div className="mt-9">
+              <Button
+                href="/services/toll-manufacturing"
+                variant="champagne"
+                className="border-0"
+              >
+                Explore Toll Manufacturing
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <MediaImage
+              mediaKey="manufacturingMixing"
+              hoverScale={false}
+              aspectClassName="aspect-square"
+              sizes="25vw"
+              className="border border-ivory/10"
+            />
+            <MediaImage
+              mediaKey="manufacturingFilling"
+              hoverScale={false}
+              aspectClassName="aspect-square"
+              sizes="25vw"
+              className="border border-ivory/10"
+            />
+            <MediaImage
+              mediaKey="qualityControl"
+              hoverScale={false}
+              aspectClassName="aspect-[2/1] col-span-2"
+              sizes="50vw"
+              className="border border-ivory/10"
+            />
+          </div>
+        </Container>
+      </Section>
+
+      {/* Process */}
+      <Section className="bg-ivory-soft">
+        <Container>
+          <SectionHeading
+            eyebrow="How we work"
+            title="A clear commercial process"
+            description="From first inquiry to dispatch — each stage reduces ambiguity for brand and procurement teams."
+          />
+          <ProcessTimeline className="mt-12" />
+          <div className="mt-10">
+            <Button href="/process" variant="secondary">
+              See the full process
+            </Button>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Industries */}
       <Section className="bg-white">
         <Container>
           <SectionHeading
             eyebrow="Industries we serve"
             title="Built for categories that depend on scent"
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {industries.map((ind) => (
               <Link
                 key={ind.slug}
                 href={`/industries/${ind.slug}`}
-                className="border border-charcoal/10 bg-ivory p-6 transition hover:border-champagne/40"
+                className="group flex flex-col border border-charcoal/10 bg-ivory transition duration-soft hover:border-champagne/50"
               >
-                <h3 className="font-display text-xl text-charcoal">{ind.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-charcoal-muted line-clamp-3">
-                  {ind.summary}
-                </p>
+                <MediaImage
+                  mediaKey={industryMediaBySlug[ind.slug] ?? "fragranceOils"}
+                  aspectClassName="aspect-[4/3]"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                />
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep">
+                    {ind.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-charcoal-muted">
+                    {ind.summary}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
@@ -158,85 +244,12 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section>
-        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <SectionHeading
-            eyebrow="Complete fragrance brand solutions"
-            title="From concept to finished product"
-            description="Combine fragrance selection, packaging components, and manufacturing conversations in one B2B relationship — scoped honestly to trading, sourcing, and manufacturing realities."
-          />
-          <ul className="space-y-4 text-sm leading-relaxed text-charcoal-muted">
-            <li className="border-l-2 border-champagne pl-4">
-              Fragrance concentrates for fine and industrial applications
-            </li>
-            <li className="border-l-2 border-champagne pl-4">
-              Packaging components and coordinated packaging sets
-            </li>
-            <li className="border-l-2 border-champagne pl-4">
-              Toll manufacturing and private-label production pathways
-            </li>
-            <li className="border-l-2 border-champagne pl-4">
-              Quotation-led commercial process — not retail checkout
-            </li>
-          </ul>
-        </Container>
-      </Section>
-
-      <Section className="bg-ivory-soft">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-2">
-            <SectionHeading
-              eyebrow="How we work"
-              title="A clear commercial process"
-              description="From first inquiry to dispatch, each stage reduces ambiguity for brand and procurement teams."
-            />
-            <ol className="space-y-5">
-              {processSteps.slice(0, 4).map((step) => (
-                <li key={step.number} className="flex gap-4 border-b border-charcoal/10 pb-5">
-                  <span className="font-display text-xl text-champagne-deep">{step.number}</span>
-                  <div>
-                    <h3 className="font-medium text-charcoal">{step.title}</h3>
-                    <p className="mt-1 text-sm text-charcoal-muted">{step.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div className="mt-8">
-            <Button href="/process" variant="secondary">
-              See the full process
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      <Section className="bg-charcoal text-ivory">
-        <Container>
-          <SectionHeading
-            eyebrow="Quality and sourcing"
-            title="Quality and sourcing approach"
-          />
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
-            <p className="text-base leading-relaxed text-ivory/75">
-              Quality for ADEPT means aligning fragrance selection, packaging components, sampling,
-              quotation, and production planning to an agreed brief. We do not publish unverified
-              certifications, capacity figures, or awards.
-            </p>
-            <p className="text-base leading-relaxed text-ivory/75">
-              Packaging and concentrates are often supplied through trading and sourcing. Manufacturing
-              steps are scoped under toll manufacturing or private label. Where specialized partners
-              are required, we say so — so timelines and responsibilities stay clear.
-            </p>
-          </div>
-        </Container>
-      </Section>
-
       <QuoteCta
         title="Request a quotation"
         description="Brief fragrance, packaging, or manufacturing requirements in one inquiry. Existing fragrance and manufacturing inquiry types remain fully supported."
       />
 
-      <Section className="bg-white">
+      <Section>
         <Container className="grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <SectionHeading

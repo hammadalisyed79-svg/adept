@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 import {
   industries,
@@ -34,6 +34,26 @@ const emptyLine = (): PackagingLineItem => ({
   colourFinish: "",
   notes: "",
 });
+
+function FormSection({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: ReactNode;
+}) {
+  return (
+    <fieldset className="border-t border-charcoal/10 pt-8 first:border-t-0 first:pt-0">
+      <legend className="font-display text-xl text-charcoal">{title}</legend>
+      {description && (
+        <p className="mt-1.5 max-w-prose text-xs text-charcoal-muted">{description}</p>
+      )}
+      <div className="mt-6">{children}</div>
+    </fieldset>
+  );
+}
 
 export function InquiryForm({ defaultType, sourcePage }: Props) {
   const router = useRouter();
@@ -181,7 +201,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
           Inquiry received
         </p>
         <h2 className="mt-3 font-display text-3xl text-charcoal">Thank you</h2>
-        <p className="mt-4 text-charcoal-muted leading-relaxed">
+        <p className="mt-4 max-w-prose text-charcoal-muted leading-relaxed">
           Your inquiry has been saved. Please keep your reference number for follow-up
           correspondence.
         </p>
@@ -201,19 +221,21 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
   }
 
   const fieldClass =
-    "mt-1.5 w-full border border-charcoal/15 bg-white px-3 py-2.5 text-sm text-charcoal outline-none transition focus:border-champagne focus:ring-1 focus:ring-champagne";
+    "mt-1.5 w-full border border-charcoal/15 bg-white px-3.5 py-3 text-sm text-charcoal outline-none transition duration-soft focus:border-champagne focus:ring-1 focus:ring-champagne";
   const labelClass = "block text-sm font-medium text-charcoal";
   const errorClass = "mt-1 text-xs text-red-700";
+  const checkClass =
+    "flex cursor-pointer items-start gap-2.5 border border-charcoal/10 bg-ivory px-3 py-2.5 text-sm text-charcoal transition has-[:checked]:border-champagne/60 has-[:checked]:bg-white";
 
   return (
     <form
       onSubmit={onSubmit}
       noValidate
-      className="relative border border-charcoal/10 bg-white p-6 md:p-10"
+      className="relative space-y-2 border border-charcoal/10 bg-white p-6 md:p-10 lg:p-12"
     >
-      <div className="mb-8">
-        <h2 className="font-display text-2xl text-charcoal">Project inquiry</h2>
-        <p className="mt-2 text-sm text-charcoal-muted">{conditionalHint}</p>
+      <div className="mb-6">
+        <h2 className="font-display text-2xl text-charcoal md:text-3xl">Project inquiry</h2>
+        <p className="mt-2 max-w-prose text-sm text-charcoal-muted">{conditionalHint}</p>
       </div>
 
       {errors.form && (
@@ -225,320 +247,436 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
         </div>
       )}
 
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label className={labelClass} htmlFor="contactName">
-            Contact person *
-          </label>
-          <input id="contactName" name="contactName" className={fieldClass} required autoComplete="name" />
-          {errors.contactName && <p className={errorClass}>{errors.contactName}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="companyName">
-            Company name *
-          </label>
-          <input
-            id="companyName"
-            name="companyName"
-            className={fieldClass}
-            required
-            autoComplete="organization"
-          />
-          {errors.companyName && <p className={errorClass}>{errors.companyName}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="email">
-            Email *
-          </label>
-          <input id="email" name="email" type="email" className={fieldClass} required autoComplete="email" />
-          {errors.email && <p className={errorClass}>{errors.email}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="phone">
-            Telephone *
-          </label>
-          <input id="phone" name="phone" type="tel" className={fieldClass} required autoComplete="tel" />
-          {errors.phone && <p className={errorClass}>{errors.phone}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="country">
-            Country *
-          </label>
-          <input id="country" name="country" className={fieldClass} required autoComplete="country-name" />
-          {errors.country && <p className={errorClass}>{errors.country}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="industry">
-            Industry *
-          </label>
-          <select id="industry" name="industry" className={fieldClass} required defaultValue="">
-            <option value="" disabled>
-              Select industry
-            </option>
-            {industries.map((i) => (
-              <option key={i} value={i}>
-                {i}
-              </option>
-            ))}
-          </select>
-          {errors.industry && <p className={errorClass}>{errors.industry}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="inquiryType">
-            Requested service *
-          </label>
-          <select
-            id="inquiryType"
-            name="inquiryType"
-            className={fieldClass}
-            required
-            value={inquiryType}
-            onChange={(e) => setInquiryType(e.target.value as (typeof inquiryTypes)[number])}
-          >
-            {inquiryTypes.map((t) => (
-              <option key={t} value={t}>
-                {typeLabels[t]}
-              </option>
-            ))}
-          </select>
-          {errors.inquiryType && <p className={errorClass}>{errors.inquiryType}</p>}
-        </div>
-        {!isPackaging && (
+      <FormSection title="Your Company" description="Who we will quote for.">
+        <div className="grid gap-5 md:grid-cols-2">
           <div>
-            <label className={labelClass} htmlFor="productCategory">
-              Product category *
+            <label className={labelClass} htmlFor="companyName">
+              Company name *
             </label>
             <input
-              id="productCategory"
-              name="productCategory"
+              id="companyName"
+              name="companyName"
               className={fieldClass}
-              required={!isPackaging}
-              placeholder="e.g. EDP, detergent, candle"
+              required
+              autoComplete="organization"
             />
-            {errors.productCategory && <p className={errorClass}>{errors.productCategory}</p>}
+            {errors.companyName && <p className={errorClass}>{errors.companyName}</p>}
           </div>
-        )}
-        <div>
-          <label className={labelClass} htmlFor="estimatedQuantity">
-            {isPackaging ? "Overall estimated quantity *" : "Estimated quantity *"}
-          </label>
-          <input id="estimatedQuantity" name="estimatedQuantity" className={fieldClass} required placeholder="e.g. 50" />
-          {errors.estimatedQuantity && <p className={errorClass}>{errors.estimatedQuantity}</p>}
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="quantityUnit">
-            Quantity unit *
-          </label>
-          <select id="quantityUnit" name="quantityUnit" className={fieldClass} required defaultValue="">
-            <option value="" disabled>
-              Select unit
-            </option>
-            {quantityUnits.map((u) => (
-              <option key={u} value={u}>
-                {u}
+          <div>
+            <label className={labelClass} htmlFor="industry">
+              Industry *
+            </label>
+            <select id="industry" name="industry" className={fieldClass} required defaultValue="">
+              <option value="" disabled>
+                Select industry
               </option>
-            ))}
-          </select>
-          {errors.quantityUnit && <p className={errorClass}>{errors.quantityUnit}</p>}
-        </div>
-      </div>
-
-      {isPackaging && (
-        <fieldset className="mt-8 border-t border-charcoal/10 pt-8">
-          <legend className="text-sm font-medium text-charcoal">Packaging categories *</legend>
-          <p className="mt-1 text-xs text-charcoal-muted">
-            Select all that apply. Availability is confirmed during commercial review.
-          </p>
-          {errors.packagingCategories && (
-            <p className={errorClass}>{errors.packagingCategories}</p>
-          )}
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {packagingCategoryOptions.map((label) => (
-              <label key={label} className="flex items-start gap-2 text-sm text-charcoal">
-                <input
-                  type="checkbox"
-                  className="mt-1"
-                  checked={packagingCats.includes(label)}
-                  onChange={() => togglePackagingCat(label)}
-                />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <div>
-              <label className={labelClass} htmlFor="capacitySize">
-                Capacity / size
-              </label>
-              <input id="capacitySize" name="capacitySize" className={fieldClass} />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="material">
-                Material
-              </label>
-              <input id="material" name="material" className={fieldClass} />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="colourFinish">
-                Colour / finish
-              </label>
-              <input id="colourFinish" name="colourFinish" className={fieldClass} />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="deliveryDestination">
-                Delivery destination
-              </label>
-              <input id="deliveryDestination" name="deliveryDestination" className={fieldClass} />
-            </div>
-            <div className="md:col-span-2">
-              <label className={labelClass} htmlFor="componentReference">
-                Bottle or component reference (optional)
-              </label>
-              <input id="componentReference" name="componentReference" className={fieldClass} />
-            </div>
-            <div className="md:col-span-2">
-              <label className={labelClass} htmlFor="matchingRequirements">
-                Matching / compatibility notes (optional)
-              </label>
-              <textarea
-                id="matchingRequirements"
-                name="matchingRequirements"
-                rows={3}
-                className={fieldClass}
-                placeholder="Describe matching needs. Compatibility is confirmed only after technical review."
-              />
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-sm font-medium text-charcoal">Line items (optional)</h3>
-              <Button
-                type="button"
-                variant="secondary"
-                className="px-3 py-1.5 text-xs"
-                onClick={() => setLineItems((prev) => [...prev, emptyLine()])}
-              >
-                Add line
-              </Button>
-            </div>
-            <div className="mt-4 space-y-4">
-              {lineItems.map((li, idx) => (
-                <div key={idx} className="grid gap-3 border border-charcoal/10 p-4 md:grid-cols-2">
-                  <div>
-                    <label className={labelClass}>Category</label>
-                    <select
-                      className={fieldClass}
-                      value={li.category}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, category: v } : r)),
-                        );
-                      }}
-                    >
-                      <option value="">Select</option>
-                      {packagingCategoryOptions.map((o) => (
-                        <option key={o} value={o}>
-                          {o}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelClass}>Quantity</label>
-                    <input
-                      className={fieldClass}
-                      value={li.quantity}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, quantity: v } : r)),
-                        );
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Capacity / size</label>
-                    <input
-                      className={fieldClass}
-                      value={li.capacitySize ?? ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, capacitySize: v } : r)),
-                        );
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Material</label>
-                    <input
-                      className={fieldClass}
-                      value={li.material ?? ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, material: v } : r)),
-                        );
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Colour / finish</label>
-                    <input
-                      className={fieldClass}
-                      value={li.colourFinish ?? ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, colourFinish: v } : r)),
-                        );
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Notes</label>
-                    <input
-                      className={fieldClass}
-                      value={li.notes ?? ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setLineItems((rows) =>
-                          rows.map((r, i) => (i === idx ? { ...r, notes: v } : r)),
-                        );
-                      }}
-                    />
-                  </div>
-                </div>
+              {industries.map((i) => (
+                <option key={i} value={i}>
+                  {i}
+                </option>
               ))}
-            </div>
+            </select>
+            {errors.industry && <p className={errorClass}>{errors.industry}</p>}
           </div>
-        </fieldset>
+          <div>
+            <label className={labelClass} htmlFor="country">
+              Country *
+            </label>
+            <input
+              id="country"
+              name="country"
+              className={fieldClass}
+              required
+              autoComplete="country-name"
+            />
+            {errors.country && <p className={errorClass}>{errors.country}</p>}
+          </div>
+        </div>
+      </FormSection>
+
+      <FormSection title="Contact" description="Primary commercial contact.">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="contactName">
+              Contact person *
+            </label>
+            <input
+              id="contactName"
+              name="contactName"
+              className={fieldClass}
+              required
+              autoComplete="name"
+            />
+            {errors.contactName && <p className={errorClass}>{errors.contactName}</p>}
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="email">
+              Email *
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className={fieldClass}
+              required
+              autoComplete="email"
+            />
+            {errors.email && <p className={errorClass}>{errors.email}</p>}
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="phone">
+              Telephone *
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              className={fieldClass}
+              required
+              autoComplete="tel"
+            />
+            {errors.phone && <p className={errorClass}>{errors.phone}</p>}
+          </div>
+        </div>
+      </FormSection>
+
+      <FormSection title="What You Need" description="Service type and commercial scale.">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="inquiryType">
+              Requested service *
+            </label>
+            <select
+              id="inquiryType"
+              name="inquiryType"
+              className={fieldClass}
+              required
+              value={inquiryType}
+              onChange={(e) => setInquiryType(e.target.value as (typeof inquiryTypes)[number])}
+            >
+              {inquiryTypes.map((t) => (
+                <option key={t} value={t}>
+                  {typeLabels[t]}
+                </option>
+              ))}
+            </select>
+            {errors.inquiryType && <p className={errorClass}>{errors.inquiryType}</p>}
+          </div>
+          {!isPackaging && (
+            <div>
+              <label className={labelClass} htmlFor="productCategory">
+                Product category *
+              </label>
+              <input
+                id="productCategory"
+                name="productCategory"
+                className={fieldClass}
+                required={!isPackaging}
+                placeholder="e.g. EDP, detergent, candle"
+              />
+              {errors.productCategory && <p className={errorClass}>{errors.productCategory}</p>}
+            </div>
+          )}
+          <div>
+            <label className={labelClass} htmlFor="estimatedQuantity">
+              {isPackaging ? "Overall estimated quantity *" : "Estimated quantity *"}
+            </label>
+            <input
+              id="estimatedQuantity"
+              name="estimatedQuantity"
+              className={fieldClass}
+              required
+              placeholder="e.g. 50"
+            />
+            {errors.estimatedQuantity && <p className={errorClass}>{errors.estimatedQuantity}</p>}
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="quantityUnit">
+              Quantity unit *
+            </label>
+            <select
+              id="quantityUnit"
+              name="quantityUnit"
+              className={fieldClass}
+              required
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select unit
+              </option>
+              {quantityUnits.map((u) => (
+                <option key={u} value={u}>
+                  {u}
+                </option>
+              ))}
+            </select>
+            {errors.quantityUnit && <p className={errorClass}>{errors.quantityUnit}</p>}
+          </div>
+        </div>
+      </FormSection>
+
+      {(isPackaging ||
+        showTradingExtras ||
+        showManufacturingExtras ||
+        showPrivateLabelExtras) && (
+        <FormSection
+          title="Product / Packaging Requirements"
+          description="Optional depth for a stronger quotation brief."
+        >
+          {isPackaging && (
+            <>
+              <p className="mb-3 text-sm font-medium text-charcoal">Packaging categories *</p>
+              {errors.packagingCategories && (
+                <p className={errorClass}>{errors.packagingCategories}</p>
+              )}
+              <div className="grid gap-2 sm:grid-cols-2">
+                {packagingCategoryOptions.map((label) => (
+                  <label key={label} className={checkClass}>
+                    <input
+                      type="checkbox"
+                      className="mt-0.5 accent-champagne"
+                      checked={packagingCats.includes(label)}
+                      onChange={() => togglePackagingCat(label)}
+                    />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+
+              <div className="mt-6 grid gap-5 md:grid-cols-2">
+                <div>
+                  <label className={labelClass} htmlFor="capacitySize">
+                    Capacity / size
+                  </label>
+                  <input id="capacitySize" name="capacitySize" className={fieldClass} />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="material">
+                    Material
+                  </label>
+                  <input id="material" name="material" className={fieldClass} />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="colourFinish">
+                    Colour / finish
+                  </label>
+                  <input id="colourFinish" name="colourFinish" className={fieldClass} />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="deliveryDestination">
+                    Delivery destination
+                  </label>
+                  <input
+                    id="deliveryDestination"
+                    name="deliveryDestination"
+                    className={fieldClass}
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className={labelClass} htmlFor="componentReference">
+                    Bottle or component reference (optional)
+                  </label>
+                  <input id="componentReference" name="componentReference" className={fieldClass} />
+                </div>
+                <div className="md:col-span-2">
+                  <label className={labelClass} htmlFor="matchingRequirements">
+                    Matching / compatibility notes (optional)
+                  </label>
+                  <textarea
+                    id="matchingRequirements"
+                    name="matchingRequirements"
+                    rows={3}
+                    className={fieldClass}
+                    placeholder="Describe matching needs. Compatibility is confirmed only after technical review."
+                  />
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-sm font-medium text-charcoal">Line items (optional)</h3>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="px-3 py-1.5 text-xs"
+                    onClick={() => setLineItems((prev) => [...prev, emptyLine()])}
+                  >
+                    Add line
+                  </Button>
+                </div>
+                <div className="mt-4 space-y-4">
+                  {lineItems.map((li, idx) => (
+                    <div
+                      key={idx}
+                      className="grid gap-3 border border-charcoal/10 bg-ivory/50 p-4 md:grid-cols-2"
+                    >
+                      <div>
+                        <label className={labelClass}>Category</label>
+                        <select
+                          className={fieldClass}
+                          value={li.category}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, category: v } : r)),
+                            );
+                          }}
+                        >
+                          <option value="">Select</option>
+                          {packagingCategoryOptions.map((o) => (
+                            <option key={o} value={o}>
+                              {o}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClass}>Quantity</label>
+                        <input
+                          className={fieldClass}
+                          value={li.quantity}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, quantity: v } : r)),
+                            );
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Capacity / size</label>
+                        <input
+                          className={fieldClass}
+                          value={li.capacitySize ?? ""}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, capacitySize: v } : r)),
+                            );
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Material</label>
+                        <input
+                          className={fieldClass}
+                          value={li.material ?? ""}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, material: v } : r)),
+                            );
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Colour / finish</label>
+                        <input
+                          className={fieldClass}
+                          value={li.colourFinish ?? ""}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, colourFinish: v } : r)),
+                            );
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Notes</label>
+                        <input
+                          className={fieldClass}
+                          value={li.notes ?? ""}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setLineItems((rows) =>
+                              rows.map((r, i) => (i === idx ? { ...r, notes: v } : r)),
+                            );
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {(showTradingExtras || showPrivateLabelExtras) && !isPackaging && (
+            <div className="grid gap-5 md:grid-cols-2">
+              <div className="md:col-span-2">
+                <label className={labelClass} htmlFor="fragranceDirection">
+                  Fragrance direction
+                </label>
+                <textarea
+                  id="fragranceDirection"
+                  name="fragranceDirection"
+                  rows={3}
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="requiredConcentration">
+                  Required concentration
+                </label>
+                <input
+                  id="requiredConcentration"
+                  name="requiredConcentration"
+                  className={fieldClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="sampleRequirements">
+                  Sample requirements
+                </label>
+                <input id="sampleRequirements" name="sampleRequirements" className={fieldClass} />
+              </div>
+            </div>
+          )}
+
+          {(showManufacturingExtras || showPrivateLabelExtras) && !isPackaging && (
+            <div
+              className={`grid gap-5 md:grid-cols-2 ${
+                showTradingExtras || showPrivateLabelExtras ? "mt-5" : ""
+              }`}
+            >
+              <div>
+                <label className={labelClass} htmlFor="bottleSize">
+                  Bottle size
+                </label>
+                <input id="bottleSize" name="bottleSize" className={fieldClass} />
+              </div>
+              <div className="md:col-span-2">
+                <label className={labelClass} htmlFor="packagingRequirements">
+                  Packaging requirements
+                </label>
+                <textarea
+                  id="packagingRequirements"
+                  name="packagingRequirements"
+                  rows={3}
+                  className={fieldClass}
+                />
+              </div>
+            </div>
+          )}
+        </FormSection>
       )}
 
-      <div className="mt-5">
-        <label className={labelClass} htmlFor="projectDescription">
-          Project details *
-        </label>
-        <textarea
-          id="projectDescription"
-          name="projectDescription"
-          rows={5}
-          className={fieldClass}
-          required
-          placeholder="Describe your product, application, and what support you need."
-        />
-        {errors.projectDescription && <p className={errorClass}>{errors.projectDescription}</p>}
-      </div>
-
-      <fieldset className="mt-8 border-t border-charcoal/10 pt-8">
-        <legend className="text-sm font-medium text-charcoal">Optional details</legend>
-        <p className="mt-1 text-xs text-charcoal-muted">
-          Provide only what you know — these fields are not required.
-        </p>
-
+      <FormSection title="Project Details" description="Describe the opportunity in your own words.">
+        <div>
+          <label className={labelClass} htmlFor="projectDescription">
+            Project details *
+          </label>
+          <textarea
+            id="projectDescription"
+            name="projectDescription"
+            rows={5}
+            className={fieldClass}
+            required
+            placeholder="Describe your product, application, and what support you need."
+          />
+          {errors.projectDescription && <p className={errorClass}>{errors.projectDescription}</p>}
+        </div>
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           <div>
             <label className={labelClass} htmlFor="targetPrice">
@@ -552,56 +690,16 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
             </label>
             <input id="expectedTimeline" name="expectedTimeline" className={fieldClass} />
           </div>
-
-          {(showTradingExtras || showPrivateLabelExtras) && (
-            <>
-              <div className="md:col-span-2">
-                <label className={labelClass} htmlFor="fragranceDirection">
-                  Fragrance direction
-                </label>
-                <textarea id="fragranceDirection" name="fragranceDirection" rows={3} className={fieldClass} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="requiredConcentration">
-                  Required concentration
-                </label>
-                <input id="requiredConcentration" name="requiredConcentration" className={fieldClass} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="sampleRequirements">
-                  Sample requirements
-                </label>
-                <input id="sampleRequirements" name="sampleRequirements" className={fieldClass} />
-              </div>
-            </>
-          )}
-
-          {(showManufacturingExtras || showPrivateLabelExtras) && (
-            <>
-              <div>
-                <label className={labelClass} htmlFor="bottleSize">
-                  Bottle size
-                </label>
-                <input id="bottleSize" name="bottleSize" className={fieldClass} />
-              </div>
-              <div className="md:col-span-2">
-                <label className={labelClass} htmlFor="packagingRequirements">
-                  Packaging requirements
-                </label>
-                <textarea id="packagingRequirements" name="packagingRequirements" rows={3} className={fieldClass} />
-              </div>
-            </>
-          )}
         </div>
-      </fieldset>
+      </FormSection>
 
       <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-charcoal-muted">
+      <div className="mt-10 flex flex-col gap-4 border-t border-charcoal/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="max-w-sm text-xs text-charcoal-muted">
           By submitting, you agree to our{" "}
           <a href="/privacy" className="underline underline-offset-2">
             Privacy Policy

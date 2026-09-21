@@ -1,45 +1,45 @@
 export const processSteps = [
   {
     number: "01",
-    title: "Client inquiry",
+    title: "Brief",
     description:
       "Share your product category, volumes, markets, and whether you need trading, manufacturing, or private-label support.",
   },
   {
     number: "02",
-    title: "Requirement assessment",
+    title: "Fragrance / Component Selection",
     description:
-      "We review application needs, commercial constraints, and which services we can support directly versus through approved partners.",
+      "We review application needs and shortlist fragrance or packaging options that fit your commercial constraints.",
   },
   {
     number: "03",
-    title: "Fragrance selection and sampling",
+    title: "Sampling",
     description:
-      "Relevant fragrance options are shortlisted and samples can be arranged for evaluation against your brief.",
+      "Relevant fragrance or component samples can be arranged for evaluation against your brief.",
   },
   {
     number: "04",
-    title: "Sample evaluation and approval",
+    title: "Approval",
     description:
       "Your team evaluates samples in context. Feedback guides revisions or confirmation of a preferred direction.",
   },
   {
     number: "05",
-    title: "Commercial quotation",
-    description:
-      "Once requirements are clear, we prepare a commercial quotation covering agreed materials, quantities, and scope of work.",
-  },
-  {
-    number: "06",
-    title: "Production planning",
+    title: "Production",
     description:
       "Approved projects move into planning for materials, batching, packaging readiness, and scheduled production windows.",
   },
   {
-    number: "07",
-    title: "Manufacturing and quality checks",
+    number: "06",
+    title: "Quality Check",
     description:
       "Agreed manufacturing steps are executed with in-process checks appropriate to the product and process scope.",
+  },
+  {
+    number: "07",
+    title: "Packing",
+    description:
+      "Primary and secondary packaging are prepared according to the confirmed order and presentation requirements.",
   },
   {
     number: "08",

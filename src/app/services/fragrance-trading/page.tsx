@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
@@ -38,31 +39,49 @@ const offerings = [
 ];
 
 const applications = [
-  "Fine fragrance / perfume",
-  "Body mists and personal care",
-  "Laundry and detergents",
-  "Surface cleaners",
-  "Candles and diffusers",
-  "Other scent-led formats (by brief)",
+  { title: "Fine fragrance / perfume", mediaKey: "industryFineFragrance" as const },
+  { title: "Body mists and personal care", mediaKey: "industryPersonalCare" as const },
+  { title: "Laundry and detergents", mediaKey: "industryHomeCare" as const },
+  { title: "Candles and diffusers", mediaKey: "industryCandles" as const },
 ];
 
 export default function FragranceTradingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Services"
-        title="Fragrance Trading"
-        description="Sourcing and commercial supply of fine and industrial fragrance concentrates for brands, formulators, and manufacturers."
+        eyebrow="Fragrance Trading"
+        title="Fragrance concentrates for serious brands"
+        description="Sourcing and commercial supply of fine and industrial fragrance concentrates — technical, application-aware, and quotation-led."
+        mediaKey="fragranceOils"
       />
+
+      <Section className="bg-white">
+        <Container className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <SectionHeading
+              eyebrow="Two tracks"
+              title="Fine Fragrance · Industrial Fragrance"
+              description="Separate evaluation paths for prestige scent work and functional product fragrance — both supported under trading."
+            />
+          </div>
+          <MediaImage
+            mediaKey="fragranceTrading"
+            hoverScale={false}
+            aspectClassName="aspect-[4/3]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+          />
+        </Container>
+      </Section>
 
       <Section>
         <Container>
           <SectionHeading
             eyebrow="Capabilities"
             title="What trading support covers"
-            description="We help you move from brief to sample to supply with application-aware recommendations."
+            description="From brief to sample to supply with application-aware recommendations."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {offerings.map((o) => (
               <div key={o.title} className="border border-charcoal/10 bg-white p-6">
                 <h3 className="font-display text-xl text-charcoal">{o.title}</h3>
@@ -74,29 +93,34 @@ export default function FragranceTradingPage() {
       </Section>
 
       <Section className="bg-white">
-        <Container className="grid gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="font-display text-3xl text-charcoal">Relevant applications</h2>
-            <ul className="mt-6 space-y-3">
-              {applications.map((a) => (
-                <li key={a} className="flex gap-3 text-charcoal-muted">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-champagne" aria-hidden />
-                  {a}
-                </li>
-              ))}
-            </ul>
+        <Container>
+          <SectionHeading eyebrow="Applications" title="Where concentrates are applied" />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {applications.map((a) => (
+              <div
+                key={a.title}
+                className="group border border-charcoal/10 bg-ivory overflow-hidden"
+              >
+                <MediaImage
+                  mediaKey={a.mediaKey}
+                  aspectClassName="aspect-[4/3]"
+                  sizes="25vw"
+                  hoverScale={false}
+                />
+                <p className="p-4 text-sm font-medium text-charcoal">{a.title}</p>
+              </div>
+            ))}
           </div>
-          <div className="border border-charcoal/10 bg-ivory p-8">
-            <h3 className="font-display text-2xl text-charcoal">Request a fragrance sample</h3>
-            <p className="mt-3 text-sm leading-relaxed text-charcoal-muted">
-              Share your application, dosage expectations, and direction notes. We will advise on
-              next steps for sampling and commercial discussion.
-            </p>
-            <div className="mt-6">
-              <Button href="/request-quote?type=FRAGRANCE_TRADING">
-                Request a Fragrance Sample
-              </Button>
+          <div className="mt-10 border border-charcoal/10 bg-ivory p-8 md:flex md:items-center md:justify-between md:gap-8">
+            <div>
+              <h3 className="font-display text-2xl text-charcoal">Request a fragrance sample</h3>
+              <p className="mt-2 max-w-prose text-sm text-charcoal-muted">
+                Share application, dosage expectations, and direction notes.
+              </p>
             </div>
+            <Button href="/request-quote?type=FRAGRANCE_TRADING" className="mt-6 md:mt-0 shrink-0">
+              Request a Fragrance Sample
+            </Button>
           </div>
         </Container>
       </Section>
