@@ -26,8 +26,8 @@ export const company = {
    * Contact defaults are placeholders until mailboxes are confirmed.
    * Override via env for staging/production.
    */
-  email: process.env.COMPANY_EMAIL ?? "inquiries@adeptfragrances.com",
-  salesEmail: process.env.SALES_EMAIL ?? "sales@adeptfragrances.com",
+  email: process.env.COMPANY_EMAIL ?? "info@adeptfragrances.com",
+  salesEmail: process.env.SALES_EMAIL ?? "info@adeptfragrances.com",
   telephone: process.env.COMPANY_TELEPHONE ?? "+00 000 000 0000",
   whatsapp: process.env.COMPANY_WHATSAPP ?? "+000000000000",
   /** Leave empty until a verified address is confirmed. */
