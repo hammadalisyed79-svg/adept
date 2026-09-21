@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InquiryType {
+  FRAGRANCE_TRADING
+  TOLL_MANUFACTURING
+  PRIVATE_LABEL
+  GENERAL
+}
+
+enum InquiryStatus {
+  NEW
+  UNDER_REVIEW
+  SAMPLING
+  QUOTED
+  WON
+  LOST
+}
+
+enum NotificationChannel {
+  EMAIL
+  ERP
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  SKIPPED
+}
+
+enum ErpSyncStatus {
+  NOT_CONNECTED
+  PENDING
+  SYNCED
+  FAILED
+}
+
+model BusinessInquiry {
+  id                 String           @id @default(cuid())
+  reference          String           @unique
+  inquiryType        InquiryType
+  status             InquiryStatus    @default(NEW)
+
+  contactName        String
+  companyName        String
+  email              String
+  phone              String
+  country            String
+  industry           String
+  productCategory    String
+  estimatedQuantity  String
+  quantityUnit       String
+  projectDescription String           @db.Text
+
+  // Optional fields
+  targetPrice          String?
+  fragranceDirection   String?         @db.Text
+  requiredConcentration String?
+  bottleSize           String?
+  packagingRequirements String?        @db.Text
+  expectedTimeline     String?
+  sampleRequirements   String?         @db.Text
+
+  sourcePage         String?
+  userAgent          String?
+  ipHash             String?
+
+  notificationStatus NotificationStatus @default(PENDING)
+  erpSyncStatus      ErpSyncStatus      @default(NOT_CONNECTED)
+  erpExternalId      String?
+
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  activities         InquiryActivity[]
+  notifications      NotificationDelivery[]
+
+  @@index([status])
+  @@index([inquiryType])
+  @@index([createdAt])
+  @@index([email])
+}
+
+model InquiryActivity {
+  id          String          @id @default(cuid())
+  inquiryId   String
+  inquiry     BusinessInquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  action      String
+  detail      String?         @db.Text
+  createdAt   DateTime        @default(now())
+
+  @@index([inquiryId])
+}
+
+model NotificationDelivery {
+  id          String              @id @default(cuid())
+  inquiryId   String
+  inquiry     BusinessInquiry     @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  channel     NotificationChannel
+  recipient   String
+  status      NotificationStatus
+  error       String?             @db.Text
+  attempt     Int                 @default(1)
+  createdAt   DateTime            @default(now())
+
+  @@index([inquiryId])
+  @@index([status])
+}
+
+model RateLimitBucket {
+  id          String   @id
+  count       Int      @default(0)
+  windowStart DateTime
+  updatedAt   DateTime @updatedAt
+
+  @@index([windowStart])
+}
