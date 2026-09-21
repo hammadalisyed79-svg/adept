@@ -39,9 +39,6 @@ export default function ContactPage() {
                   >
                     {company.email}
                   </a>
-                  <p className="mt-1 text-xs text-charcoal-muted">
-                    Confirm mailbox availability before treating this as a production contact.
-                  </p>
                 </li>
                 {!isTelephonePlaceholder() ? (
                   <li>
