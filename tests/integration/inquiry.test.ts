@@ -183,7 +183,8 @@ describe("inquiry persistence", () => {
     process.env.SMTP_PORT = "1";
     process.env.SMTP_USER = "user";
     process.env.SMTP_PASS = "pass";
-    process.env.SALES_EMAIL = "sales@example.com";
+    process.env.SALES_EMAIL = "info@adeptfragrances.com";
+    process.env.SMTP_FROM = "info@adeptfragrances.com";
     process.env.SMTP_SECURE = "false";
 
     const email = `fail-mail-${Date.now()}@example.com`;
@@ -203,10 +204,16 @@ describe("inquiry persistence", () => {
     });
     expect(stored).not.toBeNull();
 
+    const delivery = await prisma.notificationDelivery.findFirst({
+      where: { inquiryId: result.inquiry.id, channel: "EMAIL" },
+    });
+    expect(delivery?.recipient).toBe("info@adeptfragrances.com");
+
     delete process.env.SMTP_HOST;
     delete process.env.SMTP_USER;
     delete process.env.SMTP_PASS;
     delete process.env.SMTP_PORT;
     delete process.env.SALES_EMAIL;
+    delete process.env.SMTP_FROM;
   });
 });

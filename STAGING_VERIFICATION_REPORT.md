@@ -1,6 +1,7 @@
 # STAGING VERIFICATION REPORT — ADEPT Fragrances
 
 **Date:** 2026-09-21  
+**Updated:** 2026-09-21 (single official email configuration)  
 **Public brand:** ADEPT Fragrances  
 **Configured domain (proposed public):** adeptfragrances.com  
 **ERP:** NOT MODIFIED / NOT CONNECTED  
@@ -12,42 +13,47 @@
 | Gate | Status |
 |------|--------|
 | **Local staging verification** | **COMPLETE** |
-| **Private hosted staging URL** | **NOT DEPLOYED** — see `HOSTED_STAGING_STATUS.md` (Vercel login / token missing) |
-| **Email delivery to sales@** | **BLOCKED** — SMTP credentials not supplied |
+| **Private hosted staging** | See `HOSTED_STAGING_STATUS.md` (preview URL exists; protection enabled) |
+| **Official business email** | **info@adeptfragrances.com** (only mailbox — display + notifications) |
+| **Email inbox delivery** | **NOT CONFIRMED** — SMTP credentials not available in this environment |
 | **Public production deploy** | **NOT PERFORMED** (forbidden / not authorized) |
 | **READY FOR PUBLIC LAUNCH** | **NO** |
 
 ---
 
-## 1. Brand configuration
+## Amendment — Single email configuration (2026-09-21)
+
+Business decision: ADEPT has **one** official email address for all purposes.
+
+| Item | Value |
+|------|--------|
+| Display / contact email | `info@adeptfragrances.com` |
+| Notification recipient (`SALES_EMAIL`) | `info@adeptfragrances.com` |
+| Intended `SMTP_FROM` (when authorized) | `info@adeptfragrances.com` |
+| Removed / not used | `sales@`, `samples@`, `manufacturing@` |
+| Extra mailboxes created | **None** |
+
+`SALES_EMAIL` is retained in env/code **only** for compatibility with the existing mail module; it must equal `info@adeptfragrances.com`. Inquiry **types** in Postgres remain separate (`FRAGRANCE_TRADING`, `PACKAGING_COMPONENTS`, `TOLL_MANUFACTURING`, `PRIVATE_LABEL`, `GENERAL`). Existing inquiry rows and references are preserved.
+
+---
+
+## 1. Brand / contact configuration
 
 | Setting | Value |
 |---------|--------|
 | Brand | ADEPT Fragrances |
 | Domain config | `https://www.adeptfragrances.com` |
-| `COMPANY_DOMAIN_VERIFIED` | `false` (ownership not asserted by this process) |
+| `COMPANY_DOMAIN_VERIFIED` | `false` |
 | `COMPANY_EMAIL` | `info@adeptfragrances.com` |
-| `SALES_EMAIL` | `sales@adeptfragrances.com` |
+| `SALES_EMAIL` | `info@adeptfragrances.com` |
 
-Mailbox existence was **not** verified. Addresses are configured as intended recipients only.
+Mailbox existence was **not** independently verified in this session. The address is the configured official contact only.
 
 ---
 
 ## 2. Domain / DNS verification (read-only)
 
-Checked without purchasing or changing DNS.
-
-| Check | Result |
-|-------|--------|
-| `adeptfragrances.com` A | Resolves to `13.248.243.5`, `76.223.105.230` |
-| `www.adeptfragrances.com` | CNAME → `adeptfragrances.com` |
-| NS | `ns07.domaincontrol.com`, `ns08.domaincontrol.com` (GoDaddy-style) |
-| MX | `smtp.secureserver.net` (pref 0), `mailstore1.secureserver.net` (pref 10) |
-| HTTPS `https://www.adeptfragrances.com` | HTTP 200 — **existing live site** titled “Adept Fragrances” with retail perfume copy |
-
-**Interpretation:** DNS is active and the name resolves. This does **not** prove legal ownership to this agent, and the current public site is **not** this B2B Next.js codebase.  
-
-**Action taken:** No DNS changes. No deploy to the public production domain.
+Unchanged from prior staging pass: DNS resolves; current public site is **not** this B2B codebase. **No DNS changes. No public deploy.**
 
 ---
 
@@ -55,110 +61,66 @@ Checked without purchasing or changing DNS.
 
 | Item | Result |
 |------|--------|
-| Authorized remote staging Postgres credentials in environment | **Not found** |
-| Database used for verification | Local authorized Postgres `127.0.0.1:5433` / `adept_website` |
-| `npx prisma migrate deploy` | **Passed** — `1 migration found`, **No pending migrations to apply** |
-
-Remote/managed staging Postgres can be attached later by setting `DATABASE_URL` only (never commit secrets).
+| Local DB | Postgres `127.0.0.1:5433` / `adept_website` |
+| Migrations | Applied including packaging fields migration; existing inquiries retained |
 
 ---
 
-## 4. SMTP / email
+## 4. SMTP / email notification logic
 
 | Item | Result |
 |------|--------|
-| `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | **Not set** |
-| Configured sales recipient | `sales@adeptfragrances.com` |
-| Inbox delivery test | **BLOCKED** — cannot claim delivery |
+| `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | **Not set** in local env |
+| Notification recipient (code default) | `info@adeptfragrances.com` |
+| `SMTP_FROM` default (when unset) | `info@adeptfragrances.com` |
+| SMTP_USER must equal From? | **No** — auth identity may differ |
+| Inbox delivery test | **NOT PERFORMED** — no SMTP credentials / mailbox access |
 
-When SMTP is supplied, expected env (values via secret store only):
+When SMTP is supplied, expected secret-store values:
 
 ```
+COMPANY_EMAIL=info@adeptfragrances.com
+SALES_EMAIL=info@adeptfragrances.com
 SMTP_HOST=
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=
+SMTP_USER=          # may differ from From
 SMTP_PASS=
-SMTP_FROM=
-SALES_EMAIL=sales@adeptfragrances.com
-COMPANY_EMAIL=info@adeptfragrances.com
+SMTP_FROM=info@adeptfragrances.com
 ```
 
----
-
-## 5. Customer inquiry workflow test (executed)
-
-Flow exercised against local production build (`next start` on port 3005):
-
-1. Customer POST `/api/inquiries` (quotation-style fragrance trading request)  
-2. Server Zod validation  
-3. Persist to PostgreSQL  
-4. Unique reference generated  
-5. Email attempt → **blocked** (no SMTP)  
-6. Inbox confirmation → **not possible**
-
-### Inquiry test reference
-
-**`ADF-20260921-BA878C`**
-
-| Field | Value |
-|-------|--------|
-| Email (submitter) | `staging-verifier@example.com` |
-| Type | `FRAGRANCE_TRADING` |
-| `notificationStatus` | `SKIPPED` |
-| `erpSyncStatus` | `NOT_CONNECTED` |
-| EMAIL delivery row | `SKIPPED` — `EMAIL_NOTIFICATIONS_BLOCKED: SMTP is not configured…` |
-| ERP delivery row | `SKIPPED` — not connected |
-
-API response: `ok: true` with the reference above. Inquiry **was not lost**.
+Unit/integration tests confirm: blocked path still saves inquiries; when SMTP is present but unreachable, delivery recipient recorded as `info@adeptfragrances.com`.
 
 ---
 
-## 6. Automated test results (re-run this session)
+## 5. Inquiry routing (categories preserved)
+
+Notifications all go to **info@**; commercial triage uses `inquiryType` in the database / email subject:
+
+- `FRAGRANCE_TRADING`
+- `PACKAGING_COMPONENTS`
+- `TOLL_MANUFACTURING`
+- `PRIVATE_LABEL`
+- `GENERAL`
+
+No separate mailboxes per category.
+
+---
+
+## 6. Automated test results (single-email update)
 
 | Command | Result |
 |---------|--------|
-| `npx prisma migrate deploy` | Passed (no pending) |
 | `npm run typecheck` | Passed |
 | `npm run lint` | Passed |
-| `npm test` | **18/18 passed** |
-| `npm run build` | Passed (Next.js 16.3.5) |
-| `npm run test:e2e` | **7/7 passed** |
-
-Additional E2E success reference from suite: `ADF-20260921-C3F629` (also email-blocked).
+| `npm test` | **23/23 passed** |
+| Inbox receipt | **Not claimed** — SMTP credentials unavailable |
 
 ---
 
-## 7. Hosted staging deployment
+## 7. Hosted staging / public launch
 
-| Item | Status |
-|------|--------|
-| Vercel / Railway / Fly / Netlify / GH CLI | **Not available** on this machine |
-| Git `origin` remote | **None** |
-| Deploy credentials in environment | **None** |
-| Private staging URL | **Not deployed** |
-
-### Exact steps when hosting access is provided
-
-1. Create a **private** staging host (preview app) — do **not** point `adeptfragrances.com` at it until authorized cutover.  
-2. Provision managed PostgreSQL; set `DATABASE_URL` in host secrets.  
-3. Set:
-   - `NEXT_PUBLIC_SITE_URL=<private-staging-url>`
-   - `COMPANY_EMAIL=info@adeptfragrances.com`
-   - `SALES_EMAIL=sales@adeptfragrances.com`
-   - `COMPANY_DOMAIN=https://www.adeptfragrances.com`
-   - `COMPANY_DOMAIN_VERIFIED=false`
-   - `IP_HASH_SALT=<long random>`
-   - SMTP vars when ready  
-4. Release command sequence:
-   ```bash
-   npm ci
-   npx prisma migrate deploy
-   npm run build
-   npm run start
-   ```
-5. Smoke: submit quote → confirm `ADF-…` in DB → if SMTP set, confirm inbox at `sales@adeptfragrances.com`.  
-6. Keep ERP disconnected until separately authorized.
+Public production deploy **not** performed. Hosted preview details: `HOSTED_STAGING_STATUS.md`. ERP remains **NOT CONNECTED**.
 
 ---
 
@@ -166,11 +128,10 @@ Additional E2E success reference from suite: `ADF-20260921-C3F629` (also email-b
 
 | Blocker | Impact |
 |---------|--------|
-| No authorized hosted staging credentials | No private staging URL |
-| SMTP credentials unavailable | Sales email **BLOCKED** |
-| Mailbox existence for info@ / sales@ not confirmed | Operational follow-up |
-| Public domain currently serves a different retail site | Cutover must be planned; do not overwrite without authorization |
-| Telephone / WhatsApp / address / legal review / photography | Public launch blockers |
+| SMTP credentials unavailable | Outbound notifications **BLOCKED** / SKIPPED |
+| Actual `info@` inbox receipt not confirmed | Cannot claim email delivery |
+| Telephone / WhatsApp / address / legal / photography | Public launch blockers |
+| Public DNS cutover | Requires explicit authorization |
 | ERP API | Intentionally NOT CONNECTED |
 
 ---
@@ -179,16 +140,4 @@ Additional E2E success reference from suite: `ADF-20260921-C3F629` (also email-b
 
 **NOT READY FOR PUBLIC LAUNCH.**
 
-Local staging verification of the B2B app (build, DB migrations, inquiry persistence, tests) is complete. Hosted private staging and real sales-email delivery remain blocked on missing authorized infrastructure and SMTP.
-
----
-
-## 10. Missing access checklist (for ops)
-
-Provide via secure channel (not chat/git):
-
-- [ ] Hosting account + deploy token (or connect git remote)  
-- [ ] Managed Postgres `DATABASE_URL` for staging  
-- [ ] SMTP credentials capable of sending to `sales@adeptfragrances.com`  
-- [ ] Confirmation that `info@` / `sales@` mailboxes exist  
-- [ ] Explicit authorization before any DNS change affecting `adeptfragrances.com`
+Local app verification and single-email configuration are complete. Real inbox delivery remains blocked until SMTP credentials and mailbox access are provided.

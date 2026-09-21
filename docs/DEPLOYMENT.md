@@ -39,7 +39,7 @@ Or with a process manager / platform that runs `npm run build` then `npm run sta
 
 - [ ] Homepage and all routes respond
 - [ ] `/request-quote` persists inquiries
-- [ ] SMTP configured if sales email notifications are required
+- [ ] SMTP configured if info@ email notifications are required
 - [ ] ERP left disconnected until authorized
 - [ ] Legal pages reviewed by counsel
 - [ ] Company contact values verified in env

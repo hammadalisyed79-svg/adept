@@ -23,7 +23,7 @@ Open `BusinessInquiry`, sort by `createdAt` descending. Filter by `notificationS
 
 | Status | Meaning |
 |--------|---------|
-| `SENT` | Sales email delivered |
+| `SENT` | Notification delivered to info@adeptfragrances.com |
 | `SKIPPED` | SMTP not configured (blocked) |
 | `FAILED` | SMTP configured but delivery failed |
 | `PENDING` | Unexpected — investigate |
@@ -50,17 +50,22 @@ Never grant public or anonymous DB access.
 
 ## Option C — Email (when unblocked)
 
+Official mailbox (display + notifications): **info@adeptfragrances.com**  
+Do not create `sales@`, `samples@`, or `manufacturing@` mailboxes.
+
 Set:
 
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`
-- `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`
-- `SALES_EMAIL`
+- `SMTP_USER`, `SMTP_PASS` (auth identity — need not equal From)
+- `SMTP_FROM=info@adeptfragrances.com` (once the provider authorizes this From address)
+- `COMPANY_EMAIL=info@adeptfragrances.com`
+- `SALES_EMAIL=info@adeptfragrances.com` (retained for code compatibility; same mailbox)
 
 Then submit a test inquiry and confirm:
 
-1. Row exists in `BusinessInquiry`
+1. Row exists in `BusinessInquiry` (inquiry type still distinguishes trading / packaging / manufacturing)
 2. `notificationStatus = SENT`
-3. Message arrives in the sales inbox
+3. Message arrives in the **info@adeptfragrances.com** inbox
 
 If SMTP is missing, `getMailConfigStatus()` returns `BLOCKED_NOT_CONFIGURED` and delivery records show `SKIPPED` with an explicit blocked error string.
 

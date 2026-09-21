@@ -95,7 +95,7 @@ Before public launch, configure:
 2. **`NEXT_PUBLIC_SITE_URL` / `COMPANY_DOMAIN`** — verified production URL
 3. **Contact details** — email, telephone, WhatsApp (replace example placeholders)
 4. **Address** — only after verification (`COMPANY_ADDRESS_VERIFIED=true`)
-5. **SMTP** — if sales email notifications are required
+5. **SMTP** — if email notifications to info@adeptfragrances.com are required
 6. **`IP_HASH_SALT`** — strong random value
 7. **Legal review** of Privacy Policy and Terms
 8. **Legal entity name** — confirm before presenting as incorporated

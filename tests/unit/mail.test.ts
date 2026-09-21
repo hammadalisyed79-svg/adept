@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { getMailConfigStatus, sendInquiryNotification } from "@/lib/mail";
+import { getMailConfigStatus, getInquiryNotificationRecipient, getSmtpFromAddress, sendInquiryNotification } from "@/lib/mail";
 import type { BusinessInquiry } from "@prisma/client";
 
 const smtpKeys = [
@@ -10,6 +10,7 @@ const smtpKeys = [
   "SMTP_SECURE",
   "SMTP_FROM",
   "SALES_EMAIL",
+  "COMPANY_EMAIL",
 ] as const;
 
 const saved: Partial<Record<(typeof smtpKeys)[number], string | undefined>> = {};
@@ -81,7 +82,7 @@ describe("mail configuration", () => {
     process.env.SMTP_HOST = "smtp.example.com";
     process.env.SMTP_USER = "user";
     process.env.SMTP_PASS = "pass";
-    process.env.SALES_EMAIL = "sales@example.com";
+    process.env.SALES_EMAIL = "info@example.com";
     expect(getMailConfigStatus()).toBe("CONFIGURED");
   });
 
@@ -93,6 +94,7 @@ describe("mail configuration", () => {
     expect(result.sent).toBe(false);
     expect(result.status).toBe("BLOCKED_NOT_CONFIGURED");
     expect(result.error).toMatch(/EMAIL_NOTIFICATIONS_BLOCKED/);
+    expect(result.recipient).toBe("info@adeptfragrances.com");
   });
 
   it("returns FAILED when SMTP is configured but unreachable", async () => {
@@ -101,7 +103,8 @@ describe("mail configuration", () => {
     process.env.SMTP_PORT = "1";
     process.env.SMTP_USER = "user";
     process.env.SMTP_PASS = "pass";
-    process.env.SALES_EMAIL = "sales@example.com";
+    process.env.SALES_EMAIL = "info@adeptfragrances.com";
+    process.env.SMTP_FROM = "info@adeptfragrances.com";
     process.env.SMTP_SECURE = "false";
 
     const result = await sendInquiryNotification(fakeInquiry());
@@ -109,5 +112,21 @@ describe("mail configuration", () => {
     expect(result.blocked).toBe(false);
     expect(result.status).toBe("FAILED");
     expect(result.error).toBeTruthy();
+    expect(result.recipient).toBe("info@adeptfragrances.com");
   }, 20000);
+
+  it("routes notifications to info@ by default and uses info@ as From when SMTP_FROM unset", () => {
+    clearSmtp();
+    delete process.env.SALES_EMAIL;
+    delete process.env.COMPANY_EMAIL;
+    delete process.env.SMTP_FROM;
+    expect(getInquiryNotificationRecipient()).toBe("info@adeptfragrances.com");
+    expect(getSmtpFromAddress()).toBe("info@adeptfragrances.com");
+  });
+
+  it("honours SALES_EMAIL override when set to the official mailbox", () => {
+    clearSmtp();
+    process.env.SALES_EMAIL = "info@adeptfragrances.com";
+    expect(getInquiryNotificationRecipient()).toBe("info@adeptfragrances.com");
+  });
 });

@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${company.name} for fragrance trading, toll manufacturing, and private-label inquiries.`,
+  description: `Contact ${company.name} at ${company.email} for fragrance trading, packaging, toll manufacturing, and private-label inquiries.`,
   alternates: { canonical: "/contact" },
 };
 

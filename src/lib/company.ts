@@ -25,7 +25,14 @@ export const company = {
   positioning:
     "A complete B2B supplier of fragrance concentrates, perfume packaging components, accessories, private-label services, and manufacturing solutions.",
   email: process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
-  salesEmail: process.env.SALES_EMAIL?.trim() || "sales@adeptfragrances.com",
+  /**
+   * Notification recipient — retained for mail-code compatibility.
+   * Official policy: single mailbox info@adeptfragrances.com for all business mail.
+   */
+  salesEmail:
+    process.env.SALES_EMAIL?.trim() ||
+    process.env.COMPANY_EMAIL?.trim() ||
+    "info@adeptfragrances.com",
   telephone: process.env.COMPANY_TELEPHONE?.trim() || "+00 000 000 0000",
   whatsapp: process.env.COMPANY_WHATSAPP?.trim() || "+000000000000",
   address: process.env.COMPANY_ADDRESS?.trim() || "",

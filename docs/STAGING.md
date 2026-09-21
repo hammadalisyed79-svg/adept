@@ -24,7 +24,7 @@ npx prisma migrate deploy
 | `NEXT_PUBLIC_SITE_URL` | Staging URL (e.g. `https://staging.adeptfragrances.com` or host preview URL) |
 | `COMPANY_DOMAIN` | `https://www.adeptfragrances.com` (proposed; ownership not assumed) |
 | `COMPANY_DOMAIN_VERIFIED` | `false` until DNS ownership confirmed |
-| `COMPANY_EMAIL` / `SALES_EMAIL` | Set to real mailboxes when available |
+| `COMPANY_EMAIL` / `SALES_EMAIL` | Both **info@adeptfragrances.com** (single official mailbox; `SALES_EMAIL` kept for mail-code compatibility) |
 | `COMPANY_TELEPHONE` / `COMPANY_WHATSAPP` | Set only when verified (omit placeholders) |
 | `COMPANY_ADDRESS` / `COMPANY_ADDRESS_VERIFIED` | Leave empty / `false` until verified |
 | `COMPANY_LEGAL_NAME` / `COMPANY_LEGAL_NAME_VERIFIED` | Keep unverified (`false`) |

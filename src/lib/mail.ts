@@ -13,12 +13,43 @@ export type MailResult = {
   recipient: string;
 };
 
+/** Single official business mailbox — used for display and notifications. */
+export const OFFICIAL_BUSINESS_EMAIL = "info@adeptfragrances.com";
+
+/**
+ * Inquiry notification recipient.
+ * SALES_EMAIL is retained for env compatibility but must point at the same
+ * official mailbox (info@adeptfragrances.com).
+ */
+export function getInquiryNotificationRecipient(): string {
+  return (
+    process.env.SALES_EMAIL?.trim() ||
+    process.env.COMPANY_EMAIL?.trim() ||
+    company.salesEmail ||
+    company.email ||
+    OFFICIAL_BUSINESS_EMAIL
+  );
+}
+
+/**
+ * From address once the provider authorizes sending as this address.
+ * SMTP_USER may differ from the From address (do not assume they match).
+ */
+export function getSmtpFromAddress(): string {
+  return (
+    process.env.SMTP_FROM?.trim() ||
+    process.env.COMPANY_EMAIL?.trim() ||
+    company.email ||
+    OFFICIAL_BUSINESS_EMAIL
+  );
+}
+
 export function getMailConfigStatus(): MailConfigStatus {
   const configured = Boolean(
     process.env.SMTP_HOST &&
       process.env.SMTP_USER &&
       process.env.SMTP_PASS &&
-      (process.env.SALES_EMAIL || company.salesEmail),
+      getInquiryNotificationRecipient(),
   );
   return configured ? "CONFIGURED" : "BLOCKED_NOT_CONFIGURED";
 }
@@ -30,11 +61,11 @@ export function isSmtpConfigured(): boolean {
 export async function sendInquiryNotification(
   inquiry: BusinessInquiry,
 ): Promise<MailResult> {
-  const recipient = process.env.SALES_EMAIL || company.salesEmail;
+  const recipient = getInquiryNotificationRecipient();
 
   if (!isSmtpConfigured()) {
     const error =
-      "EMAIL_NOTIFICATIONS_BLOCKED: SMTP is not configured. Inquiry was saved to the database; configure SMTP_HOST, SMTP_USER, SMTP_PASS, and SALES_EMAIL to enable delivery.";
+      "EMAIL_NOTIFICATIONS_BLOCKED: SMTP is not configured. Inquiry was saved to the database; configure SMTP_HOST, SMTP_USER, SMTP_PASS, and set SALES_EMAIL/COMPANY_EMAIL to info@adeptfragrances.com to enable delivery.";
     console.warn("[mail]", error, { reference: inquiry.reference });
     return {
       sent: false,
@@ -96,7 +127,7 @@ export async function sendInquiryNotification(
       .join("\n");
 
     await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      from: getSmtpFromAddress(),
       to: recipient,
       subject,
       text,

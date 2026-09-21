@@ -15,7 +15,7 @@
 | **Database** | **Connected** — Prisma migrate applied to hosted Postgres (`db.prisma.io`) |
 | **Migration** | `20260921083213_init` applied (then “no pending” on later builds) |
 | **Inquiry API** | **Verified** — reference **`ADF-20260921-C668E7`** |
-| **Email → sales@ inbox** | **NOT VERIFIED** — cannot claim delivery; see Email section |
+| **Email → info@ inbox** | **NOT VERIFIED** — cannot claim delivery; see Email section |
 | **Production / adeptfragrances.com** | **Not deployed** (`vercel --prod` not run) |
 | **READY FOR PUBLIC LAUNCH** | **NO** |
 
@@ -37,16 +37,18 @@
 
 ## Email delivery
 
+**Policy (2026-09-21):** single official mailbox `info@adeptfragrances.com` for all display and inquiry notifications. Do not use `sales@`, `samples@`, or `manufacturing@`.
+
 | Check | Result |
 |-------|--------|
-| `SMTP_*` keys present in Vercel env | Yes (Preview + Production) |
-| `SALES_EMAIL` configured in Vercel | Yes (secret) |
-| Mailbox existence for `info@` / `sales@` | **Not independently verified** |
+| `SMTP_*` keys present in Vercel env | Yes (Preview + Production) — values not re-verified this pass |
+| `SALES_EMAIL` / `COMPANY_EMAIL` | Must both be `info@adeptfragrances.com` |
+| Mailbox existence for `info@` | **Not independently verified** |
 | Actual inbox receipt for `ADF-20260921-C668E7` | **Not confirmed** |
 | Claim “email sent” | **Not made** |
 
 **Status: EMAIL DELIVERY UNVERIFIED.**  
-If SMTP secrets are empty placeholders, outbound mail will be skipped/failed while the inquiry remains in Postgres. Confirm in Neon/Prisma tables (`notificationStatus`, `NotificationDelivery`) and the `sales@adeptfragrances.com` inbox.
+If SMTP secrets are empty placeholders, outbound mail will be skipped/failed while the inquiry remains in Postgres. Confirm in Neon/Prisma tables (`notificationStatus`, `NotificationDelivery`) and the `info@adeptfragrances.com` inbox.
 
 ---
 
@@ -76,9 +78,10 @@ This session intentionally used **preview only** so those production domains wer
 
 ## Remaining launch blockers
 
-- Confirm SMTP credentials are real and delivery to `sales@adeptfragrances.com`  
-- Confirm mailboxes exist  
+- Confirm SMTP credentials are real and delivery to `info@adeptfragrances.com`  
+- Confirm the `info@` mailbox exists (only official address)  
 - Set nonempty `DATABASE_URL` (and preferably `NEXT_PUBLIC_SITE_URL` for the staging host)  
+- Set Vercel `COMPANY_EMAIL` and `SALES_EMAIL` both to `info@adeptfragrances.com`  
 - Telephone / WhatsApp / address / legal review / photography  
 - Explicit authorization before `vercel --prod` / attaching traffic to `adeptfragrances.com`  
 - ERP still NOT CONNECTED  

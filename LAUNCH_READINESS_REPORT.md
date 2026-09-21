@@ -117,9 +117,11 @@ COMPANY_LEGAL_NAME_VERIFIED=false
 ### Strongly recommended for staging
 
 ```
-COMPANY_EMAIL=
-SALES_EMAIL=
+COMPANY_EMAIL=info@adeptfragrances.com
+SALES_EMAIL=info@adeptfragrances.com
 ```
+
+(`SALES_EMAIL` is retained for mail-code compatibility and must equal the single official mailbox.)
 
 ### Optional (unblocks email)
 
