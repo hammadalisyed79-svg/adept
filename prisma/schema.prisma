@@ -11,6 +11,7 @@ enum InquiryType {
   FRAGRANCE_TRADING
   TOLL_MANUFACTURING
   PRIVATE_LABEL
+  PACKAGING_COMPONENTS
   GENERAL
 }
 
@@ -67,6 +68,16 @@ model BusinessInquiry {
   packagingRequirements String?        @db.Text
   expectedTimeline     String?
   sampleRequirements   String?         @db.Text
+
+  // Packaging & components (optional / additive)
+  packagingCategories    String?         @db.Text
+  deliveryDestination    String?
+  componentReference     String?
+  matchingRequirements   String?         @db.Text
+  material               String?
+  colourFinish           String?
+  capacitySize           String?
+  lineItemsJson          String?         @db.Text
 
   sourcePage         String?
   userAgent          String?

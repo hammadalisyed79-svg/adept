@@ -6,7 +6,7 @@ import { inquiryTypes } from "@/lib/validation/inquiry";
 export const metadata: Metadata = {
   title: "Request a Quote",
   description:
-    "Submit a B2B quotation inquiry for fragrance trading, toll manufacturing, or private label.",
+    "Submit a B2B quotation inquiry for fragrance trading, packaging components, toll manufacturing, or private label.",
   alternates: { canonical: "/request-quote" },
   robots: { index: true, follow: true },
 };

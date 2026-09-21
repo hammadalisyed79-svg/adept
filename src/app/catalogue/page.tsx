@@ -1,0 +1,69 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { QuoteCta } from "@/components/QuoteCta";
+import { Button } from "@/components/ui/Button";
+import { Container, PageHero, Section } from "@/components/ui/Section";
+import { getPublishedProducts } from "@/content/catalogue";
+import { packagingCategories } from "@/content/packaging";
+
+export const metadata: Metadata = {
+  title: "B2B Catalogue",
+  description:
+    "Quotation-based catalogue of fragrance packaging components. Products appear only when specifications are verified.",
+  alternates: { canonical: "/catalogue" },
+};
+
+export default function CataloguePage() {
+  const products = getPublishedProducts();
+
+  return (
+    <>
+      <PageHero
+        eyebrow="Catalogue"
+        title="Quotation-based product catalogue"
+        description="This is a B2B quotation catalogue — not a retail shopping cart. Items are published only when names, references, and specifications have been verified."
+      />
+      <Section>
+        <Container>
+          {products.length === 0 ? (
+            <div className="border border-dashed border-charcoal/20 bg-white px-6 py-16 text-center">
+              <p className="font-display text-2xl text-charcoal">No published products yet</p>
+              <p className="mx-auto mt-3 max-w-xl text-charcoal-muted">
+                Verified SKUs, photographs, and specifications will appear here as they are confirmed.
+                Meanwhile, request a quotation for packaging categories or fragrance services.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>
+                <Button href="/packaging" variant="secondary">
+                  View packaging categories
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {products.map((p) => {
+                const category = packagingCategories.find((c) => c.slug === p.categorySlug);
+                return (
+                  <li key={p.slug} className="border border-charcoal/10 bg-white p-6">
+                    <p className="text-xs uppercase tracking-wideish text-champagne-deep">
+                      {category?.title ?? p.categorySlug}
+                    </p>
+                    <h2 className="mt-2 font-display text-2xl text-charcoal">
+                      <Link href={`/catalogue/${p.slug}`} className="hover:text-champagne-deep">
+                        {p.name}
+                      </Link>
+                    </h2>
+                    <p className="mt-1 text-xs text-charcoal-muted">Ref: {p.sku}</p>
+                    <p className="mt-3 text-sm text-charcoal-muted line-clamp-3">{p.description}</p>
+                    <p className="mt-4 text-xs text-charcoal-muted">Status: {p.availabilityStatus}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </Container>
+      </Section>
+      <QuoteCta primaryHref="/request-quote?type=PACKAGING_COMPONENTS" primaryLabel="Request a Quote" />
+    </>
+  );
+}

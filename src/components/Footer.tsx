@@ -28,7 +28,7 @@ export function Footer() {
 
         <div>
           <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Solutions
+            Divisions
           </h2>
           <ul className="mt-4 space-y-2.5">
             {divisions.map((d) => (
@@ -38,6 +38,11 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/catalogue" className="text-sm text-ivory/75 transition hover:text-ivory">
+                Catalogue
+              </Link>
+            </li>
             <li>
               <Link href="/industries" className="text-sm text-ivory/75 transition hover:text-ivory">
                 Industries
@@ -137,7 +142,7 @@ export function Footer() {
           <p>
             © {year} {company.name}. {company.tagline}
           </p>
-          <p>B2B fragrance sourcing and manufacturing solutions.</p>
+          <p>B2B fragrance, packaging, and manufacturing solutions.</p>
         </div>
       </div>
     </footer>

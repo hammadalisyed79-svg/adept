@@ -1,6 +1,5 @@
 /**
  * Centralized company configuration.
- * Update these values as business details are verified.
  * Legal name is proposed and unverified — do not present as incorporated until confirmed.
  * Domain adeptfragrances.com is the proposed public website — ownership not assumed.
  */
@@ -16,26 +15,21 @@ export const company = {
   displayDescriptor: "Fragrances",
   /** Proposed legal name — not registered or verified. */
   legalName:
-    process.env.COMPANY_LEGAL_NAME ??
+    process.env.COMPANY_LEGAL_NAME?.trim() ||
     "Adept Fragrance Industries (Private) Limited",
   legalNameVerified: process.env.COMPANY_LEGAL_NAME_VERIFIED === "true",
   tagline: "Precision in Fragrance. Excellence in Manufacturing.",
+  heroHeadline: "Everything You Need to Create a Fragrance Brand.",
+  heroSupporting:
+    "From fragrance concentrates and packaging components to complete manufacturing solutions, ADEPT supports your business from concept to finished product.",
   positioning:
-    "Integrated fragrance sourcing and manufacturing solutions for ambitious brands.",
-  /**
-   * Contact defaults are placeholders until mailboxes are confirmed.
-   * Override via env for staging/production.
-   */
-  email:
-    process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
-  salesEmail:
-    process.env.SALES_EMAIL?.trim() || "sales@adeptfragrances.com",
+    "A complete B2B supplier of fragrance concentrates, perfume packaging components, accessories, private-label services, and manufacturing solutions.",
+  email: process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
+  salesEmail: process.env.SALES_EMAIL?.trim() || "sales@adeptfragrances.com",
   telephone: process.env.COMPANY_TELEPHONE?.trim() || "+00 000 000 0000",
   whatsapp: process.env.COMPANY_WHATSAPP?.trim() || "+000000000000",
-  /** Leave empty until a verified address is confirmed. */
   address: process.env.COMPANY_ADDRESS?.trim() || "",
   addressVerified: process.env.COMPANY_ADDRESS_VERIFIED === "true",
-  /** Proposed public domain — do not treat as confirmed DNS ownership. */
   domain:
     process.env.COMPANY_DOMAIN?.trim() || "https://www.adeptfragrances.com",
   domainVerified: process.env.COMPANY_DOMAIN_VERIFIED === "true",
@@ -60,7 +54,6 @@ export function getSiteUrl(): string {
   return company.domain.replace(/\/$/, "");
 }
 
-/** True when telephone still uses the unset placeholder. */
 export function isTelephonePlaceholder(): boolean {
   return (
     !process.env.COMPANY_TELEPHONE ||
@@ -68,7 +61,6 @@ export function isTelephonePlaceholder(): boolean {
   );
 }
 
-/** True when WhatsApp still uses the unset placeholder. */
 export function isWhatsAppPlaceholder(): boolean {
   return (
     !process.env.COMPANY_WHATSAPP || company.whatsapp === "+000000000000"

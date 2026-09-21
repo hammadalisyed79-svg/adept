@@ -55,6 +55,53 @@ describe("inquirySchema", () => {
     });
     expect(result.success).toBe(true);
   });
+
+  it("accepts packaging inquiries with selected categories", () => {
+    const result = inquirySchema.safeParse({
+      ...valid,
+      inquiryType: "PACKAGING_COMPONENTS",
+      productCategory: "Perfume bottles, Caps",
+      quantityUnit: "pieces",
+      packagingCategories: ["Perfume bottles", "Caps"],
+      deliveryDestination: "Dubai, UAE",
+      capacitySize: "50ml",
+      material: "Glass",
+      colourFinish: "Clear / gold",
+      componentReference: "Client bottle ref pending",
+      matchingRequirements: "Pump must match 15mm crimp — verify before quoting compatibility",
+      lineItems: [
+        {
+          category: "Perfume bottles",
+          quantity: "5000",
+          capacitySize: "50ml",
+          material: "Glass",
+          colourFinish: "Clear",
+        },
+        {
+          category: "Caps",
+          quantity: "5000",
+          material: "Metal",
+          colourFinish: "Gold",
+        },
+      ],
+      projectDescription:
+        "Need stock perfume bottles with matching caps and pumps for a new private-label EDP launch.",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejects packaging inquiries without categories or line items", () => {
+    const result = inquirySchema.safeParse({
+      ...valid,
+      inquiryType: "PACKAGING_COMPONENTS",
+      productCategory: "Packaging",
+      packagingCategories: [],
+      lineItems: [],
+      projectDescription:
+        "Need packaging components for a fragrance brand but categories not selected yet.",
+    });
+    expect(result.success).toBe(false);
+  });
 });
 
 describe("reference helpers", () => {

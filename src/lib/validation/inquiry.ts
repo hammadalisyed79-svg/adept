@@ -4,6 +4,7 @@ export const inquiryTypes = [
   "FRAGRANCE_TRADING",
   "TOLL_MANUFACTURING",
   "PRIVATE_LABEL",
+  "PACKAGING_COMPONENTS",
 ] as const;
 
 export const industries = [
@@ -20,7 +21,23 @@ export const quantityUnits = [
   "units",
   "bottles",
   "batches",
+  "pieces",
+  "sets",
   "TBD",
+] as const;
+
+export const packagingCategoryOptions = [
+  "Perfume bottles",
+  "Caps",
+  "Pumps",
+  "Collars",
+  "Labels",
+  "Stickers",
+  "Folding cartons",
+  "Rigid boxes",
+  "Accessories",
+  "Complete packaging sets",
+  "Other packaging requirements",
 ] as const;
 
 const optionalText = (max: number) =>
@@ -31,6 +48,17 @@ const optionalText = (max: number) =>
     .optional()
     .or(z.literal(""))
     .transform((v) => (v ? v : undefined));
+
+export const packagingLineItemSchema = z.object({
+  category: z.string().trim().min(1).max(120),
+  quantity: z.string().trim().min(1).max(60),
+  capacitySize: optionalText(80),
+  material: optionalText(120),
+  colourFinish: optionalText(120),
+  notes: optionalText(500),
+});
+
+export type PackagingLineItem = z.infer<typeof packagingLineItemSchema>;
 
 export const inquirySchema = z
   .object({
@@ -54,7 +82,7 @@ export const inquirySchema = z
       .string()
       .trim()
       .min(2, "Product category is required")
-      .max(120),
+      .max(200),
     estimatedQuantity: z
       .string()
       .trim()
@@ -75,19 +103,30 @@ export const inquirySchema = z
     packagingRequirements: optionalText(1000),
     expectedTimeline: optionalText(120),
     sampleRequirements: optionalText(1000),
+    /** Packaging-specific (optional unless PACKAGING_COMPONENTS) */
+    packagingCategories: z.array(z.string().trim().min(1).max(120)).max(20).optional(),
+    deliveryDestination: optionalText(200),
+    componentReference: optionalText(160),
+    matchingRequirements: optionalText(1000),
+    material: optionalText(120),
+    colourFinish: optionalText(120),
+    capacitySize: optionalText(80),
+    lineItems: z.array(packagingLineItemSchema).max(20).optional(),
     sourcePage: optionalText(200),
     /** Honeypot — must be empty */
     website: z.string().max(0).optional().or(z.literal("")),
   })
   .superRefine((data, ctx) => {
-    if (data.inquiryType === "PRIVATE_LABEL") {
-      // Soft guidance only — bottle size remains optional but recommended
-      if (!data.fragranceDirection && !data.sampleRequirements) {
-        // No hard failure; optional fields stay optional
+    if (data.inquiryType === "PACKAGING_COMPONENTS") {
+      const cats = data.packagingCategories ?? [];
+      const lines = data.lineItems ?? [];
+      if (cats.length === 0 && lines.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Select at least one packaging category or add a line item",
+          path: ["packagingCategories"],
+        });
       }
-    }
-    if (data.inquiryType === "FRAGRANCE_TRADING" && data.bottleSize) {
-      // bottle size not typically needed for trading; ignore silently
     }
   });
 

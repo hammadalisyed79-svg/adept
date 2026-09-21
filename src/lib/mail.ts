@@ -69,13 +69,31 @@ export async function sendInquiryNotification(
       `Industry: ${inquiry.industry}`,
       `Category: ${inquiry.productCategory}`,
       `Quantity: ${inquiry.estimatedQuantity} ${inquiry.quantityUnit}`,
+      inquiry.packagingCategories
+        ? `Packaging categories: ${inquiry.packagingCategories}`
+        : "",
+      inquiry.deliveryDestination
+        ? `Delivery destination: ${inquiry.deliveryDestination}`
+        : "",
+      inquiry.componentReference
+        ? `Component / bottle reference: ${inquiry.componentReference}`
+        : "",
+      inquiry.capacitySize ? `Capacity / size: ${inquiry.capacitySize}` : "",
+      inquiry.material ? `Material: ${inquiry.material}` : "",
+      inquiry.colourFinish ? `Colour / finish: ${inquiry.colourFinish}` : "",
+      inquiry.matchingRequirements
+        ? `Matching requirements: ${inquiry.matchingRequirements}`
+        : "",
+      inquiry.lineItemsJson ? `Line items JSON: ${inquiry.lineItemsJson}` : "",
       "",
       "Project description:",
       inquiry.projectDescription,
       "",
       `Source page: ${inquiry.sourcePage ?? "n/a"}`,
       `Submitted: ${inquiry.createdAt.toISOString()}`,
-    ].join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     await transporter.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,

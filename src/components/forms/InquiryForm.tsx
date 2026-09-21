@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/Button";
 import {
   industries,
   inquiryTypes,
+  packagingCategoryOptions,
   quantityUnits,
   type InquiryInput,
+  type PackagingLineItem,
 } from "@/lib/validation/inquiry";
 
 type FieldErrors = Partial<Record<keyof InquiryInput | "form", string>>;
@@ -16,6 +18,7 @@ const typeLabels: Record<(typeof inquiryTypes)[number], string> = {
   FRAGRANCE_TRADING: "Fragrance Trading",
   TOLL_MANUFACTURING: "Toll Manufacturing",
   PRIVATE_LABEL: "Private Label",
+  PACKAGING_COMPONENTS: "Packaging & Components",
 };
 
 type Props = {
@@ -23,16 +26,35 @@ type Props = {
   sourcePage?: string;
 };
 
+const emptyLine = (): PackagingLineItem => ({
+  category: "",
+  quantity: "",
+  capacitySize: "",
+  material: "",
+  colourFinish: "",
+  notes: "",
+});
+
 export function InquiryForm({ defaultType, sourcePage }: Props) {
   const router = useRouter();
   const [inquiryType, setInquiryType] = useState<(typeof inquiryTypes)[number]>(
     defaultType ?? "FRAGRANCE_TRADING",
   );
+  const [packagingCats, setPackagingCats] = useState<string[]>([]);
+  const [lineItems, setLineItems] = useState<PackagingLineItem[]>([emptyLine()]);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState<{ reference: string } | null>(null);
 
+  const isPackaging = inquiryType === "PACKAGING_COMPONENTS";
+  const showTradingExtras = inquiryType === "FRAGRANCE_TRADING";
+  const showManufacturingExtras = inquiryType === "TOLL_MANUFACTURING";
+  const showPrivateLabelExtras = inquiryType === "PRIVATE_LABEL";
+
   const conditionalHint = useMemo(() => {
+    if (isPackaging) {
+      return "Select packaging categories and add line items for quantities, sizes, materials, and finishes. Compatibility claims are confirmed separately.";
+    }
     if (inquiryType === "FRAGRANCE_TRADING") {
       return "Share fragrance direction, concentration needs, and sample preferences if known.";
     }
@@ -40,11 +62,13 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
       return "Describe blending, filling, packaging, and whether materials are client-supplied.";
     }
     return "Include concept direction, bottle size, packaging, and timeline if available.";
-  }, [inquiryType]);
+  }, [inquiryType, isPackaging]);
 
-  const showTradingExtras = inquiryType === "FRAGRANCE_TRADING";
-  const showManufacturingExtras = inquiryType === "TOLL_MANUFACTURING";
-  const showPrivateLabelExtras = inquiryType === "PRIVATE_LABEL";
+  function togglePackagingCat(label: string) {
+    setPackagingCats((prev) =>
+      prev.includes(label) ? prev.filter((x) => x !== label) : [...prev, label],
+    );
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -56,6 +80,25 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
     const form = e.currentTarget;
     const fd = new FormData(form);
 
+    const cleanedLines = isPackaging
+      ? lineItems
+          .map((li) => ({
+            category: li.category.trim(),
+            quantity: li.quantity.trim(),
+            capacitySize: li.capacitySize?.trim() || undefined,
+            material: li.material?.trim() || undefined,
+            colourFinish: li.colourFinish?.trim() || undefined,
+            notes: li.notes?.trim() || undefined,
+          }))
+          .filter((li) => li.category && li.quantity)
+      : undefined;
+
+    const productCategory = isPackaging
+      ? packagingCats.length
+        ? packagingCats.join(", ")
+        : cleanedLines?.map((l) => l.category).join(", ") || "Packaging"
+      : String(fd.get("productCategory") ?? "");
+
     const payload = {
       contactName: String(fd.get("contactName") ?? ""),
       companyName: String(fd.get("companyName") ?? ""),
@@ -64,7 +107,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
       country: String(fd.get("country") ?? ""),
       industry: String(fd.get("industry") ?? ""),
       inquiryType: String(fd.get("inquiryType") ?? inquiryType),
-      productCategory: String(fd.get("productCategory") ?? ""),
+      productCategory,
       estimatedQuantity: String(fd.get("estimatedQuantity") ?? ""),
       quantityUnit: String(fd.get("quantityUnit") ?? ""),
       projectDescription: String(fd.get("projectDescription") ?? ""),
@@ -75,7 +118,16 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
       packagingRequirements: String(fd.get("packagingRequirements") ?? ""),
       expectedTimeline: String(fd.get("expectedTimeline") ?? ""),
       sampleRequirements: String(fd.get("sampleRequirements") ?? ""),
-      sourcePage: sourcePage ?? (typeof window !== "undefined" ? window.location.pathname : ""),
+      packagingCategories: isPackaging ? packagingCats : undefined,
+      deliveryDestination: String(fd.get("deliveryDestination") ?? ""),
+      componentReference: String(fd.get("componentReference") ?? ""),
+      matchingRequirements: String(fd.get("matchingRequirements") ?? ""),
+      material: String(fd.get("material") ?? ""),
+      colourFinish: String(fd.get("colourFinish") ?? ""),
+      capacitySize: String(fd.get("capacitySize") ?? ""),
+      lineItems: cleanedLines,
+      sourcePage:
+        sourcePage ?? (typeof window !== "undefined" ? window.location.pathname : ""),
       website: String(fd.get("website") ?? ""),
     };
 
@@ -108,6 +160,8 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
       setDone({ reference: data.reference });
       form.reset();
       setInquiryType(defaultType ?? "FRAGRANCE_TRADING");
+      setPackagingCats([]);
+      setLineItems([emptyLine()]);
       router.refresh();
     } catch {
       setErrors({ form: "Network error. Please check your connection and try again." });
@@ -152,14 +206,21 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
   const errorClass = "mt-1 text-xs text-red-700";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="relative border border-charcoal/10 bg-white p-6 md:p-10">
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className="relative border border-charcoal/10 bg-white p-6 md:p-10"
+    >
       <div className="mb-8">
         <h2 className="font-display text-2xl text-charcoal">Project inquiry</h2>
         <p className="mt-2 text-sm text-charcoal-muted">{conditionalHint}</p>
       </div>
 
       {errors.form && (
-        <div className="mb-6 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+        <div
+          className="mb-6 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+          role="alert"
+        >
           {errors.form}
         </div>
       )}
@@ -167,7 +228,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
       <div className="grid gap-5 md:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="contactName">
-            Contact name *
+            Contact person *
           </label>
           <input id="contactName" name="contactName" className={fieldClass} required autoComplete="name" />
           {errors.contactName && <p className={errorClass}>{errors.contactName}</p>}
@@ -176,7 +237,13 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
           <label className={labelClass} htmlFor="companyName">
             Company name *
           </label>
-          <input id="companyName" name="companyName" className={fieldClass} required autoComplete="organization" />
+          <input
+            id="companyName"
+            name="companyName"
+            className={fieldClass}
+            required
+            autoComplete="organization"
+          />
           {errors.companyName && <p className={errorClass}>{errors.companyName}</p>}
         </div>
         <div>
@@ -188,7 +255,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
         </div>
         <div>
           <label className={labelClass} htmlFor="phone">
-            Phone / WhatsApp *
+            Telephone *
           </label>
           <input id="phone" name="phone" type="tel" className={fieldClass} required autoComplete="tel" />
           {errors.phone && <p className={errorClass}>{errors.phone}</p>}
@@ -236,16 +303,24 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
           </select>
           {errors.inquiryType && <p className={errorClass}>{errors.inquiryType}</p>}
         </div>
-        <div>
-          <label className={labelClass} htmlFor="productCategory">
-            Product category *
-          </label>
-          <input id="productCategory" name="productCategory" className={fieldClass} required placeholder="e.g. EDP, detergent, candle" />
-          {errors.productCategory && <p className={errorClass}>{errors.productCategory}</p>}
-        </div>
+        {!isPackaging && (
+          <div>
+            <label className={labelClass} htmlFor="productCategory">
+              Product category *
+            </label>
+            <input
+              id="productCategory"
+              name="productCategory"
+              className={fieldClass}
+              required={!isPackaging}
+              placeholder="e.g. EDP, detergent, candle"
+            />
+            {errors.productCategory && <p className={errorClass}>{errors.productCategory}</p>}
+          </div>
+        )}
         <div>
           <label className={labelClass} htmlFor="estimatedQuantity">
-            Estimated quantity *
+            {isPackaging ? "Overall estimated quantity *" : "Estimated quantity *"}
           </label>
           <input id="estimatedQuantity" name="estimatedQuantity" className={fieldClass} required placeholder="e.g. 50" />
           {errors.estimatedQuantity && <p className={errorClass}>{errors.estimatedQuantity}</p>}
@@ -268,9 +343,184 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
         </div>
       </div>
 
+      {isPackaging && (
+        <fieldset className="mt-8 border-t border-charcoal/10 pt-8">
+          <legend className="text-sm font-medium text-charcoal">Packaging categories *</legend>
+          <p className="mt-1 text-xs text-charcoal-muted">
+            Select all that apply. Availability is confirmed during commercial review.
+          </p>
+          {errors.packagingCategories && (
+            <p className={errorClass}>{errors.packagingCategories}</p>
+          )}
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {packagingCategoryOptions.map((label) => (
+              <label key={label} className="flex items-start gap-2 text-sm text-charcoal">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={packagingCats.includes(label)}
+                  onChange={() => togglePackagingCat(label)}
+                />
+                <span>{label}</span>
+              </label>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div>
+              <label className={labelClass} htmlFor="capacitySize">
+                Capacity / size
+              </label>
+              <input id="capacitySize" name="capacitySize" className={fieldClass} />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="material">
+                Material
+              </label>
+              <input id="material" name="material" className={fieldClass} />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="colourFinish">
+                Colour / finish
+              </label>
+              <input id="colourFinish" name="colourFinish" className={fieldClass} />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="deliveryDestination">
+                Delivery destination
+              </label>
+              <input id="deliveryDestination" name="deliveryDestination" className={fieldClass} />
+            </div>
+            <div className="md:col-span-2">
+              <label className={labelClass} htmlFor="componentReference">
+                Bottle or component reference (optional)
+              </label>
+              <input id="componentReference" name="componentReference" className={fieldClass} />
+            </div>
+            <div className="md:col-span-2">
+              <label className={labelClass} htmlFor="matchingRequirements">
+                Matching / compatibility notes (optional)
+              </label>
+              <textarea
+                id="matchingRequirements"
+                name="matchingRequirements"
+                rows={3}
+                className={fieldClass}
+                placeholder="Describe matching needs. Compatibility is confirmed only after technical review."
+              />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-sm font-medium text-charcoal">Line items (optional)</h3>
+              <Button
+                type="button"
+                variant="secondary"
+                className="px-3 py-1.5 text-xs"
+                onClick={() => setLineItems((prev) => [...prev, emptyLine()])}
+              >
+                Add line
+              </Button>
+            </div>
+            <div className="mt-4 space-y-4">
+              {lineItems.map((li, idx) => (
+                <div key={idx} className="grid gap-3 border border-charcoal/10 p-4 md:grid-cols-2">
+                  <div>
+                    <label className={labelClass}>Category</label>
+                    <select
+                      className={fieldClass}
+                      value={li.category}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, category: v } : r)),
+                        );
+                      }}
+                    >
+                      <option value="">Select</option>
+                      {packagingCategoryOptions.map((o) => (
+                        <option key={o} value={o}>
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Quantity</label>
+                    <input
+                      className={fieldClass}
+                      value={li.quantity}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, quantity: v } : r)),
+                        );
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Capacity / size</label>
+                    <input
+                      className={fieldClass}
+                      value={li.capacitySize ?? ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, capacitySize: v } : r)),
+                        );
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Material</label>
+                    <input
+                      className={fieldClass}
+                      value={li.material ?? ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, material: v } : r)),
+                        );
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Colour / finish</label>
+                    <input
+                      className={fieldClass}
+                      value={li.colourFinish ?? ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, colourFinish: v } : r)),
+                        );
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Notes</label>
+                    <input
+                      className={fieldClass}
+                      value={li.notes ?? ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setLineItems((rows) =>
+                          rows.map((r, i) => (i === idx ? { ...r, notes: v } : r)),
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </fieldset>
+      )}
+
       <div className="mt-5">
         <label className={labelClass} htmlFor="projectDescription">
-          Project description *
+          Project details *
         </label>
         <textarea
           id="projectDescription"
@@ -345,7 +595,6 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
         </div>
       </fieldset>
 
-      {/* Honeypot */}
       <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />

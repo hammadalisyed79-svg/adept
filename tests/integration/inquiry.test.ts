@@ -111,6 +111,73 @@ describe("inquiry persistence", () => {
     expect(deliveries[0]?.error).toMatch(/EMAIL_NOTIFICATIONS_BLOCKED/);
   });
 
+  it("persists packaging inquiry fields and line items without losing fragrance types", async () => {
+    const email = `packaging-${Date.now()}@example.com`;
+    const result = await createBusinessInquiry(
+      {
+        ...baseInput,
+        email,
+        inquiryType: "PACKAGING_COMPONENTS",
+        productCategory: "Perfume bottles, Pumps & collars",
+        quantityUnit: "pieces",
+        estimatedQuantity: "10000",
+        packagingCategories: ["Perfume bottles", "Pumps & collars"],
+        deliveryDestination: "Karachi, Pakistan",
+        capacitySize: "100ml",
+        material: "Glass / aluminium",
+        colourFinish: "Frosted / silver",
+        componentReference: "Sample bottle TBD",
+        matchingRequirements: "Confirm neck finish before claiming pump compatibility",
+        lineItems: [
+          {
+            category: "Perfume bottles",
+            quantity: "10000",
+            capacitySize: "100ml",
+            material: "Glass",
+            colourFinish: "Frosted",
+          },
+          {
+            category: "Pumps & collars",
+            quantity: "10000",
+            material: "Aluminium",
+            colourFinish: "Silver",
+            notes: "Match bottle neck — verify before quote",
+          },
+        ],
+        projectDescription:
+          "Packaging components quotation for perfume bottles and matching pumps for export brand.",
+      },
+      { ip: "203.0.113.14", userAgent: "vitest-packaging" },
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    const stored = await prisma.businessInquiry.findUnique({
+      where: { id: result.inquiry.id },
+    });
+    expect(stored).not.toBeNull();
+    expect(stored!.inquiryType).toBe("PACKAGING_COMPONENTS");
+    expect(stored!.packagingCategories).toContain("Perfume bottles");
+    expect(stored!.deliveryDestination).toBe("Karachi, Pakistan");
+    expect(stored!.capacitySize).toBe("100ml");
+    expect(stored!.lineItemsJson).toContain("Pumps & collars");
+
+    const fragrance = await createBusinessInquiry(
+      {
+        ...baseInput,
+        email: `fragrance-after-pack-${Date.now()}@example.com`,
+        inquiryType: "FRAGRANCE_TRADING",
+        productCategory: "EDP concentrate",
+        quantityUnit: "kg",
+        projectDescription:
+          "Confirm fragrance trading inquiries still persist after packaging schema expansion.",
+      },
+      { ip: "203.0.113.15" },
+    );
+    expect(fragrance.ok).toBe(true);
+  });
+
   it("retains inquiry when SMTP is configured but delivery fails", async () => {
     process.env.SMTP_HOST = "127.0.0.1";
     process.env.SMTP_PORT = "1";

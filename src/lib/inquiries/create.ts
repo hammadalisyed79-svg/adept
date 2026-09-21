@@ -63,6 +63,18 @@ export async function createBusinessInquiry(
         packagingRequirements: input.packagingRequirements,
         expectedTimeline: input.expectedTimeline,
         sampleRequirements: input.sampleRequirements,
+        packagingCategories: input.packagingCategories?.length
+          ? input.packagingCategories.join(", ")
+          : undefined,
+        deliveryDestination: input.deliveryDestination,
+        componentReference: input.componentReference,
+        matchingRequirements: input.matchingRequirements,
+        material: input.material,
+        colourFinish: input.colourFinish,
+        capacitySize: input.capacitySize,
+        lineItemsJson: input.lineItems?.length
+          ? JSON.stringify(input.lineItems)
+          : undefined,
         sourcePage: input.sourcePage,
         userAgent: meta.userAgent?.slice(0, 300),
         ipHash,
