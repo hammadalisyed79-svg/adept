@@ -2,20 +2,29 @@ import nodemailer from "nodemailer";
 import { company } from "@/lib/company";
 import type { BusinessInquiry } from "@prisma/client";
 
+export type MailConfigStatus = "CONFIGURED" | "BLOCKED_NOT_CONFIGURED";
+
 export type MailResult = {
   sent: boolean;
   skipped: boolean;
+  blocked: boolean;
+  status: MailConfigStatus | "SENT" | "FAILED";
   error?: string;
   recipient: string;
 };
 
-function isSmtpConfigured(): boolean {
-  return Boolean(
+export function getMailConfigStatus(): MailConfigStatus {
+  const configured = Boolean(
     process.env.SMTP_HOST &&
       process.env.SMTP_USER &&
       process.env.SMTP_PASS &&
       (process.env.SALES_EMAIL || company.salesEmail),
   );
+  return configured ? "CONFIGURED" : "BLOCKED_NOT_CONFIGURED";
+}
+
+export function isSmtpConfigured(): boolean {
+  return getMailConfigStatus() === "CONFIGURED";
 }
 
 export async function sendInquiryNotification(
@@ -24,10 +33,15 @@ export async function sendInquiryNotification(
   const recipient = process.env.SALES_EMAIL || company.salesEmail;
 
   if (!isSmtpConfigured()) {
+    const error =
+      "EMAIL_NOTIFICATIONS_BLOCKED: SMTP is not configured. Inquiry was saved to the database; configure SMTP_HOST, SMTP_USER, SMTP_PASS, and SALES_EMAIL to enable delivery.";
+    console.warn("[mail]", error, { reference: inquiry.reference });
     return {
       sent: false,
       skipped: true,
-      error: "SMTP not configured — notification skipped",
+      blocked: true,
+      status: "BLOCKED_NOT_CONFIGURED",
+      error,
       recipient,
     };
   }
@@ -43,7 +57,7 @@ export async function sendInquiryNotification(
       },
     });
 
-    const subject = `[ADEPT] New inquiry ${inquiry.reference} — ${inquiry.inquiryType}`;
+    const subject = `[ADEPT Fragrances] New inquiry ${inquiry.reference} — ${inquiry.inquiryType}`;
     const text = [
       `Inquiry reference: ${inquiry.reference}`,
       `Type: ${inquiry.inquiryType}`,
@@ -70,10 +84,25 @@ export async function sendInquiryNotification(
       text,
     });
 
-    return { sent: true, skipped: false, recipient };
+    return {
+      sent: true,
+      skipped: false,
+      blocked: false,
+      status: "SENT",
+      recipient,
+    };
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown mail error";
-    console.error("[mail] Notification delivery failed:", message);
-    return { sent: false, skipped: false, error: message, recipient };
+    console.error("[mail] Notification delivery failed:", message, {
+      reference: inquiry.reference,
+    });
+    return {
+      sent: false,
+      skipped: false,
+      blocked: false,
+      status: "FAILED",
+      error: message,
+      recipient,
+    };
   }
 }

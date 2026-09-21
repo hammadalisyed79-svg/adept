@@ -1,6 +1,6 @@
 # Private Content Checklist
 
-Items that must **not** be published until verified. Tracked for internal use only.
+Items that must **not** be published as verified until confirmed. Tracked for internal use only.
 
 ## Legal / corporate
 
@@ -11,7 +11,7 @@ Items that must **not** be published until verified. Tracked for internal use on
 
 ## Contact
 
-- [ ] Production email addresses
+- [ ] Production email mailboxes confirmed (DNS/MX + inbox)
 - [ ] Production telephone number
 - [ ] Production WhatsApp number
 - [ ] Verified public address (`COMPANY_ADDRESS` + `COMPANY_ADDRESS_VERIFIED=true`)
@@ -19,7 +19,8 @@ Items that must **not** be published until verified. Tracked for internal use on
 
 ## Brand / media
 
-- [x] Domain and production URL — **adeptfragrances.com**
+- [x] Public brand name: **ADEPT Fragrances**
+- [ ] Domain ownership / DNS for **adeptfragrances.com** (proposed URL configured; not verified)
 - [ ] Approved photography (factory, laboratory, products) with usage rights
 - [ ] Logo finalization (wordmark currently text-based)
 
@@ -37,8 +38,8 @@ Items that must **not** be published until verified. Tracked for internal use on
 
 - [ ] SMTP credentials for sales notifications
 - [ ] ERP API URL, key, and contract (`docs/ERP_INTEGRATION.md`)
-- [ ] Legal review of Privacy Policy and Terms of Use
+- [ ] Legal review of Privacy Policy and Terms
 
 ## Brand separation
 
-- [ ] Confirm BWY consumer brand remains excluded from this site
+- [x] Confirm BWY consumer brand remains excluded from this site

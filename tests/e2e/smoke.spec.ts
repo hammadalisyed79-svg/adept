@@ -6,6 +6,7 @@ test.describe("primary journeys", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "Fragrance Solutions, From Concept to Creation",
     );
+    await expect(page.getByText("ADEPT Fragrances").first()).toBeVisible();
     await page.getByRole("link", { name: "Explore Our Solutions" }).click();
     await expect(page).toHaveURL(/fragrance-trading/);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Fragrance Trading");
@@ -84,5 +85,11 @@ test.describe("primary journeys", () => {
     );
     const title = await page.title();
     expect(title.toLowerCase()).toContain("fine fragrance");
+    expect(title).toContain("ADEPT Fragrances");
+  });
+
+  test("API does not expose inquiry listing via GET", async ({ request }) => {
+    const getRes = await request.get("/api/inquiries");
+    expect([404, 405]).toContain(getRes.status());
   });
 });

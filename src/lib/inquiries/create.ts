@@ -85,89 +85,118 @@ export async function createBusinessInquiry(
     };
   }
 
-  // Notifications — never undo a successful save
-  const mail = await sendInquiryNotification(inquiry);
-  const notificationStatus: NotificationStatus = mail.sent
-    ? NotificationStatus.SENT
-    : mail.skipped
-      ? NotificationStatus.SKIPPED
-      : NotificationStatus.FAILED;
+  // Notifications & ERP — never undo a successful save; side-effect failures must not hide the inquiry
+  try {
+    const mail = await sendInquiryNotification(inquiry);
+    const notificationStatus: NotificationStatus = mail.sent
+      ? NotificationStatus.SENT
+      : mail.skipped
+        ? NotificationStatus.SKIPPED
+        : NotificationStatus.FAILED;
 
-  await prisma.notificationDelivery.create({
-    data: {
-      inquiryId: inquiry.id,
-      channel: NotificationChannel.EMAIL,
-      recipient: mail.recipient,
-      status: notificationStatus,
-      error: mail.error,
-    },
-  });
-
-  await prisma.businessInquiry.update({
-    where: { id: inquiry.id },
-    data: { notificationStatus },
-  });
-
-  if (!mail.sent && !mail.skipped) {
-    await prisma.inquiryActivity.create({
+    await prisma.notificationDelivery.create({
       data: {
         inquiryId: inquiry.id,
-        action: "NOTIFICATION_FAILED",
-        detail: mail.error ?? "Email delivery failed",
+        channel: NotificationChannel.EMAIL,
+        recipient: mail.recipient,
+        status: notificationStatus,
+        error: mail.error,
       },
     });
+
+    await prisma.businessInquiry.update({
+      where: { id: inquiry.id },
+      data: { notificationStatus },
+    });
+
+    if (mail.blocked || mail.skipped) {
+      await prisma.inquiryActivity.create({
+        data: {
+          inquiryId: inquiry.id,
+          action: "NOTIFICATION_BLOCKED",
+          detail: mail.error ?? "Email notifications blocked — SMTP not configured",
+        },
+      });
+    } else if (!mail.sent) {
+      await prisma.inquiryActivity.create({
+        data: {
+          inquiryId: inquiry.id,
+          action: "NOTIFICATION_FAILED",
+          detail: mail.error ?? "Email delivery failed",
+        },
+      });
+    }
+
+    const erp = getErpAdapter();
+    const sync = await erp.syncInquiry({
+      reference: inquiry.reference,
+      inquiryType: inquiry.inquiryType,
+      industry: inquiry.industry,
+      productCategory: inquiry.productCategory,
+      description: inquiry.projectDescription,
+      customer: {
+        companyName: inquiry.companyName,
+        contactName: inquiry.contactName,
+        email: inquiry.email,
+        phone: inquiry.phone,
+        country: inquiry.country,
+      },
+    });
+
+    const erpStatus =
+      sync.status === "SYNCED"
+        ? ErpSyncStatus.SYNCED
+        : sync.status === "FAILED"
+          ? ErpSyncStatus.FAILED
+          : ErpSyncStatus.NOT_CONNECTED;
+
+    await prisma.businessInquiry.update({
+      where: { id: inquiry.id },
+      data: {
+        erpSyncStatus: erpStatus,
+        erpExternalId: sync.externalId,
+      },
+    });
+
+    await prisma.notificationDelivery.create({
+      data: {
+        inquiryId: inquiry.id,
+        channel: NotificationChannel.ERP,
+        recipient: erp.name,
+        status:
+          sync.status === "SYNCED"
+            ? NotificationStatus.SENT
+            : sync.status === "NOT_CONNECTED"
+              ? NotificationStatus.SKIPPED
+              : NotificationStatus.FAILED,
+        error: sync.success ? null : sync.message,
+      },
+    });
+  } catch (sideEffectError) {
+    console.error(
+      "[inquiry] Post-save notification/ERP side effects failed; inquiry retained:",
+      sideEffectError instanceof Error ? sideEffectError.message : sideEffectError,
+      { reference: inquiry.reference },
+    );
+    try {
+      await prisma.inquiryActivity.create({
+        data: {
+          inquiryId: inquiry.id,
+          action: "SIDE_EFFECT_ERROR",
+          detail:
+            sideEffectError instanceof Error
+              ? sideEffectError.message
+              : "Unknown post-save error",
+        },
+      });
+    } catch {
+      // Inquiry already saved — do not fail the request
+    }
   }
 
-  // ERP sync (non-blocking for user success)
-  const erp = getErpAdapter();
-  const sync = await erp.syncInquiry({
-    reference: inquiry.reference,
-    inquiryType: inquiry.inquiryType,
-    industry: inquiry.industry,
-    productCategory: inquiry.productCategory,
-    description: inquiry.projectDescription,
-    customer: {
-      companyName: inquiry.companyName,
-      contactName: inquiry.contactName,
-      email: inquiry.email,
-      phone: inquiry.phone,
-      country: inquiry.country,
-    },
-  });
-
-  const erpStatus =
-    sync.status === "SYNCED"
-      ? ErpSyncStatus.SYNCED
-      : sync.status === "FAILED"
-        ? ErpSyncStatus.FAILED
-        : ErpSyncStatus.NOT_CONNECTED;
-
-  await prisma.businessInquiry.update({
-    where: { id: inquiry.id },
-    data: {
-      erpSyncStatus: erpStatus,
-      erpExternalId: sync.externalId,
-    },
-  });
-
-  await prisma.notificationDelivery.create({
-    data: {
-      inquiryId: inquiry.id,
-      channel: NotificationChannel.ERP,
-      recipient: erp.name,
-      status:
-        sync.status === "SYNCED"
-          ? NotificationStatus.SENT
-          : sync.status === "NOT_CONNECTED"
-            ? NotificationStatus.SKIPPED
-            : NotificationStatus.FAILED,
-      error: sync.success ? null : sync.message,
-    },
-  });
-
-  const refreshed = await prisma.businessInquiry.findUniqueOrThrow({
+  const refreshed = await prisma.businessInquiry.findUnique({
     where: { id: inquiry.id },
   });
 
-  return { ok: true, inquiry: refreshed };
+  return { ok: true, inquiry: refreshed ?? inquiry };
 }

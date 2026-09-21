@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { company, getWhatsAppUrl } from "@/lib/company";
+import {
+  company,
+  getWhatsAppUrl,
+  isTelephonePlaceholder,
+  isWhatsAppPlaceholder,
+} from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
 export function Footer() {
@@ -94,21 +99,30 @@ export function Footer() {
                 {company.email}
               </a>
             </li>
-            <li>
-              <a href={`tel:${company.telephone.replace(/\s/g, "")}`} className="transition hover:text-ivory">
-                {company.telephone}
-              </a>
-            </li>
-            <li>
-              <a
-                href={getWhatsAppUrl("Hello ADEPT — I would like to discuss a fragrance project.")}
-                className="transition hover:text-ivory"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-            </li>
+            {!isTelephonePlaceholder() && (
+              <li>
+                <a
+                  href={`tel:${company.telephone.replace(/\s/g, "")}`}
+                  className="transition hover:text-ivory"
+                >
+                  {company.telephone}
+                </a>
+              </li>
+            )}
+            {!isWhatsAppPlaceholder() && (
+              <li>
+                <a
+                  href={getWhatsAppUrl(
+                    "Hello ADEPT Fragrances — I would like to discuss a fragrance project.",
+                  )}
+                  className="transition hover:text-ivory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </li>
+            )}
             {company.addressVerified && company.address ? (
               <li className="pt-2 leading-relaxed">{company.address}</li>
             ) : (

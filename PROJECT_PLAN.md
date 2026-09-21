@@ -1,9 +1,11 @@
-# ADEPT Fragrance Industries — Project Plan
+# ADEPT Fragrances — Project Plan
 
-**Status:** In progress  
-**Brand:** ADEPT · Fragrance Industries  
+**Status:** Launch readiness audit complete  
+**Brand:** ADEPT Fragrances  
+**Proposed domain:** adeptfragrances.com (ownership not assumed)  
 **Legal name (proposed, unverified):** Adept Fragrance Industries (Private) Limited  
 **Positioning:** Integrated fragrance sourcing and manufacturing solutions for ambitious brands.
+
 
 ---
 
@@ -25,7 +27,7 @@ Build a production-ready B2B corporate website for fragrance trading and toll ma
 ## 2. Architecture
 
 ```
-Next.js 15 (App Router) + TypeScript + Tailwind CSS
+Next.js 16 (App Router) + TypeScript + Tailwind CSS
 ├── app/                  # Routes, layouts, API routes
 ├── components/           # UI + layout + forms
 ├── lib/                  # Config, db, validation, rate-limit, mail, ERP
@@ -119,13 +121,11 @@ Statuses: `NEW`, `UNDER_REVIEW`, `SAMPLING`, `QUOTED`, `WON`, `LOST`
 
 ## 8. Private Content Checklist (unconfirmed)
 
-Do **not** publish until verified:
-
-- [ ] Legal entity registration / incorporation status
-- [ ] Registered office address
+- [ ] Domain ownership / DNS for adeptfragrances.com (proposed URL configured; not verified)
 - [ ] Production telephone / WhatsApp numbers
-- [ ] Production email addresses
-- [ ] Domain / production URL
+- [ ] Production email mailboxes confirmed working
+- [ ] Registered office address
+- [ ] Legal entity registration / incorporation status
 - [ ] Social profile URLs
 - [ ] Factory / lab photography rights
 - [ ] Certifications, capacity, years in business, awards
@@ -139,3 +139,4 @@ Do **not** publish until verified:
 
 - 2026-09-21: Empty repository confirmed. Plan created. Implementation starting.
 - 2026-09-21: Full site implemented. Prisma migration applied. Typecheck, lint, build, 12 Vitest tests, and 6 Playwright e2e tests passed. FINAL_IMPLEMENTATION_REPORT.md written.
+- 2026-09-21: Launch readiness audit — brand set to ADEPT Fragrances; email blocked status explicit; inquiry retrieval docs; LAUNCH_READINESS_REPORT.md.

@@ -2,7 +2,7 @@ import { Cormorant_Garamond, Outfit } from "next/font/google";
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { company, getSiteUrl } from "@/lib/company";
+import { company, getSiteUrl, isTelephonePlaceholder } from "@/lib/company";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -24,7 +24,7 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${company.name} | ${company.displayDescriptor}`,
+    default: company.name,
     template: `%s | ${company.name}`,
   },
   description: company.positioning,
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: `${company.name} ${company.displayDescriptor}`,
-    title: `${company.name} | ${company.displayDescriptor}`,
+    siteName: company.name,
+    title: company.name,
     description: company.positioning,
   },
   robots: { index: true, follow: true },
@@ -44,13 +44,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: `${company.name} ${company.displayDescriptor}`,
+    name: company.name,
     url: siteUrl,
     email: company.email,
-    telephone: company.telephone,
     description: company.positioning,
     ...(company.addressVerified && company.address
       ? { address: { "@type": "PostalAddress", streetAddress: company.address } }
+      : {}),
+    ...(!isTelephonePlaceholder()
+      ? { telephone: company.telephone }
       : {}),
   };
 

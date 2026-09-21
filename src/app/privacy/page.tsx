@@ -27,8 +27,11 @@ export default function PrivacyPage() {
             <section>
               <h2 className="font-display text-2xl text-charcoal">1. Who we are</h2>
               <p className="mt-3">
-                This website is operated by {company.name} ({company.displayDescriptor}). Contact:{" "}
+                This website is operated under the public brand {company.name}. Contact:{" "}
                 {company.email}.
+                {!company.legalNameVerified && (
+                  <> Proposed legal name ({company.legalName}) is pending verification.</>
+                )}
               </p>
             </section>
 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
 import { processSteps } from "@/content/process";
-import { company, getWhatsAppUrl } from "@/lib/company";
+import { company, getWhatsAppUrl, isTelephonePlaceholder, isWhatsAppPlaceholder } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default function HomePage() {
         <Container className="relative grid gap-12 py-20 md:grid-cols-[1.35fr_0.9fr] md:items-end md:py-28">
           <div>
             <p className="animate-fade-up text-xs font-medium uppercase tracking-wideish text-champagne-deep">
-              {company.name} · {company.displayDescriptor}
+              {company.name}
             </p>
             <h1 className="animate-fade-up-delay mt-4 max-w-xl font-display text-4xl leading-[1.1] text-charcoal md:text-6xl">
               Fragrance Solutions, From Concept to Creation.
@@ -222,25 +222,38 @@ export default function HomePage() {
                 {company.email}
               </a>
             </p>
-            <p>
-              <span className="text-charcoal">Telephone:</span>{" "}
-              <a className="underline underline-offset-2" href={`tel:${company.telephone.replace(/\s/g, "")}`}>
-                {company.telephone}
-              </a>
-            </p>
-            <p>
-              <Button
-                href={getWhatsAppUrl("Hello ADEPT — I would like to discuss a fragrance project.")}
-                variant="champagne"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Message on WhatsApp
-              </Button>
-            </p>
+            {!isTelephonePlaceholder() && (
+              <p>
+                <span className="text-charcoal">Telephone:</span>{" "}
+                <a
+                  className="underline underline-offset-2"
+                  href={`tel:${company.telephone.replace(/\s/g, "")}`}
+                >
+                  {company.telephone}
+                </a>
+              </p>
+            )}
+            {!isWhatsAppPlaceholder() && (
+              <p>
+                <Button
+                  href={getWhatsAppUrl(
+                    "Hello ADEPT Fragrances — I would like to discuss a fragrance project.",
+                  )}
+                  variant="champagne"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Message on WhatsApp
+                </Button>
+              </p>
+            )}
             <p className="pt-2">
               <Link href="/contact" className="text-charcoal underline underline-offset-2">
                 Open the contact page
+              </Link>
+              {" · "}
+              <Link href="/request-quote" className="text-charcoal underline underline-offset-2">
+                Request a quote
               </Link>
             </p>
           </div>

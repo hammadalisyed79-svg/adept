@@ -1,7 +1,9 @@
-# ADEPT — Fragrance Industries
+# ADEPT Fragrances — Website
 
 Premium B2B corporate website for fragrance trading, toll manufacturing, and private-label solutions.
 
+**Public brand:** ADEPT Fragrances  
+**Proposed domain:** [adeptfragrances.com](https://www.adeptfragrances.com) (ownership not assumed until verified)  
 **Positioning:** Integrated fragrance sourcing and manufacturing solutions for ambitious brands.  
 **Tagline:** Precision in Fragrance. Excellence in Manufacturing.
 
@@ -9,7 +11,7 @@ Premium B2B corporate website for fragrance trading, toll manufacturing, and pri
 
 ## Stack
 
-- Next.js (App Router) + TypeScript + Tailwind CSS
+- Next.js 16 (App Router) + TypeScript + Tailwind CSS
 - PostgreSQL + Prisma ORM
 - Zod validation, persistent rate limiting, optional SMTP notifications
 - ERP integration adapter (NOT CONNECTED until authorized API exists)
@@ -47,26 +49,33 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm test` | Unit + integration tests (Vitest) |
 | `npm run test:e2e` | Playwright e2e (requires build + DB) |
 | `npm run db:migrate` | Prisma migrate (dev) |
-| `npm run db:studio` | Prisma Studio |
+| `npm run db:studio` | Prisma Studio (secure inquiry review) |
 
 ## Configuration
 
-All company identity and contact values are centralized in `src/lib/company.ts` and overridable via environment variables (see `.env.example`).
+Company identity lives in `src/lib/company.ts` and is overridable via environment variables (see `.env.example`).
 
 ## Inquiry system
 
-`POST /api/inquiries` validates input, applies honeypot + rate limiting, persists a `BusinessInquiry` with unique reference (`ADF-YYYYMMDD-XXXXXX`), attempts email notification if SMTP is configured, and records ERP sync as `NOT_CONNECTED` until credentials exist.
+`POST /api/inquiries` validates input, applies honeypot + rate limiting, persists a `BusinessInquiry` with unique reference (`ADF-YYYYMMDD-XXXXXX`), then attempts email notification if SMTP is configured.
 
-Inquiry records are **never** exposed on public pages.
+- If SMTP is missing → email is **BLOCKED**; inquiry remains in the database.
+- If SMTP fails → inquiry is **retained**; failure is logged.
+- There is **no** public list/read API for inquiries.
+
+See `docs/INQUIRY_RETRIEVAL.md` and `docs/STAGING.md`.
 
 ## Documentation
 
-- [PROJECT_PLAN.md](./PROJECT_PLAN.md) — scope and phases
-- [docs/DATABASE.md](./docs/DATABASE.md) — database setup
-- [docs/ERP_INTEGRATION.md](./docs/ERP_INTEGRATION.md) — ERP adapter requirements
-- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) — deployment
-- [docs/PRIVATE_CONTENT_CHECKLIST.md](./docs/PRIVATE_CONTENT_CHECKLIST.md) — unverified business details
-- [FINAL_IMPLEMENTATION_REPORT.md](./FINAL_IMPLEMENTATION_REPORT.md) — completion report
+- [PROJECT_PLAN.md](./PROJECT_PLAN.md)
+- [docs/DATABASE.md](./docs/DATABASE.md)
+- [docs/STAGING.md](./docs/STAGING.md)
+- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
+- [docs/ERP_INTEGRATION.md](./docs/ERP_INTEGRATION.md)
+- [docs/INQUIRY_RETRIEVAL.md](./docs/INQUIRY_RETRIEVAL.md)
+- [docs/PRIVATE_CONTENT_CHECKLIST.md](./docs/PRIVATE_CONTENT_CHECKLIST.md)
+- [FINAL_IMPLEMENTATION_REPORT.md](./FINAL_IMPLEMENTATION_REPORT.md)
+- [LAUNCH_READINESS_REPORT.md](./LAUNCH_READINESS_REPORT.md)
 
 ## Brand note
 

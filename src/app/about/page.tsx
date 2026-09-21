@@ -13,9 +13,9 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About ADEPT"
+        eyebrow={`About ${company.logoPrimary}`}
         title="A B2B partner for fragrance sourcing and manufacturing"
-        description="ADEPT supports ambitious brands and manufacturers with integrated fragrance trading, development support, and production pathways — without retail perfume positioning."
+        description={`${company.name} supports ambitious brands and manufacturers with integrated fragrance trading, development support, and production pathways — without retail perfume positioning.`}
       />
 
       <Section>
@@ -27,9 +27,9 @@ export default function AboutPage() {
           />
           <div className="space-y-5 text-base leading-relaxed text-charcoal-muted">
             <p>
-              ADEPT Fragrance Industries is organized around business buyers. Our focus is helping
-              companies move from fragrance concept to commercial supply or finished-product
-              manufacturing with disciplined communication and transparent scope.
+              {company.name} is organized around business buyers. Our focus is helping companies
+              move from fragrance concept to commercial supply or finished-product manufacturing
+              with disciplined communication and transparent scope.
             </p>
             <p>
               We do not present unverified company history, capacity claims, certifications, or
@@ -123,7 +123,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <QuoteCta title="Partner with ADEPT on your next fragrance project" />
+      <QuoteCta title={`Partner with ${company.name} on your next fragrance project`} />
     </>
   );
 }

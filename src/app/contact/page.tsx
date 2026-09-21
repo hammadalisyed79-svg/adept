@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
-import { company, getWhatsAppUrl } from "@/lib/company";
+import {
+  company,
+  getWhatsAppUrl,
+  isTelephonePlaceholder,
+  isWhatsAppPlaceholder,
+} from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,7 +21,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to our commercial team"
-        description="Use the inquiry form for project briefs, or reach us directly by email, telephone, or WhatsApp."
+        description="Use the inquiry form for project briefs, or reach us by the channels listed below once verified."
       />
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
@@ -28,36 +33,66 @@ export default function ContactPage() {
                   <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
                     Email
                   </span>
-                  <a href={`mailto:${company.email}`} className="mt-1 inline-block text-charcoal underline-offset-2 hover:underline">
-                    {company.email}
-                  </a>
-                </li>
-                <li>
-                  <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
-                    Telephone
-                  </span>
                   <a
-                    href={`tel:${company.telephone.replace(/\s/g, "")}`}
+                    href={`mailto:${company.email}`}
                     className="mt-1 inline-block text-charcoal underline-offset-2 hover:underline"
                   >
-                    {company.telephone}
+                    {company.email}
                   </a>
+                  <p className="mt-1 text-xs text-charcoal-muted">
+                    Confirm mailbox availability before treating this as a production contact.
+                  </p>
                 </li>
-                <li>
-                  <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
-                    WhatsApp
-                  </span>
-                  <div className="mt-2">
-                    <Button
-                      href={getWhatsAppUrl("Hello ADEPT — I would like to make an inquiry.")}
-                      variant="champagne"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                {!isTelephonePlaceholder() ? (
+                  <li>
+                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
+                      Telephone
+                    </span>
+                    <a
+                      href={`tel:${company.telephone.replace(/\s/g, "")}`}
+                      className="mt-1 inline-block text-charcoal underline-offset-2 hover:underline"
                     >
-                      Message on WhatsApp
-                    </Button>
-                  </div>
-                </li>
+                      {company.telephone}
+                    </a>
+                  </li>
+                ) : (
+                  <li>
+                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
+                      Telephone
+                    </span>
+                    <p className="mt-1 text-sm text-charcoal-muted">
+                      Production telephone pending configuration.
+                    </p>
+                  </li>
+                )}
+                {!isWhatsAppPlaceholder() ? (
+                  <li>
+                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
+                      WhatsApp
+                    </span>
+                    <div className="mt-2">
+                      <Button
+                        href={getWhatsAppUrl(
+                          "Hello ADEPT Fragrances — I would like to make an inquiry.",
+                        )}
+                        variant="champagne"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Message on WhatsApp
+                      </Button>
+                    </div>
+                  </li>
+                ) : (
+                  <li>
+                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
+                      WhatsApp
+                    </span>
+                    <p className="mt-1 text-sm text-charcoal-muted">
+                      WhatsApp number pending configuration.
+                    </p>
+                  </li>
+                )}
               </ul>
             </div>
 
