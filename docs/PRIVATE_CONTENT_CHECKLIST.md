@@ -19,7 +19,7 @@ Items that must **not** be published until verified. Tracked for internal use on
 
 ## Brand / media
 
-- [ ] Domain and production URL
+- [x] Domain and production URL — **adeptfragrances.com**
 - [ ] Approved photography (factory, laboratory, products) with usage rights
 - [ ] Logo finalization (wordmark currently text-based)
 

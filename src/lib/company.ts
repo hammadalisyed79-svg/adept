@@ -13,14 +13,14 @@ export const company = {
   tagline: "Precision in Fragrance. Excellence in Manufacturing.",
   positioning:
     "Integrated fragrance sourcing and manufacturing solutions for ambitious brands.",
-  email: process.env.COMPANY_EMAIL ?? "inquiries@adeptfragrance.example",
-  salesEmail: process.env.SALES_EMAIL ?? "sales@adeptfragrance.example",
+  email: process.env.COMPANY_EMAIL ?? "inquiries@adeptfragrances.com",
+  salesEmail: process.env.SALES_EMAIL ?? "sales@adeptfragrances.com",
   telephone: process.env.COMPANY_TELEPHONE ?? "+00 000 000 0000",
   whatsapp: process.env.COMPANY_WHATSAPP ?? "+000000000000",
   /** Leave empty until a verified address is confirmed. */
   address: process.env.COMPANY_ADDRESS ?? "",
   addressVerified: process.env.COMPANY_ADDRESS_VERIFIED === "true",
-  domain: process.env.COMPANY_DOMAIN ?? "https://www.adeptfragrance.example",
+  domain: process.env.COMPANY_DOMAIN ?? "https://www.adeptfragrances.com",
   social: {
     linkedin: process.env.SOCIAL_LINKEDIN ?? "",
     instagram: process.env.SOCIAL_INSTAGRAM ?? "",
