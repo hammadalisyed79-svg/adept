@@ -14,7 +14,8 @@
 | DB isolation (Preview ≠ Production) | **VERIFIED** |
 | Staging migrations | **COMPLETED** |
 | SMTP delivery | **BLOCKED** — secrets exist but are **empty**; mailbox password not available |
-| GUI merge + Production promote | *in progress / see final section* |
+| GUI merge + Production promote | **COMPLETED** / **VERIFIED** |
+| Release control (stage then promote) | **VERIFIED** (demonstrated on this release) |
 | DNS / Production DB delete / ERP / paid upgrade | **NOT DONE** (not required) |
 
 ---
@@ -53,15 +54,28 @@ Env layout:
 
 ---
 
-## Rollback / public baseline (pre-promote)
+## Release + public site
 
-- Public deployment: `dpl_8auMn3xZJW9ADvBwGuuNc9UNbKpH`  
-- `www` HTTP 200; apex 308 → www  
-- `autoAssignCustomDomains`: **false**
+| Item | Value |
+|------|-------|
+| Pre-promote public deployment (rollback) | `dpl_8auMn3xZJW9ADvBwGuuNc9UNbKpH` |
+| Staged Production build (`main` @ `9adf97d`) | `dpl_BNCfeh2TLWFaQkhz2io2EWoKBZnd` |
+| During staging, www still served | `dpl_8auMn3xZJW9ADvBwGuuNc9UNbKpH` (auto-assign gate **worked**) |
+| After `vercel promote` | www → `dpl_BNCfeh2TLWFaQkhz2io2EWoKBZnd` |
+| www / apex | HTTP **200** / **308→www** |
+| `autoAssignCustomDomains` | **false** (unchanged) |
+| GUI content on www | Confirmed (`hero-fragrance-solutions`, etc.) |
 
 ---
 
 ## GUI
 
-- Branch: `gui-visual-upgrade`  
-- Freeze commit: `ec61682a81449f8a56b2b44a6b4a86cbdb9fa5c2` (preserved in history)
+- Merged `gui-visual-upgrade` → `main` (fast-forward) and pushed  
+- Freeze commit preserved in history: `ec61682a81449f8a56b2b44a6b4a86cbdb9fa5c2`  
+- Production HEAD: `9adf97d196370199225fe48e013a3efb089c550c`
+
+---
+
+## Remaining blocker
+
+**SMTP:** set nonempty `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (and preferably `SMTP_PORT=587`, `SMTP_SECURE=false`, `SMTP_FROM=info@adeptfragrances.com`) in Vercel Production + Preview. Password was not available in this environment.
