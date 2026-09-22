@@ -9,10 +9,10 @@
 
 | Item | Value |
 |------|--------|
-| Branch | `feature/technology-growth` |
-| Tip (unpushed) | `5109f99c8b0e8ce878be8f04e4e9a386dafbd98b` |
+| Branch | `feature/technology-growth` (unpushed) |
 | Feature commit | `b1d53747b6a4bff68a74b79e86a803fd76b173b8` |
-| Parent | `21ba1693467e407c79de8866d4e998f9b0b709dd` |
+| Report tip after docs commits | `5074d35` (local only; confirm with `git rev-parse HEAD`) |
+| Parent before feature | `21ba1693467e407c79de8866d4e998f9b0b709dd` |
 | Unrelated untracked preserved | `.agents/`, `skills-lock.json`, `visual-review.rar` |
 | Push | **NOT performed** (unauthorized) |
 | Merge to main | **NOT performed** |
