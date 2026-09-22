@@ -25,7 +25,8 @@ function isTechnologyInput(
   return (
     input.inquiryType === "TECHNOLOGY_ERP" ||
     input.inquiryType === "TECHNOLOGY_WEBSITE" ||
-    input.inquiryType === "TECHNOLOGY_MARKETING"
+    input.inquiryType === "TECHNOLOGY_MARKETING" ||
+    input.inquiryType === "TECHNOLOGY_AI"
   );
 }
 
@@ -55,6 +56,14 @@ function buildTechnologyDetails(input: TechnologyInquiryInput): string | undefin
     assign("targetAudience", input.targetAudience);
     assign("interestedChannels", input.interestedChannels);
     assign("monthlyMarketingBudget", input.monthlyMarketingBudget);
+  }
+  if (input.inquiryType === "TECHNOLOGY_AI") {
+    assign("existingWebsiteUrl", input.existingWebsiteUrl);
+    assign("chatbotGoals", input.chatbotGoals);
+    assign("commonQuestions", input.commonQuestions);
+    assign("handoffPreference", input.handoffPreference);
+    assign("knowledgeSources", input.knowledgeSources);
+    assign("integrationRequirements", input.integrationRequirements);
   }
 
   return Object.keys(details).length ? JSON.stringify(details) : undefined;

@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${company.name} at ${company.email} for fragrance trading, packaging, toll manufacturing, and private-label inquiries.`,
+  description: `Contact ${company.name} at ${company.email} for fragrance, packaging, manufacturing, private label, and Technology & Growth inquiries.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -21,7 +21,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to our commercial team"
-        description={`Email ${company.email} for fragrance trading, packaging, toll manufacturing, and private-label inquiries — or use the form.`}
+        description={`Email ${company.email} for fragrance, packaging, manufacturing, private label, or Technology & Growth inquiries — or use the forms below.`}
       />
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
@@ -92,7 +92,14 @@ export default function ContactPage() {
             <p className="text-sm text-charcoal-muted">
               Prefer a structured quotation brief?{" "}
               <a href="/request-quote" className="text-charcoal underline underline-offset-2">
-                Open Request a Quote
+                Fragrance / packaging quote
+              </a>
+              {" · "}
+              <a
+                href="/technology/request-quote"
+                className="text-charcoal underline underline-offset-2"
+              >
+                Technology & Growth quote
               </a>
               .
             </p>

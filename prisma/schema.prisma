@@ -16,6 +16,7 @@ enum InquiryType {
   TECHNOLOGY_ERP
   TECHNOLOGY_WEBSITE
   TECHNOLOGY_MARKETING
+  TECHNOLOGY_AI
 }
 
 enum InquiryStatus {

@@ -4,6 +4,7 @@ export const technologyInquiryTypes = [
   "TECHNOLOGY_ERP",
   "TECHNOLOGY_WEBSITE",
   "TECHNOLOGY_MARKETING",
+  "TECHNOLOGY_AI",
 ] as const;
 
 export type TechnologyInquiryType = (typeof technologyInquiryTypes)[number];
@@ -13,15 +14,19 @@ export const technologyTypeAliases: Record<string, TechnologyInquiryType> = {
   erp: "TECHNOLOGY_ERP",
   website: "TECHNOLOGY_WEBSITE",
   marketing: "TECHNOLOGY_MARKETING",
+  ai: "TECHNOLOGY_AI",
+  chatbot: "TECHNOLOGY_AI",
   TECHNOLOGY_ERP: "TECHNOLOGY_ERP",
   TECHNOLOGY_WEBSITE: "TECHNOLOGY_WEBSITE",
   TECHNOLOGY_MARKETING: "TECHNOLOGY_MARKETING",
+  TECHNOLOGY_AI: "TECHNOLOGY_AI",
 };
 
 export const technologyTypeLabels: Record<TechnologyInquiryType, string> = {
   TECHNOLOGY_ERP: "ERP Solutions",
   TECHNOLOGY_WEBSITE: "Website Development",
   TECHNOLOGY_MARKETING: "Digital Marketing",
+  TECHNOLOGY_AI: "AI Support & Chatbots",
 };
 
 const optionalText = (max: number) =>
@@ -86,6 +91,11 @@ export const technologyInquirySchema = z
     targetAudience: optionalText(1000),
     interestedChannels: optionalText(500),
     monthlyMarketingBudget: optionalText(120),
+    // AI / chatbot
+    chatbotGoals: optionalText(1000),
+    commonQuestions: optionalText(1500),
+    handoffPreference: optionalText(500),
+    knowledgeSources: optionalText(1000),
     sourcePage: optionalText(200),
     /** Honeypot — must be empty */
     website: z.string().max(0).optional().or(z.literal("")),

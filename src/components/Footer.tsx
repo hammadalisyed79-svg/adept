@@ -172,7 +172,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-content flex-col gap-2 px-5 py-5 text-xs text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
           <p>© {year} {company.name}</p>
-          <p>B2B fragrance, packaging, and manufacturing solutions.</p>
+          <p>B2B fragrance, packaging, manufacturing, private label, and technology solutions.</p>
         </div>
       </div>
     </footer>

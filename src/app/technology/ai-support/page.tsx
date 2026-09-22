@@ -80,9 +80,9 @@ export default function TechnologyAiSupportPage() {
 
       <QuoteCta
         title="Discuss AI support or a chatbot"
-        description="Tell us about your website, common visitor questions, and how you want leads handed to sales. We respond by email."
-        primaryHref="/technology/request-quote"
-        primaryLabel="Request Technology Quote"
+        description="Tell us about your website, common visitor questions, and how you want leads handed to sales."
+        primaryHref="/technology/request-quote?type=ai"
+        primaryLabel="Request AI Support Quote"
         showEmail
       />
     </>

@@ -132,9 +132,10 @@ export default function AboutPage() {
           <div>
             <h2 className="font-display text-3xl text-charcoal">Operational approach</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              Engagements follow a structured path: inquiry, requirement assessment, sampling where
-              relevant, quotation, planning, production or supply checks, and dispatch. Each stage is
-              documented enough for procurement and brand teams to align.
+              Commercial engagements follow the published process: brief and selection, sampling and
+              approval, production and quality, then packing and dispatch. See the Process page for
+              the full eight-step path. Technology & Growth projects follow their own discovery-to-
+              handover sequence on each service page.
             </p>
           </div>
           <div>

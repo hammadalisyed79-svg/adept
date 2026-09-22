@@ -116,7 +116,7 @@ export default function FragranceTradingPage() {
       <QuoteCta
         title="Need fragrance concentrates for your line?"
         primaryHref="/request-quote?type=FRAGRANCE_TRADING"
-        primaryLabel="Request a Fragrance Sample"
+        primaryLabel="Request a Fragrance Quote"
       />
     </>
   );

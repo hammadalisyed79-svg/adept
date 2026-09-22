@@ -39,7 +39,7 @@ export default function HomePage() {
               {company.heroSupporting}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/services/fragrance-trading">Explore Our Solutions</Button>
+              <Button href="/#divisions">Explore Our Solutions</Button>
               <Button href="/request-quote" variant="secondary">
                 Request a Quote
               </Button>
@@ -60,7 +60,7 @@ export default function HomePage() {
       </section>
 
       {/* Four divisions */}
-      <Section className="bg-white">
+      <Section id="divisions" className="bg-white">
         <Container>
           <SectionHeading
             eyebrow="Business divisions"
@@ -88,7 +88,7 @@ export default function HomePage() {
       <Section className="bg-charcoal text-ivory">
         <Container>
           <p className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Beyond Manufacturing
+            Beyond product supply
           </p>
           <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ivory md:text-4xl lg:text-5xl">
             Build the Brand. Power the Business.
@@ -297,7 +297,7 @@ export default function HomePage() {
 
       <QuoteCta
         title="Request a quotation"
-        description="Brief fragrance, packaging, or manufacturing requirements in one inquiry. We respond by email."
+        description="Brief fragrance, packaging, manufacturing, private label, or Technology & Growth requirements. We respond by email."
         showEmail
       />
     </>

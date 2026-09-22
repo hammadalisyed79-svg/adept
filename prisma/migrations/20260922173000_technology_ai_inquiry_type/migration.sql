@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "InquiryType" ADD VALUE IF NOT EXISTS 'TECHNOLOGY_AI';

@@ -9,7 +9,7 @@ import { resolveTechnologyTypeParam } from "@/lib/validation/technology-inquiry"
 export const metadata: Metadata = {
   title: "Discuss Your Technology Project",
   description:
-    "Request a consultation for ERP solutions, website development, or digital marketing from ADEPT Fragrances Technology & Growth.",
+    "Request a consultation for ERP solutions, website development, digital marketing, or AI support from ADEPT Fragrances Technology & Growth.",
   alternates: { canonical: "/technology/request-quote" },
   robots: { index: true, follow: true },
 };
@@ -25,7 +25,7 @@ function WhatHappensNextPanel() {
       <h2 className="mt-3 font-display text-2xl text-charcoal">What happens next</h2>
       <ul className="mt-5 space-y-3 text-sm leading-relaxed text-charcoal-muted">
         <li className="border-l-2 border-champagne pl-3">
-          We review your brief against ERP, website, or marketing scope.
+          We review your brief against ERP, website, marketing, or AI chatbot scope.
         </li>
         <li className="border-l-2 border-champagne pl-3">
           Clarifying questions are sent by email when needed.

@@ -33,7 +33,7 @@ export default function CataloguePage() {
                 Meanwhile, request a quotation for packaging categories or fragrance services.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button href="/request-quote">Request a Quote</Button>
+                <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>
                 <Button href="/packaging" variant="secondary">
                   View packaging categories
                 </Button>

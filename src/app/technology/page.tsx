@@ -94,7 +94,7 @@ export default function TechnologyOverviewPage() {
 
       <QuoteCta
         title="Discuss Technology & Growth"
-        description="Tell us about an ERP, website, or marketing project. AI chatbot support remains available by email."
+        description="Tell us about an ERP, website, marketing, or AI chatbot project. We respond by email."
         primaryHref="/technology/request-quote"
         primaryLabel="Discuss Your Project"
         showEmail

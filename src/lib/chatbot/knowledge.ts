@@ -69,6 +69,12 @@ export const quickActions = [
     prompt: "Tell me about digital marketing services",
   },
   {
+    id: "ai",
+    label: "AI Support & Chatbots",
+    href: "/technology/ai-support",
+    prompt: "Tell me about AI Support and chatbots",
+  },
+  {
     id: "quote",
     label: "Request a Quote",
     href: "/request-quote",
@@ -288,10 +294,13 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "ai service",
     ],
     answer:
-      "ADEPT offers AI Support & Chatbots as a Technology & Growth service: website chatbots, AI customer support grounded in approved content, lead capture and qualification, knowledge grounding, human handoff paths, and website or CRM-friendly integration where systems allow. This on-site ADEPT Assistant helps visitors to adeptfragrances.com with published service guidance. To discuss a chatbot project for your own brand, email info@adeptfragrances.com or use the Technology overview.",
+      "ADEPT offers AI Support & Chatbots as a Technology & Growth service: website chatbots, AI customer support grounded in approved content, lead capture and qualification, knowledge grounding, human handoff paths, and website or CRM-friendly integration where systems allow. This on-site ADEPT Assistant helps visitors to adeptfragrances.com with published service guidance. To discuss a chatbot project for your own brand, use the Technology quotation form (AI Support) or email info@adeptfragrances.com.",
     links: [
       { label: "AI Support & Chatbots", href: "/technology/ai-support" },
-      { label: "Technology & Growth", href: "/technology" },
+      {
+        label: "Technology quotation (AI)",
+        href: "/technology/request-quote?type=ai",
+      },
       {
         label: "Email ADEPT",
         href: "mailto:info@adeptfragrances.com?subject=AI%20Support%20%26%20Chatbots",
@@ -315,7 +324,7 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "enquiry",
     ],
     answer:
-      "I cannot provide prices, minimum order quantities, stock availability, or delivery commitments. ADEPT handles commercial terms through structured quotation forms reviewed by the team. Use the fragrance / packaging / manufacturing quote form for those services, or the Technology quote form for ERP, websites, and digital marketing.",
+      "I cannot provide prices, minimum order quantities, stock availability, or delivery commitments. ADEPT handles commercial terms through structured quotation forms reviewed by the team. Use the fragrance / packaging / manufacturing quote form for those services, or the Technology quote form for ERP, websites, digital marketing, and AI support.",
     links: [
       { label: "Fragrance & manufacturing quote", href: "/request-quote" },
       {

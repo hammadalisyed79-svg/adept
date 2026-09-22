@@ -88,6 +88,9 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
     if (inquiryType === "TECHNOLOGY_WEBSITE") {
       return "Share website type, existing URL, and ecommerce needs when known.";
     }
+    if (inquiryType === "TECHNOLOGY_AI") {
+      return "Share your website, common visitor questions, and how leads should hand off.";
+    }
     return "Share channels, audience, and objectives when known.";
   }, [inquiryType]);
 
@@ -122,6 +125,10 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
       targetAudience: String(fd.get("targetAudience") ?? ""),
       interestedChannels: String(fd.get("interestedChannels") ?? ""),
       monthlyMarketingBudget: String(fd.get("monthlyMarketingBudget") ?? ""),
+      chatbotGoals: String(fd.get("chatbotGoals") ?? ""),
+      commonQuestions: String(fd.get("commonQuestions") ?? ""),
+      handoffPreference: String(fd.get("handoffPreference") ?? ""),
+      knowledgeSources: String(fd.get("knowledgeSources") ?? ""),
       sourcePage: sourcePage ?? "/technology/request-quote",
       website: String(fd.get("website") ?? ""),
     };
@@ -204,7 +211,7 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
         title="Service required"
         description="Select the Technology & Growth service. You can change this at any time."
       >
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {technologyInquiryTypes.map((type) => (
             <button
               key={type}
@@ -414,6 +421,66 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
               error={errors.monthlyMarketingBudget}
             >
               <input className={inputClass} name="monthlyMarketingBudget" />
+            </Field>
+          </div>
+        </FormSection>
+      )}
+
+      {inquiryType === "TECHNOLOGY_AI" && (
+        <FormSection
+          title="AI / chatbot details"
+          description="Optional — helps us scope content, handoff, and embedding."
+        >
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <Field
+                label="Website URL for the chatbot"
+                name="existingWebsiteUrl"
+                error={errors.existingWebsiteUrl}
+              >
+                <input className={inputClass} name="existingWebsiteUrl" placeholder="https://" />
+              </Field>
+            </div>
+            <div className="md:col-span-2">
+              <Field label="Chatbot goals" name="chatbotGoals" error={errors.chatbotGoals}>
+                <textarea className={`${inputClass} min-h-[90px]`} name="chatbotGoals" />
+              </Field>
+            </div>
+            <div className="md:col-span-2">
+              <Field
+                label="Common visitor questions to cover"
+                name="commonQuestions"
+                error={errors.commonQuestions}
+              >
+                <textarea className={`${inputClass} min-h-[90px]`} name="commonQuestions" />
+              </Field>
+            </div>
+            <div className="md:col-span-2">
+              <Field
+                label="Approved knowledge sources"
+                name="knowledgeSources"
+                error={errors.knowledgeSources}
+              >
+                <textarea className={`${inputClass} min-h-[90px]`} name="knowledgeSources" />
+              </Field>
+            </div>
+            <Field
+              label="Human handoff preference"
+              name="handoffPreference"
+              error={errors.handoffPreference}
+            >
+              <input
+                className={inputClass}
+                name="handoffPreference"
+                placeholder="e.g. email sales, CRM ticket"
+              />
+            </Field>
+            <Field
+              label="Integration requirements"
+              name="integrationRequirements"
+              error={errors.integrationRequirements}
+            >
+              <input className={inputClass} name="integrationRequirements" />
             </Field>
           </div>
         </FormSection>
