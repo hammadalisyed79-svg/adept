@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
-import { erpHowWeWork, erpOfferings, techMailto } from "@/content/technology";
-import { company } from "@/lib/company";
+import { erpHowWeWork, erpOfferings } from "@/content/technology";
 
 export const metadata: Metadata = {
   title: "ERP Solutions",
@@ -68,9 +67,9 @@ export default function TechnologyErpPage() {
 
       <QuoteCta
         title="Start an ERP conversation"
-        description="Share operational priorities — inventory, production, sales, or integrations. We respond by email."
-        primaryHref={techMailto("ERP Solutions inquiry")}
-        primaryLabel={`Email ${company.email}`}
+        description="Share operational priorities — inventory, production, sales, or integrations. Email remains available as a secondary contact."
+        primaryHref="/technology/request-quote?type=erp"
+        primaryLabel="Request an ERP Consultation"
         showEmail
       />
     </>

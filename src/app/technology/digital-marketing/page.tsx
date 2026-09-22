@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
-import { marketingApproach, marketingOfferings, techMailto } from "@/content/technology";
-import { company } from "@/lib/company";
+import { marketingApproach, marketingOfferings } from "@/content/technology";
 
 export const metadata: Metadata = {
   title: "Digital Marketing",
@@ -71,9 +70,9 @@ export default function TechnologyDigitalMarketingPage() {
 
       <QuoteCta
         title="Start a marketing conversation"
-        description="Share brand stage, audiences, and channels of interest. We respond by email."
-        primaryHref={techMailto("Digital Marketing inquiry")}
-        primaryLabel={`Email ${company.email}`}
+        description="Share brand stage, audiences, and channels of interest. Email remains available as a secondary contact."
+        primaryHref="/technology/request-quote?type=marketing"
+        primaryLabel="Discuss Marketing Requirements"
         showEmail
       />
     </>

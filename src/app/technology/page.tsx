@@ -3,8 +3,7 @@ import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
-import { techMailto, technologyServices } from "@/content/technology";
-import { company } from "@/lib/company";
+import { technologyServices } from "@/content/technology";
 
 export const metadata: Metadata = {
   title: "Technology & Growth Solutions",
@@ -83,9 +82,9 @@ export default function TechnologyOverviewPage() {
 
       <QuoteCta
         title="Discuss Technology & Growth"
-        description="Tell us whether you need ERP, website, marketing, or AI chatbot support. We respond by email."
-        primaryHref={techMailto("Technology & Growth inquiry")}
-        primaryLabel={`Email ${company.email}`}
+        description="Tell us about an ERP, website, or marketing project. AI chatbot support remains available by email."
+        primaryHref="/technology/request-quote"
+        primaryLabel="Discuss Your Project"
         showEmail
       />
     </>

@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
-import {
-  techMailto,
-  websiteFromBriefToLaunch,
-  websiteOfferings,
-} from "@/content/technology";
-import { company } from "@/lib/company";
+import { websiteFromBriefToLaunch, websiteOfferings } from "@/content/technology";
 
 export const metadata: Metadata = {
   title: "Website Development",
@@ -75,9 +70,9 @@ export default function TechnologyWebsitePage() {
 
       <QuoteCta
         title="Discuss website development"
-        description="Corporate, B2B, catalogue, quotation, or ecommerce — describe what you need. We reply by email."
-        primaryHref={techMailto("Website Development inquiry")}
-        primaryLabel={`Email ${company.email}`}
+        description="Corporate, B2B, catalogue, quotation, or ecommerce — describe what you need. Email remains available as a secondary contact."
+        primaryHref="/technology/request-quote?type=website"
+        primaryLabel="Discuss a Website Project"
         showEmail
       />
     </>

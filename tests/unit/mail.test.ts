@@ -60,6 +60,8 @@ function fakeInquiry(): BusinessInquiry {
     colourFinish: null,
     capacitySize: null,
     lineItemsJson: null,
+    estimatedBudget: null,
+    technologyDetailsJson: null,
     sourcePage: "/request-quote",
     userAgent: null,
     ipHash: null,
