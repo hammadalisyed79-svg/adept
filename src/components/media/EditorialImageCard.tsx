@@ -26,10 +26,11 @@ export function EditorialImageCard({
   return (
     <Link
       href={href}
-      className={`group flex flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50 ${className}`}
+      className={`group flex h-full flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50 ${className}`}
     >
       <MediaImage
         mediaKey={mediaKey}
+        decorative
         aspectClassName={aspectClassName}
         sizes="(max-width: 768px) 100vw, 50vw"
       />
@@ -43,10 +44,10 @@ export function EditorialImageCard({
         <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep md:text-2xl">
           {title}
         </h3>
-        <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
           {description}
         </p>
-        <span className="mt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:mt-6">
+        <span className="mt-auto pt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:pt-6">
           Learn more →
         </span>
       </div>

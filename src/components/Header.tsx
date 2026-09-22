@@ -194,7 +194,8 @@ export function Header() {
                       ? "text-champagne-deep"
                       : "text-charcoal-muted hover:text-charcoal"
                   }`}
-                  aria-haspopup="true"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
                 >
                   {item.label}
                 </button>

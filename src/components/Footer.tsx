@@ -27,18 +27,21 @@ function FooterGroup({
     <div className="border-b border-white/10 md:border-0">
       <button
         type="button"
-        className="flex w-full items-center justify-between py-4 text-left md:pointer-events-none md:cursor-default md:py-0"
+        className="flex w-full items-center justify-between py-4 text-left md:hidden"
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((v) => !v)}
       >
-        <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
+        <span className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
           {title}
-        </h2>
-        <span className="text-ivory/60 md:hidden" aria-hidden>
+        </span>
+        <span className="text-ivory/60" aria-hidden>
           {open ? "−" : "+"}
         </span>
       </button>
+      <h2 className="hidden text-xs font-medium uppercase tracking-wideish text-champagne-soft md:block md:py-0">
+        {title}
+      </h2>
       <div id={id} className={`${open ? "block pb-4" : "hidden"} md:block md:pb-0`}>
         {children}
       </div>
@@ -168,9 +171,7 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-content flex-col gap-2 px-5 py-5 text-xs text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
-          <p>
-            © {year} {company.name}. {company.tagline}
-          </p>
+          <p>© {year} {company.name}</p>
           <p>B2B fragrance, packaging, and manufacturing solutions.</p>
         </div>
       </div>

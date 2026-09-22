@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
@@ -112,23 +111,14 @@ export default function PrivateLabelPage() {
       </Section>
 
       <Section className="bg-white">
-        <Container className="grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
-          <div>
-            <h2 className="font-display text-3xl text-charcoal">Start your project</h2>
-            <p className="mt-4 max-w-prose leading-relaxed text-charcoal-muted">
-              Bring your concept notes, target bottle size, volume assumptions, and timeline. We will
-              outline sampling, packaging, and manufacturing next steps based on confirmed scope.
-            </p>
-          </div>
-          <div className="border border-charcoal/10 bg-ivory p-8">
-            <Button href="/request-quote?type=PRIVATE_LABEL" className="w-full">
-              Start Your Project
-            </Button>
-            <p className="mt-4 text-xs text-charcoal-muted">
-              Optional fields on the quote form help capture fragrance direction, bottle size, and
-              packaging needs without making them mandatory.
-            </p>
-          </div>
+        <Container>
+          <h2 className="font-display text-3xl text-charcoal">Start your project</h2>
+          <p className="mt-4 max-w-prose leading-relaxed text-charcoal-muted">
+            Bring your concept notes, target bottle size, volume assumptions, and timeline. We will
+            outline sampling, packaging, and manufacturing next steps based on confirmed scope.
+            Optional fields on the quote form help capture fragrance direction, bottle size, and
+            packaging needs without making them mandatory.
+          </p>
         </Container>
       </Section>
 

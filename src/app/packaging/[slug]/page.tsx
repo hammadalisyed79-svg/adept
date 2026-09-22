@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { QuoteCta } from "@/components/QuoteCta";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
@@ -111,12 +110,6 @@ export default async function PackagingCategoryPage({ params }: Props) {
           </div>
         </Container>
       </Section>
-
-      <QuoteCta
-        title={`Discuss ${category.title.toLowerCase()}`}
-        primaryHref="/request-quote?type=PACKAGING_COMPONENTS"
-        primaryLabel="Request a Packaging Quote"
-      />
     </>
   );
 }

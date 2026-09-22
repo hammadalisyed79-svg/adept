@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Header />
-        <main id="main">{children}</main>
+        <main id="main" className="pb-24 sm:pb-20">{children}</main>
         <Footer />
         <AdeptAssistant />
         <script

@@ -20,6 +20,7 @@ export function PackagingVisualGrid({ className = "" }: Props) {
           >
             <MediaImage
               mediaKey={mediaKey}
+              decorative
               aspectClassName="aspect-square lg:aspect-[3/4]"
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
               imgClassName="object-cover object-center opacity-95 transition duration-soft group-hover:opacity-100"

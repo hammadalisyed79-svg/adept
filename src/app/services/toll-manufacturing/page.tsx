@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
@@ -132,20 +131,6 @@ export default function TollManufacturingPage() {
               these clearly during requirement assessment so timelines stay accurate.
             </p>
           </div>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container className="flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="font-display text-3xl text-charcoal">Discuss manufacturing requirements</h2>
-            <p className="mt-2 max-w-xl text-charcoal-muted">
-              Share formula status, volumes, packaging readiness, and which materials you will supply.
-            </p>
-          </div>
-          <Button href="/request-quote?type=TOLL_MANUFACTURING">
-            Discuss Manufacturing Requirements
-          </Button>
         </Container>
       </Section>
 

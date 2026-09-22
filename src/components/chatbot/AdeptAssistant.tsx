@@ -200,8 +200,8 @@ export function AdeptAssistant() {
           role="dialog"
           aria-modal="false"
           aria-labelledby={titleId}
-          className="pointer-events-auto mb-[max(4.75rem,calc(env(safe-area-inset-bottom)+3.5rem))] flex w-[min(100vw-1.5rem,22.5rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-lg sm:mb-[max(0.25rem,env(safe-area-inset-bottom))] sm:w-[22.5rem]"
-          style={{ maxHeight: "min(26rem, calc(100dvh - 9.5rem))" }}
+          className="pointer-events-auto mb-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.25rem))] flex w-[min(100vw-1.5rem,22.5rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-lg sm:mb-[max(0.25rem,env(safe-area-inset-bottom))] sm:w-[22.5rem]"
+          style={{ maxHeight: "min(24rem, calc(100dvh - 11rem))" }}
         >
           <header className="flex shrink-0 items-start justify-between gap-3 border-b border-charcoal/10 bg-charcoal px-4 py-3 text-ivory">
             <div className="min-w-0">

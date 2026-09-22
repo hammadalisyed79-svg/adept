@@ -52,10 +52,11 @@ export default function TechnologyOverviewPage() {
               <Link
                 key={s.href}
                 href={s.href}
-                className="group flex flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
+                className="group flex h-full flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
               >
                 <TechnologyVisual
                   variant={s.variant}
+                  decorative
                   aspectClassName="aspect-[16/10]"
                   className="border-0 border-b border-charcoal/10"
                 />
@@ -70,7 +71,7 @@ export default function TechnologyOverviewPage() {
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
                     {s.summary}
                   </p>
-                  <span className="mt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:mt-6">
+                  <span className="mt-auto pt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:pt-6">
                     Learn more →
                   </span>
                 </div>

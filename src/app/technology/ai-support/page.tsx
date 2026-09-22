@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
-import { aiHowWeDeliver, aiOfferings, techMailto } from "@/content/technology";
-import { company } from "@/lib/company";
+import { aiHowWeDeliver, aiOfferings } from "@/content/technology";
 
 export const metadata: Metadata = {
   title: "AI Support & Chatbots",
@@ -69,8 +68,8 @@ export default function TechnologyAiSupportPage() {
       <QuoteCta
         title="Discuss AI support or a chatbot"
         description="Tell us about your website, common visitor questions, and how you want leads handed to sales. We respond by email."
-        primaryHref={techMailto("AI Support & Chatbots inquiry")}
-        primaryLabel={`Email ${company.email}`}
+        primaryHref="/technology/request-quote"
+        primaryLabel="Request Technology Quote"
         showEmail
       />
     </>

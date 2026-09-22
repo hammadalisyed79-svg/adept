@@ -64,11 +64,16 @@ export default function AboutPage() {
               <Link
                 key={d.href}
                 href={d.href}
-                className="border border-charcoal/10 bg-ivory p-6 transition hover:border-champagne/40"
+                className="group flex h-full flex-col border border-charcoal/10 bg-ivory p-6 transition hover:border-champagne/40"
               >
                 <p className="text-xs uppercase tracking-wideish text-champagne-deep">{d.mode}</p>
-                <h3 className="mt-2 font-display text-2xl text-charcoal">{d.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-charcoal-muted">{d.summary}</p>
+                <h3 className="mt-2 font-display text-2xl text-charcoal group-hover:text-champagne-deep">
+                  {d.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-charcoal-muted">{d.summary}</p>
+                <span className="mt-auto pt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                  Learn more →
+                </span>
               </Link>
             ))}
           </div>

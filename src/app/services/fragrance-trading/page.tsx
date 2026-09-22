@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
@@ -110,17 +109,6 @@ export default function FragranceTradingPage() {
                 <p className="p-4 text-sm font-medium text-charcoal">{a.title}</p>
               </div>
             ))}
-          </div>
-          <div className="mt-10 border border-charcoal/10 bg-ivory p-8 md:flex md:items-center md:justify-between md:gap-8">
-            <div>
-              <h3 className="font-display text-2xl text-charcoal">Request a fragrance sample</h3>
-              <p className="mt-2 max-w-prose text-sm text-charcoal-muted">
-                Share application, dosage expectations, and direction notes.
-              </p>
-            </div>
-            <Button href="/request-quote?type=FRAGRANCE_TRADING" className="mt-6 md:mt-0 shrink-0">
-              Request a Fragrance Sample
-            </Button>
           </div>
         </Container>
       </Section>

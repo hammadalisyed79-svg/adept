@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { QuoteCta } from "@/components/QuoteCta";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProduct } from "@/content/catalogue";
@@ -111,7 +110,6 @@ export default async function CatalogueProductPage({ params }: Props) {
           </div>
         </Container>
       </Section>
-      <QuoteCta primaryHref="/request-quote?type=PACKAGING_COMPONENTS" />
     </>
   );
 }

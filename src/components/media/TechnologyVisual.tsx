@@ -17,16 +17,20 @@ export function TechnologyVisual({
   variant,
   className = "",
   aspectClassName = "aspect-[4/3]",
+  /** When true, hide from assistive tech (parent link/card already named). */
+  decorative = false,
 }: {
   variant: Variant;
   className?: string;
   aspectClassName?: string;
+  decorative?: boolean;
 }) {
   return (
     <div
       className={`relative overflow-hidden border border-charcoal/10 bg-gradient-to-br from-ivory via-ivory-soft to-[#E2DACF] ${aspectClassName} ${className}`}
-      role="img"
-      aria-label={labels[variant]}
+      role={decorative ? undefined : "img"}
+      aria-label={decorative ? undefined : labels[variant]}
+      aria-hidden={decorative || undefined}
       data-tech-visual={variant}
     >
       <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden>
@@ -208,7 +212,10 @@ function AiComposition() {
   return (
     <div className="flex w-full flex-col overflow-hidden rounded-sm border border-charcoal/12 bg-white shadow-sm">
       <div className="flex shrink-0 items-center gap-2 border-b border-charcoal/8 bg-ivory px-2.5 py-2">
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-charcoal text-[8px] font-medium tracking-wide text-champagne">
+        <span
+          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-charcoal text-[8px] font-medium tracking-wide text-champagne"
+          aria-hidden
+        >
           AI
         </span>
         <div className="min-w-0 flex-1 space-y-1">

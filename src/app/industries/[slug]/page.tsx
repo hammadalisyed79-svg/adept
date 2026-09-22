@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { QuoteCta } from "@/components/QuoteCta";
-import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getIndustry, industries } from "@/content/industries";
 import { industryMediaBySlug } from "@/content/media";
@@ -59,13 +58,6 @@ export default async function IndustryDetailPage({ params }: Props) {
             </ul>
           </div>
           <div>
-            <MediaImage
-              mediaKey={mediaKey}
-              hoverScale={false}
-              aspectClassName="aspect-[4/3] mb-8"
-              sizes="50vw"
-              className="border border-charcoal/10"
-            />
             <h2 className="font-display text-3xl text-charcoal">Relevant services</h2>
             <ul className="mt-6 space-y-3">
               {industry.relevantServices.map((s) => (

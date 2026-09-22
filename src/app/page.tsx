@@ -39,7 +39,7 @@ export default function HomePage() {
               {company.heroSupporting}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/packaging">Explore Our Solutions</Button>
+              <Button href="/services/fragrance-trading">Explore Our Solutions</Button>
               <Button href="/request-quote" variant="secondary">
                 Request a Quote
               </Button>
@@ -103,18 +103,19 @@ export default function HomePage() {
               <Link
                 key={s.href}
                 href={s.href}
-                className="group flex flex-col border border-ivory/15 bg-charcoal-soft/40 transition duration-soft hover:border-champagne/40"
+                className="group flex h-full flex-col border border-ivory/15 bg-charcoal-soft/40 transition duration-soft hover:border-champagne/40"
               >
                 <TechnologyVisual
                   variant={s.variant}
+                  decorative
                   aspectClassName="aspect-[4/3]"
                   className="border-0 border-b border-ivory/10"
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="text-xs uppercase tracking-wideish text-champagne-soft">{s.label}</p>
                   <h3 className="mt-2 font-display text-xl text-ivory md:text-2xl">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ivory/65">{s.summary}</p>
-                  <span className="mt-4 text-sm font-medium text-champagne-soft group-hover:underline">
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ivory/65">{s.summary}</p>
+                  <span className="mt-auto pt-4 text-sm font-medium text-champagne-soft group-hover:underline">
                     Explore →
                   </span>
                 </div>
@@ -260,10 +261,11 @@ export default function HomePage() {
               <Link
                 key={ind.slug}
                 href={`/industries/${ind.slug}`}
-                className="group flex flex-col border border-charcoal/10 bg-ivory transition duration-soft hover:border-champagne/50"
+                className="group flex h-full flex-col border border-charcoal/10 bg-ivory transition duration-soft hover:border-champagne/50"
               >
                 <MediaImage
                   mediaKey={industryMediaBySlug[ind.slug] ?? "fragranceOils"}
+                  decorative
                   aspectClassName="aspect-[4/3]"
                   sizes="(max-width: 768px) 100vw, 25vw"
                 />
@@ -271,10 +273,10 @@ export default function HomePage() {
                   <h3 className="font-display text-xl leading-snug text-charcoal group-hover:text-champagne-deep md:text-2xl">
                     {ind.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-charcoal-muted">
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-muted">
                     {ind.summary}
                   </p>
-                  <span className="mt-4 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                  <span className="mt-auto pt-4 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
                     Explore →
                   </span>
                 </div>

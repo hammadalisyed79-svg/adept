@@ -13,7 +13,7 @@ export function HomepageProcess({ className = "" }: Props) {
         {homepageProcessPhases.map((phase) => (
           <li
             key={phase.number}
-            className="flex flex-col border border-charcoal/10 bg-white p-5 md:p-6"
+            className="flex h-full flex-col border border-charcoal/10 bg-white p-5 md:p-6"
           >
             <span className="font-display text-3xl leading-none text-champagne-deep md:text-4xl">
               {phase.number}

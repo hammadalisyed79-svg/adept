@@ -33,9 +33,12 @@ export default function CataloguePage() {
                 Meanwhile, request a quotation for packaging categories or fragrance services.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>
+                <Button href="/request-quote">Request a Quote</Button>
                 <Button href="/packaging" variant="secondary">
                   View packaging categories
+                </Button>
+                <Button href="/services/fragrance-trading" variant="ghost">
+                  Fragrance trading
                 </Button>
               </div>
             </div>
@@ -54,7 +57,7 @@ export default function CataloguePage() {
                       </Link>
                     </h2>
                     <p className="mt-1 text-xs text-charcoal-muted">Ref: {p.sku}</p>
-                    <p className="mt-3 text-sm text-charcoal-muted line-clamp-3">{p.description}</p>
+                    <p className="mt-3 text-sm text-charcoal-muted">{p.description}</p>
                     <p className="mt-4 text-xs text-charcoal-muted">Status: {p.availabilityStatus}</p>
                   </li>
                 );
@@ -63,7 +66,9 @@ export default function CataloguePage() {
           )}
         </Container>
       </Section>
-      <QuoteCta primaryHref="/request-quote?type=PACKAGING_COMPONENTS" primaryLabel="Request a Quote" />
+      {products.length > 0 && (
+        <QuoteCta primaryHref="/request-quote?type=PACKAGING_COMPONENTS" primaryLabel="Request a Quote" />
+      )}
     </>
   );
 }

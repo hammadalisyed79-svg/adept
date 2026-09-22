@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { articles } from "@/content/articles";
 
@@ -30,16 +31,16 @@ export default function InsightsPage() {
           ) : (
             <ul className="grid gap-6 md:grid-cols-2">
               {articles.map((article) => (
-                <li key={article.slug}>
+                <li key={article.slug} className="h-full">
                   <Link
                     href={`/insights/${article.slug}`}
-                    className="block h-full border border-charcoal/10 bg-white p-7 transition hover:border-champagne/50"
+                    className="group flex h-full flex-col border border-charcoal/10 bg-white p-7 transition hover:border-champagne/50"
                   >
                     <p className="text-xs uppercase tracking-wideish text-champagne-deep">
                       {article.publishedAt} · {article.readingMinutes} min
                     </p>
                     <h2 className="mt-3 font-display text-2xl text-charcoal">{article.title}</h2>
-                    <p className="mt-3 text-sm leading-relaxed text-charcoal-muted">
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-charcoal-muted">
                       {article.description}
                     </p>
                     <div className="mt-5 flex flex-wrap gap-2">
@@ -52,6 +53,9 @@ export default function InsightsPage() {
                         </span>
                       ))}
                     </div>
+                    <span className="mt-auto pt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                      Read →
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -59,6 +63,10 @@ export default function InsightsPage() {
           )}
         </Container>
       </Section>
+      <QuoteCta
+        title="Have a fragrance project in mind?"
+        description="Share your brief by email. We respond with next steps for sampling, packaging, or manufacturing."
+      />
     </>
   );
 }

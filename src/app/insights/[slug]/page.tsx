@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { articles, getArticle } from "@/content/articles";
 import { getSiteUrl } from "@/lib/company";
@@ -67,6 +68,7 @@ export default async function ArticlePage({ params }: Props) {
           </article>
         </Container>
       </Section>
+      <QuoteCta />
     </>
   );
 }

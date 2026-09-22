@@ -61,10 +61,14 @@ export const navigation: readonly NavItem[] = [
       },
       { type: "divider" },
       {
-        type: "group",
+        href: "/technology",
         label: "Technology & Growth",
+        hint: "ERP, web, marketing & AI",
+      },
+      {
+        type: "group",
+        label: "Technology services",
         children: [
-          { href: "/technology", label: "Overview" },
           { href: "/technology/erp", label: "ERP Solutions", hint: "Custom & third-party ERP" },
           {
             href: "/technology/website-development",
@@ -88,9 +92,14 @@ export const navigation: readonly NavItem[] = [
   {
     href: "/packaging",
     label: "Packaging",
-    matchPrefix: "/packaging",
+    matchPrefix: ["/packaging", "/catalogue"],
     children: [
       { href: "/packaging", label: "All Packaging", hint: "Full component range" },
+      {
+        href: "/catalogue",
+        label: "B2B Catalogue",
+        hint: "Verified products for quotation",
+      },
       { href: "/packaging/perfume-bottles", label: "Perfume Bottles", hint: "Glass & stock formats" },
       { href: "/packaging/caps", label: "Caps", hint: "Closures & finishes" },
       {

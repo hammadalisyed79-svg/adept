@@ -28,21 +28,22 @@ export default function IndustriesPage() {
               <Link
                 key={ind.slug}
                 href={`/industries/${ind.slug}`}
-                className="group overflow-hidden border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
+                className="group flex h-full flex-col overflow-hidden border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
               >
                 <MediaImage
                   mediaKey={industryMediaBySlug[ind.slug] ?? "fragranceOils"}
+                  decorative
                   aspectClassName="aspect-[16/9]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="p-7">
+                <div className="flex flex-1 flex-col p-7">
                   <h2 className="font-display text-2xl text-charcoal group-hover:text-champagne-deep md:text-3xl">
                     {ind.title}
                   </h2>
-                  <p className="mt-3 max-w-prose text-sm leading-relaxed text-charcoal-muted md:text-base">
+                  <p className="mt-3 max-w-prose flex-1 text-sm leading-relaxed text-charcoal-muted md:text-base">
                     {ind.summary}
                   </p>
-                  <span className="mt-5 inline-block text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                  <span className="mt-auto pt-5 inline-block text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
                     View industry →
                   </span>
                 </div>
