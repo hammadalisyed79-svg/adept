@@ -28,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/technology/request-quote",
     "/privacy",
     "/terms",
+    "/cookies",
+    "/commercial-terms",
   ];
 
   return [

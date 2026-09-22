@@ -73,7 +73,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
 
   const conditionalHint = useMemo(() => {
     if (isPackaging) {
-      return "Select packaging categories and add line items for quantities, sizes, materials, and finishes. Compatibility claims are confirmed separately.";
+      return "Select packaging categories and note quantities, sizes, materials, and finishes. Technical fit is confirmed during commercial review.";
     }
     if (inquiryType === "FRAGRANCE_TRADING") {
       return "Share fragrance direction, concentration needs, and sample preferences if known.";
@@ -487,7 +487,7 @@ export function InquiryForm({ defaultType, sourcePage }: Props) {
                     name="matchingRequirements"
                     rows={3}
                     className={fieldClass}
-                    placeholder="Describe matching needs. Compatibility is confirmed only after technical review."
+                    placeholder="Describe matching needs. Technical compatibility is confirmed after review."
                   />
                 </div>
               </div>

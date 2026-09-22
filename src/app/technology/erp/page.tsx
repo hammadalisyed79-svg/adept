@@ -82,7 +82,7 @@ export default function TechnologyErpPage() {
 
       <QuoteCta
         title="Start an ERP conversation"
-        description="Share operational priorities — inventory, production, sales, or integrations. Email remains available as a secondary contact."
+        description="Share operational priorities — inventory, production, sales, or integrations. We will respond with a clear next step."
         primaryHref="/technology/request-quote?type=erp"
         primaryLabel="Request an ERP Consultation"
         showEmail

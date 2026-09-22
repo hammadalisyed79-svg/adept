@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
-import { getMedia, packagingMediaBySlug, type MediaKey } from "@/content/media";
+import { packagingMediaBySlug, type MediaKey } from "@/content/media";
 import { getPackagingCategory, packagingCategories } from "@/content/packaging";
 import { getSiteUrl } from "@/lib/company";
 
@@ -37,18 +37,13 @@ export default async function PackagingCategoryPage({ params }: Props) {
 
   const products = getPublishedProducts(category.slug);
   const mediaKey = (packagingMediaBySlug[category.slug] ?? "packagingComponents") as MediaKey;
-  const interimNote = getMedia(mediaKey).placeholderNote;
 
   return (
     <>
       <PageHero
         eyebrow="Packaging & Components"
         title={category.title}
-        description={
-          interimNote
-            ? `${category.summary} Imagery is interim until approved ADEPT product photography is available.`
-            : category.summary
-        }
+        description={category.summary}
         mediaKey={mediaKey}
       />
 
@@ -56,8 +51,8 @@ export default async function PackagingCategoryPage({ params }: Props) {
         <Container>
           <h2 className="font-display text-3xl text-charcoal">Capabilities & options</h2>
           <p className="mt-3 max-w-prose text-sm text-charcoal-muted">
-            Discussion areas for this category. Exact availability is confirmed during commercial
-            review — we do not invent stock lists.
+            Typical discussion areas for this category. Availability, finishes, and volumes are
+            confirmed during commercial review.
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {category.points.map((p) => (

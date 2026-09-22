@@ -126,6 +126,19 @@ export function Footer() {
                 Terms of Use
               </Link>
             </li>
+            <li>
+              <Link href="/cookies" className="text-sm text-ivory/75 transition hover:text-ivory">
+                Cookie Notice
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/commercial-terms"
+                className="text-sm text-ivory/75 transition hover:text-ivory"
+              >
+                Commercial Terms
+              </Link>
+            </li>
           </ul>
         </FooterGroup>
 
@@ -172,7 +185,9 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-content flex-col gap-2 px-5 py-5 text-xs text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
           <p>© {year} {company.name}</p>
-          <p>B2B fragrance, packaging, manufacturing, private label, and technology solutions.</p>
+          <p>
+            Fragrance · packaging · manufacturing · private label · Technology & Growth
+          </p>
         </div>
       </div>
     </footer>

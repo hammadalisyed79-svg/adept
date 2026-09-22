@@ -114,10 +114,9 @@ export default function PrivateLabelPage() {
         <Container>
           <h2 className="font-display text-3xl text-charcoal">Start your project</h2>
           <p className="mt-4 max-w-prose leading-relaxed text-charcoal-muted">
-            Bring your concept notes, target bottle size, volume assumptions, and timeline. We will
-            outline sampling, packaging, and manufacturing next steps based on confirmed scope.
-            Optional fields on the quote form help capture fragrance direction, bottle size, and
-            packaging needs without making them mandatory.
+            Bring your concept notes, preferred bottle size, volume assumptions, and timeline. We
+            will outline sampling, packaging, and manufacturing next steps based on the agreed
+            scope.
           </p>
         </Container>
       </Section>

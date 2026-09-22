@@ -55,9 +55,8 @@ export default function TollManufacturingPage() {
 
       <Section className="bg-charcoal text-ivory">
         <Container>
-          <p className="max-w-prose text-sm text-ivory/60">
-            Process imagery is illustrative. Photographs do not depict verified ADEPT facilities
-            unless separately confirmed.
+          <p className="max-w-prose text-sm text-ivory/65">
+            Process photography from manufacturing environments that reflect the work we support.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <MediaImage

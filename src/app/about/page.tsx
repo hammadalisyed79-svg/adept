@@ -7,7 +7,7 @@ import { divisions } from "@/lib/navigation";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${company.name} — fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth for B2B buyers.`,
+  description: `About ${company.name} — a B2B partner for fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth.`,
   alternates: { canonical: "/about" },
 };
 
@@ -16,39 +16,34 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow={`About ${company.logoPrimary}`}
-        title="A B2B partner for fragrance, packaging, manufacturing, and growth systems"
-        description={company.heroSupporting}
+        title="Crafted for brands that build with fragrance"
+        description="ADEPT Fragrances brings concentrates, packaging, manufacturing, private label, and Technology & Growth together for business buyers who value clarity and composure."
       />
 
       <Section>
         <Container className="grid gap-12 lg:grid-cols-2">
           <SectionHeading
             eyebrow="Introduction"
-            title="A complete B2B fragrance partner"
-            description="We work with brand owners, formulators, and procurement teams across concentrates, packaging, manufacturing, private label, and Technology & Growth."
+            title="A considered B2B partner"
+            description="We work with brand owners, formulators, and procurement teams — from first brief through commercial supply and the systems that support growth."
           />
           <div className="space-y-5 text-base leading-relaxed text-charcoal-muted">
             <p>
-              {company.name} is organized around business buyers. Our positioning covers fragrance
-              concentrates, perfume packaging components and accessories, private-label services,
-              manufacturing solutions, and Technology & Growth — without retail perfume storefront
-              positioning.
+              {company.name} is organised for business buyers. We offer fragrance concentrates,
+              perfume packaging and accessories, private-label pathways, manufacturing support, and
+              Technology & Growth — presented as commercial services, not a retail perfume
+              storefront.
             </p>
             <p>
-              We do not claim that every product is manufactured in-house. Trading, sourcing, and
-              manufacturing are distinguished in commercial conversations so expectations stay accurate.
+              Trading, sourcing, and manufacturing are distinguished with care, so each engagement
+              begins with a clear understanding of scope. What is confirmed in conversation and
+              contract is what we undertake to deliver.
             </p>
             <p>
-              We do not present unverified company history, capacity claims, certifications, or
-              awards. As operational details are confirmed, they will be published through controlled
-              configuration — not marketing invention.
+              Our five divisions work as a coordinated pathway: concentrates and components for the
+              brand, manufacturing and private label for finished goods, and Technology & Growth for
+              the systems and channels that help commercial teams scale.
             </p>
-            {!company.legalNameVerified && (
-              <p className="border border-champagne/30 bg-ivory px-4 py-3 text-sm text-charcoal">
-                Proposed legal name ({company.legalName}) is pending verification and is not
-                presented as a confirmed incorporated entity.
-              </p>
-            )}
           </div>
         </Container>
       </Section>
@@ -58,7 +53,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Divisions"
             title="Five business divisions"
-            description="Each division supports a distinct commercial pathway — including Technology & Growth for ERP, websites, marketing, and AI support."
+            description="Each division offers a distinct commercial pathway — with Technology & Growth providing ERP, websites, marketing, and AI support."
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {divisions.map((d) => (
@@ -86,17 +81,15 @@ export default function AboutPage() {
           <div>
             <h2 className="font-display text-3xl text-charcoal">Mission</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              To provide integrated fragrance, packaging, manufacturing, and Technology & Growth
-              solutions that help brands move from concept to finished product — and the systems that
-              support commercial clarity.
+              To help fragrance brands move from concept to finished product — and to equip them
+              with the operational and digital capabilities that sustain commercial growth.
             </p>
           </div>
           <div>
             <h2 className="font-display text-3xl text-charcoal">Vision</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              To be a trusted B2B counterpart for fragrance brand builders — precise in process,
-              restrained in claims, and reliable in follow-through across trading, sourcing,
-              manufacturing, and growth systems.
+              To be a trusted counterpart for fragrance brand builders: composed in presentation,
+              precise in process, and reliable from first inquiry through long-term supply.
             </p>
           </div>
         </Container>
@@ -104,20 +97,20 @@ export default function AboutPage() {
 
       <Section className="bg-white">
         <Container>
-          <SectionHeading eyebrow="Philosophy" title="Business philosophy" />
+          <SectionHeading eyebrow="Principles" title="How we work with clients" />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               {
-                t: "Scope honesty",
-                d: "Manufacturing, trading, and sourcing are labelled clearly. We do not imply in-house production for traded or sourced components.",
+                t: "Clarity of scope",
+                d: "Trading, sourcing, and manufacturing are described plainly, so every engagement begins with shared expectations.",
               },
               {
-                t: "Verified catalogue only",
-                d: "Packaging products appear publicly only when references, specs, and imagery are confirmed. Categories describe intended range.",
+                t: "Catalogue with care",
+                d: "Packaging references appear when specifications and imagery are ready for commercial discussion — quality over haste.",
               },
               {
-                t: "Evidence over ornament",
-                d: "We publish only confirmed facts. Unverified metrics, stock claims, and competitor imagery stay off the site.",
+                t: "Substance first",
+                d: "We favour measured claims and confirmed detail. Commercial terms are always set in writing.",
               },
             ].map((item) => (
               <div key={item.t} className="border border-charcoal/10 bg-ivory p-6">
@@ -134,27 +127,26 @@ export default function AboutPage() {
           <div>
             <h2 className="font-display text-3xl text-charcoal">Operational approach</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              Commercial engagements follow the published process: brief and selection, sampling and
-              approval, production and quality, then packing and dispatch. See the Process page for
-              the full eight-step path. Technology & Growth projects follow their own discovery-to-
-              handover sequence on each service page.
+              Fragrance, packaging, manufacturing, and private-label work follow our published
+              process — from brief and sampling through production, quality, packing, and dispatch.
+              Technology & Growth projects follow a discovery-to-delivery path on each service page.
             </p>
           </div>
           <div>
             <h2 className="font-display text-3xl text-charcoal">Trading, sourcing, manufacturing</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              Fragrance trading and packaging components are typically commercial supply and sourcing
-              relationships. Toll manufacturing and private-label projects may include blending,
-              processing, filling, and packaging coordination depending on agreed scope and available
-              partners.
+              Fragrance trading and packaging components are typically commercial supply
+              relationships. Toll manufacturing and private-label programmes may include blending,
+              processing, filling, and packaging coordination according to the agreed brief and
+              available partners.
             </p>
           </div>
         </Container>
       </Section>
 
       <QuoteCta
-        title={`Partner with ${company.name} on your next project`}
-        description="Tell us about fragrance, packaging, manufacturing, private-label, or Technology & Growth requirements. Our team will respond with next steps."
+        title={`Partner with ${company.name}`}
+        description="Share a fragrance, packaging, manufacturing, private-label, or Technology & Growth brief. Our team will respond with considered next steps."
         primaryHref="/request-quote"
         primaryLabel="Request a Quote"
         secondaryHref="/technology/request-quote"

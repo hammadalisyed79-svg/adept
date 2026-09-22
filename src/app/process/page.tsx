@@ -7,7 +7,7 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 export const metadata: Metadata = {
   title: "Our Process",
   description:
-    "How ADEPT moves from client brief to sampling, approval, production, quality check, packing, and dispatch.",
+    "How ADEPT Fragrances moves from client brief to sampling, approval, production, quality, packing, and dispatch.",
   alternates: { canonical: "/process" },
 };
 
@@ -17,7 +17,7 @@ export default function ProcessPage() {
       <PageHero
         eyebrow="Process"
         title="How we work with business clients"
-        description="A structured path designed for procurement clarity. Services are confirmed against each project brief — we only guarantee what has been agreed."
+        description="A composed pathway from brief to dispatch — designed for procurement clarity and commercial confidence."
       />
       <Section>
         <Container>

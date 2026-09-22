@@ -21,9 +21,9 @@ export const company = {
   tagline: "Precision in Fragrance. Excellence in Manufacturing.",
   heroHeadline: "Everything You Need to Create a Fragrance Brand.",
   heroSupporting:
-    "Fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth — coordinated from concept to finished product and the systems that support it.",
+    "Fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth — composed from concept to finished product, and the systems that sustain it.",
   positioning:
-    "A B2B partner for fragrance concentrates, packaging, manufacturing, and private label — with Technology & Growth covering ERP, websites, marketing, and AI chatbot services.",
+    "A B2B partner for fragrance concentrates, packaging, manufacturing, and private label — with Technology & Growth for ERP, websites, marketing, and AI support.",
   email: process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
   /**
    * Notification recipient — retained for mail-code compatibility.

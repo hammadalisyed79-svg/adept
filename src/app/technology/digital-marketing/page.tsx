@@ -82,7 +82,7 @@ export default function TechnologyDigitalMarketingPage() {
 
       <QuoteCta
         title="Start a marketing conversation"
-        description="Share brand stage, audiences, and channels of interest. Email remains available as a secondary contact."
+        description="Share brand stage, audiences, and channels of interest. We will respond with a practical starting point."
         primaryHref="/technology/request-quote?type=marketing"
         primaryLabel="Discuss Marketing Requirements"
         showEmail

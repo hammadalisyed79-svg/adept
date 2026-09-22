@@ -49,8 +49,8 @@ export default function FragranceTradingPage() {
     <>
       <PageHero
         eyebrow="Fragrance Trading"
-        title="Fragrance concentrates for serious brands"
-        description="Sourcing and commercial supply of fine and industrial fragrance concentrates — technical, application-aware, and quotation-led."
+        title="Fragrance concentrates for discerning brands"
+        description="Sourcing and commercial supply of fine and industrial fragrance concentrates — considered, application-aware, and quotation-led."
         mediaKey="fragranceOils"
       />
 

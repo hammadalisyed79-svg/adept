@@ -17,7 +17,7 @@ export default function InsightsPage() {
       <PageHero
         eyebrow="Insights"
         title="Practical guidance for fragrance buyers"
-        description="Educational notes for commercial teams. No fictional research citations or unverifiable claims."
+        description="Thoughtful notes for commercial teams working with fragrance concentrates, packaging, and manufacturing."
       />
       <Section>
         <Container>

@@ -33,9 +33,7 @@ export const media = {
   tollManufacturing: {
     id: "toll-manufacturing",
     src: `${base}/toll-manufacturing.png`,
-    alt: "Illustrative stainless-steel fragrance processing environment — not a verified ADEPT facility photograph",
-    placeholderNote:
-      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
+    alt: "Stainless-steel fragrance processing vessels in a clean manufacturing environment",
   },
   privateLabel: {
     id: "private-label",
@@ -75,9 +73,7 @@ export const media = {
   accessories: {
     id: "accessories",
     src: `${base}/accessories.png`,
-    alt: "Illustrative packaging styling photography — replace with ADEPT fragrance packaging accessories when product photography is available",
-    placeholderNote:
-      "Interim lifestyle styling image. Replace with genuine ADEPT fragrance packaging accessories photography (collars, rings, ribbons, finishing parts) before photography sign-off.",
+    alt: "Fragrance packaging finishing accessories on a soft studio surface",
   },
   completePackagingSet: {
     id: "complete-packaging-set",
@@ -92,23 +88,17 @@ export const media = {
   manufacturingFilling: {
     id: "manufacturing-filling",
     src: `${base}/manufacturing-filling.png`,
-    alt: "Illustrative filling operation — not a verified ADEPT facility photograph",
-    placeholderNote:
-      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
+    alt: "Fragrance filling line in a clean production environment",
   },
   manufacturingMixing: {
     id: "manufacturing-mixing",
     src: `${base}/manufacturing-mixing.png`,
-    alt: "Illustrative mixing vessel — not a verified ADEPT facility photograph",
-    placeholderNote:
-      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
+    alt: "Mixing vessel used in fragrance compounding",
   },
   qualityControl: {
     id: "quality-control",
     src: `${base}/quality-control.png`,
-    alt: "Illustrative quality inspection — not a verified ADEPT facility photograph",
-    placeholderNote:
-      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
+    alt: "Quality inspection of fragrance packaging components",
   },
   completeBrandSolution: {
     id: "complete-brand-solution",

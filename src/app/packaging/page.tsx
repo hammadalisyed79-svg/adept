@@ -27,7 +27,7 @@ export default function PackagingIndexPage() {
           <SectionHeading
             eyebrow="Categories"
             title="Component families"
-            description="Select a category to explore options. Specs and stock status are confirmed during quotation — not published as retail inventory."
+            description="Explore each category to understand the range. Specifications and availability are confirmed during quotation."
           />
           <PackagingVisualGrid className="mt-12" />
           <div className="mt-10 flex flex-wrap gap-3">

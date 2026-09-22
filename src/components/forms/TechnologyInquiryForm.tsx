@@ -176,9 +176,8 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
         </p>
         <h2 className="mt-3 font-display text-2xl text-charcoal">Thank you</h2>
         <p className="mt-3 text-sm leading-relaxed text-charcoal-muted">
-          Your technology inquiry has been saved. Keep this reference for follow-up. Email
-          delivery may be pending until SMTP is configured — your submission is retained either
-          way.
+          Your technology inquiry has been received. Please keep this reference for follow-up —
+          our team will respond by email with next steps.
         </p>
         <p className="mt-5 font-medium text-charcoal">
           Reference: <span className="text-champagne-deep">{done.reference}</span>
@@ -502,7 +501,8 @@ export function TechnologyInquiryForm({ defaultType, sourcePage }: Props) {
 
       <div className="mt-8 flex flex-col gap-3 border-t border-charcoal/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-charcoal-muted">
-          Required fields marked *. Do not share passwords or database credentials.
+          Required fields marked *. Share project context freely — avoid passwords or system
+          credentials in this form.
         </p>
         <Button type="submit" disabled={submitting} className="sm:min-w-[12rem]">
           {submitting ? "Submitting…" : "Submit inquiry"}

@@ -20,8 +20,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Talk to our commercial team"
-        description={`Email ${company.email} for fragrance, packaging, manufacturing, private label, or Technology & Growth inquiries — or use the forms below.`}
+        title="We welcome your inquiry"
+        description={`Write to ${company.email} for fragrance, packaging, manufacturing, private label, or Technology & Growth — or use the form beside.`}
       />
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
@@ -83,8 +83,8 @@ export default function ContactPage() {
                 </p>
               ) : (
                 <p className="mt-3 text-sm leading-relaxed text-charcoal-muted">
-                  A verified public address will be published once confirmed. Location details can
-                  be shared during commercial discussions.
+                  Address details are available on request and shared during commercial
+                  discussions.
                 </p>
               )}
             </div>

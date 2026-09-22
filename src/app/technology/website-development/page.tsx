@@ -82,7 +82,7 @@ export default function TechnologyWebsitePage() {
 
       <QuoteCta
         title="Discuss website development"
-        description="Corporate, B2B, catalogue, quotation, or ecommerce — describe what you need. Email remains available as a secondary contact."
+        description="Corporate, B2B, catalogue, quotation, or ecommerce — describe what you need and we will advise on scope."
         primaryHref="/technology/request-quote?type=website"
         primaryLabel="Discuss a Website Project"
         showEmail

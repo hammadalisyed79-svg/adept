@@ -8,7 +8,7 @@ const champagneLinkClass =
 
 export function QuoteCta({
   title = "Ready to discuss your project?",
-  description = "Tell us about your fragrance, packaging, manufacturing, or private-label requirements. Our team will respond with next steps.",
+  description = "Tell us about fragrance, packaging, manufacturing, private-label, or Technology & Growth requirements. Our team will respond with next steps.",
   primaryHref = "/request-quote",
   primaryLabel = "Request a Quote",
   secondaryHref = "/contact",

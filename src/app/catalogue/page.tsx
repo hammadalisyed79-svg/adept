@@ -21,16 +21,16 @@ export default function CataloguePage() {
       <PageHero
         eyebrow="Catalogue"
         title="Quotation-based product catalogue"
-        description="This is a B2B quotation catalogue — not a retail shopping cart. Items are published only when names, references, and specifications have been verified."
+        description="A curated selection of packaging components for quotation. Each listing reflects confirmed names, references, and specifications."
       />
       <Section>
         <Container>
           {products.length === 0 ? (
             <div className="border border-dashed border-charcoal/20 bg-white px-6 py-16 text-center">
-              <p className="font-display text-2xl text-charcoal">No published products yet</p>
+              <p className="font-display text-2xl text-charcoal">Catalogue in preparation</p>
               <p className="mx-auto mt-3 max-w-xl text-charcoal-muted">
-                Verified SKUs, photographs, and specifications will appear here as they are confirmed.
-                Meanwhile, request a quotation for packaging categories or fragrance services.
+                Product references will appear here as they are released for quotation. In the
+                meantime, request packaging or fragrance support through our commercial forms.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>

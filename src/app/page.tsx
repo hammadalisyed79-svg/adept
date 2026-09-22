@@ -199,8 +199,8 @@ export default function HomePage() {
               From Compound to Finished Product.
             </h2>
             <p className="mt-4 max-w-prose text-base leading-relaxed text-ivory/75 md:mt-5">
-              Blending, processing, filling and packaging support — scoped project by project.
-              Imagery is illustrative and does not depict verified ADEPT facilities.
+              Blending, processing, filling and packaging support — scoped with care for each
+              project brief.
             </p>
             <div className="mt-7 md:mt-9">
               <Button
@@ -255,7 +255,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Industries we serve"
-            title="Built for categories that depend on scent"
+            title="Industries shaped by fragrance"
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-4">
             {industries.map((ind) => (
