@@ -5,27 +5,21 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/Button";
-import { navigation, type NavItem } from "@/lib/navigation";
+import {
+  isNavChild,
+  isNavDivider,
+  isNavGroup,
+  navigation,
+  type NavChild,
+  type NavItem,
+  type NavMenuEntry,
+} from "@/lib/navigation";
 
-const childHints: Record<string, string> = {
-  "/services/fragrance-trading": "Concentrates & sampling",
-  "/services/toll-manufacturing": "Blending to filling",
-  "/services/private-label": "Brief to finished goods",
-  "/packaging": "Full component range",
-  "/packaging/perfume-bottles": "Glass & stock formats",
-  "/packaging/caps": "Closures & finishes",
-  "/packaging/pumps-and-collars": "Dispensing systems",
-  "/packaging/labels-and-stickers": "Print & materials",
-  "/packaging/folding-cartons": "Secondary cartons",
-  "/packaging/rigid-boxes": "Presentation packaging",
-  "/packaging/accessories": "Finishing details",
-  "/packaging/complete-packaging-sets": "Coordinated systems",
-  "/technology": "Software, web & marketing",
-  "/technology/erp": "Custom & third-party ERP",
-  "/technology/website-development": "Sites & catalogues",
-  "/technology/digital-marketing": "Brand & campaigns",
-  "/technology/ai-support": "Chatbots & AI support",
-};
+function childKey(entry: NavMenuEntry, index: number): string {
+  if (isNavDivider(entry)) return `divider-${index}`;
+  if (isNavGroup(entry)) return `group-${entry.label}`;
+  return entry.href;
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -51,6 +45,12 @@ export function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  /** Exact match for Technology Overview so nested tech pages do not highlight it. */
+  const isChildActive = (href: string) => {
+    if (href === "/technology") return pathname === "/technology";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   const parentActive = (item: NavItem) => {
     if (item.matchPrefix) {
       const prefixes = Array.isArray(item.matchPrefix)
@@ -60,6 +60,123 @@ export function Header() {
     }
     return isActive(item.href);
   };
+
+  const renderDesktopChildLink = (child: NavChild, indented = false) => (
+    <Link
+      href={child.href}
+      className={`block py-2.5 transition-colors ${
+        indented ? "pl-8 pr-5" : "px-5"
+      } ${
+        isChildActive(child.href)
+          ? "bg-ivory text-charcoal"
+          : "text-charcoal-muted hover:bg-ivory hover:text-charcoal"
+      }`}
+    >
+      <span className="block text-sm whitespace-nowrap">{child.label}</span>
+      {child.hint && (
+        <span className="mt-0.5 block text-xs text-charcoal-muted/80">
+          {child.hint}
+        </span>
+      )}
+    </Link>
+  );
+
+  const renderDesktopEntries = (entries: readonly NavMenuEntry[]) =>
+    entries.map((entry, index) => {
+      if (isNavDivider(entry)) {
+        return (
+          <li
+            key={childKey(entry, index)}
+            role="separator"
+            className="my-2 border-t border-charcoal/10"
+            aria-hidden
+          />
+        );
+      }
+
+      if (isNavGroup(entry)) {
+        return (
+          <li key={childKey(entry, index)} className="pt-1">
+            <div
+              className="px-5 pb-1 pt-2 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-charcoal/55"
+              role="presentation"
+            >
+              {entry.label}
+            </div>
+            <ul>
+              {entry.children.map((child) => (
+                <li key={child.href}>{renderDesktopChildLink(child, true)}</li>
+              ))}
+            </ul>
+          </li>
+        );
+      }
+
+      return (
+        <li key={childKey(entry, index)}>{renderDesktopChildLink(entry)}</li>
+      );
+    });
+
+  const renderMobileEntries = (entries: readonly NavMenuEntry[]) =>
+    entries.map((entry, index) => {
+      if (isNavDivider(entry)) {
+        return (
+          <li
+            key={childKey(entry, index)}
+            role="separator"
+            className="my-2 border-t border-champagne/30"
+            aria-hidden
+          />
+        );
+      }
+
+      if (isNavGroup(entry)) {
+        return (
+          <li key={childKey(entry, index)} className="pt-1">
+            <div className="py-2 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-charcoal/55">
+              {entry.label}
+            </div>
+            <ul className="border-l border-champagne/40 pl-3">
+              {entry.children.map((child) => (
+                <li key={child.href}>
+                  <Link
+                    href={child.href}
+                    className={`block py-2.5 text-sm ${
+                      isChildActive(child.href)
+                        ? "text-charcoal"
+                        : "text-charcoal-muted"
+                    }`}
+                    onClick={closeMenu}
+                  >
+                    {child.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+        );
+      }
+
+      if (isNavChild(entry)) {
+        return (
+          <li key={childKey(entry, index)}>
+            <Link
+              href={entry.href}
+              className={`block py-2.5 text-sm ${
+                isChildActive(entry.href)
+                  ? "text-charcoal"
+                  : "text-charcoal-muted"
+              }`}
+              onClick={closeMenu}
+            >
+              {entry.label}
+            </Link>
+          </li>
+        );
+      }
+
+      return null;
+    });
 
   return (
     <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-sm">
@@ -83,25 +200,7 @@ export function Header() {
                 </button>
                 <div className="invisible absolute left-0 top-full z-50 min-w-[18rem] translate-y-1 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                   <ul className="mt-3 max-h-[70vh] overflow-y-auto border border-charcoal/10 bg-white py-3 shadow-sm">
-                    {item.children.map((child) => (
-                      <li key={child.href}>
-                        <Link
-                          href={child.href}
-                          className={`block px-5 py-2.5 transition-colors ${
-                            isActive(child.href)
-                              ? "bg-ivory text-charcoal"
-                              : "text-charcoal-muted hover:bg-ivory hover:text-charcoal"
-                          }`}
-                        >
-                          <span className="block text-sm whitespace-nowrap">{child.label}</span>
-                          {childHints[child.href] && (
-                            <span className="mt-0.5 block text-xs text-charcoal-muted/80">
-                              {childHints[child.href]}
-                            </span>
-                          )}
-                        </Link>
-                      </li>
-                    ))}
+                    {renderDesktopEntries(item.children)}
                   </ul>
                 </div>
               </div>
@@ -173,17 +272,7 @@ export function Header() {
                 </button>
                 {expanded === item.label && (
                   <ul className="mb-2 border-l border-champagne/40 pl-4">
-                    {item.children.map((child) => (
-                      <li key={child.href}>
-                        <Link
-                          href={child.href}
-                          className="block py-2.5 text-sm text-charcoal-muted"
-                          onClick={closeMenu}
-                        >
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
+                    {renderMobileEntries(item.children)}
                   </ul>
                 )}
               </div>
