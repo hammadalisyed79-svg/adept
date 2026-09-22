@@ -2,67 +2,67 @@ export const processSteps = [
   {
     number: "01",
     title: "Brief",
-    short: "Share category, volumes and the support you need.",
+    short: "Define category, volumes, markets, and the support required.",
     description:
-      "Share your product category, volumes, markets, and whether you need trading, manufacturing, or private-label support.",
+      "Establish product category, intended volumes, markets, and whether the engagement calls for trading, manufacturing, or private-label support.",
   },
   {
     number: "02",
-    title: "Fragrance / Component Selection",
-    short: "Shortlist fragrance or packaging options against your brief.",
+    title: "Selection",
+    short: "Shortlist fragrance or packaging options against the brief.",
     description:
-      "We review application needs and shortlist fragrance or packaging options that fit your commercial constraints.",
+      "Application requirements are reviewed with care. Fragrance concentrates or packaging components are shortlisted to suit both technical fit and commercial parameters.",
   },
   {
     number: "03",
     title: "Sampling",
-    short: "Arrange samples for evaluation against the brief.",
+    short: "Arrange samples for considered evaluation.",
     description:
-      "Relevant fragrance or component samples can be arranged for evaluation against your brief.",
+      "Where appropriate, fragrance or component samples are arranged so your team may evaluate materials against the agreed brief.",
   },
   {
     number: "04",
     title: "Approval",
-    short: "Confirm direction after your team evaluates samples.",
+    short: "Confirm direction once samples have been assessed.",
     description:
-      "Your team evaluates samples in context. Feedback guides revisions or confirmation of a preferred direction.",
+      "Your team assesses samples in context. Feedback informs refinements — or confirms the preferred commercial direction.",
   },
   {
     number: "05",
     title: "Production",
-    short: "Plan materials, batching and production windows.",
+    short: "Plan materials, batching, and production windows.",
     description:
-      "Approved projects move into planning for materials, batching, packaging readiness, and scheduled production windows.",
+      "Approved work advances into materials planning, batch scheduling, packaging readiness, and agreed production windows.",
   },
   {
     number: "06",
-    title: "Quality Check",
-    short: "Run in-process checks appropriate to the scope.",
+    title: "Quality",
+    short: "Apply in-process checks suited to the scope.",
     description:
-      "Agreed manufacturing steps are executed with in-process checks appropriate to the product and process scope.",
+      "Manufacturing proceeds with in-process checks appropriate to the product type and the scope confirmed in writing.",
   },
   {
     number: "07",
     title: "Packing",
-    short: "Prepare primary and secondary packaging as agreed.",
+    short: "Prepare primary and secondary presentation as agreed.",
     description:
-      "Primary and secondary packaging are prepared according to the confirmed order and presentation requirements.",
+      "Primary and secondary packaging are prepared to the confirmed order — including presentation standards set for the brand.",
   },
   {
     number: "08",
     title: "Dispatch",
-    short: "Ship finished goods or materials per confirmed logistics.",
+    short: "Release goods against confirmed logistics instructions.",
     description:
-      "Finished goods or agreed materials are prepared for dispatch according to the confirmed order and logistics instructions.",
+      "Finished goods or agreed materials are prepared for dispatch in accordance with the confirmed order and logistics instructions.",
   },
 ] as const;
 
-/** Four homepage phases (full 8-step detail remains on /process) */
+/** Four homepage phases (full eight-step detail remains on /process) */
 export const homepageProcessPhases = [
   {
     number: "01",
     title: "Brief & Selection",
-    text: "Define the brief, then shortlist fragrance or packaging options.",
+    text: "Define the brief, then shortlist fragrance or packaging with precision.",
   },
   {
     number: "02",
@@ -72,11 +72,11 @@ export const homepageProcessPhases = [
   {
     number: "03",
     title: "Production & Quality",
-    text: "Plan production and run checks appropriate to the scope.",
+    text: "Plan production and apply checks suited to the agreed scope.",
   },
   {
     number: "04",
     title: "Packing & Dispatch",
-    text: "Prepare packaging and ship against confirmed logistics.",
+    text: "Complete presentation and release against confirmed logistics.",
   },
 ] as const;

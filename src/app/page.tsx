@@ -244,7 +244,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="How we work"
             title="A clear commercial process"
-            description="Four phases from brief to dispatch. Full detail lives on the Process page."
+            description="Four composed phases from brief to dispatch — the full pathway is detailed on Our Process."
           />
           <HomepageProcess className="mt-8 md:mt-12" />
         </Container>

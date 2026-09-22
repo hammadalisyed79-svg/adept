@@ -7,7 +7,7 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 export const metadata: Metadata = {
   title: "Our Process",
   description:
-    "How ADEPT Fragrances moves from client brief to sampling, approval, production, quality, packing, and dispatch.",
+    "The ADEPT Fragrances commercial pathway — from brief and selection through sampling, production, quality, packing, and dispatch.",
   alternates: { canonical: "/process" },
 };
 
@@ -16,28 +16,40 @@ export default function ProcessPage() {
     <>
       <PageHero
         eyebrow="Process"
-        title="How we work with business clients"
-        description="A composed pathway from brief to dispatch — designed for procurement clarity and commercial confidence."
+        title="From brief to dispatch"
+        description="An eight-step commercial pathway — composed for clarity, paced for confidence, and confirmed in writing before production begins."
       />
       <Section>
         <Container>
           <ProcessTimeline />
-          <p className="mt-12 max-w-prose text-sm text-charcoal-muted">
-            Manufacturing and supply commitments begin only after written commercial agreement.
-            Sampling availability, lead times, and partner-dependent steps are confirmed during
-            requirement assessment.
-          </p>
-          <p className="mt-4 max-w-prose text-sm text-charcoal-muted">
-            Fragrance, packaging, manufacturing, and private-label work follow this eight-step path.
-            Technology & Growth engagements use a discovery-to-delivery sequence described on each{" "}
-            <Link href="/technology" className="font-medium text-charcoal underline-offset-2 hover:underline">
-              Technology & Growth
-            </Link>{" "}
-            service page.
-          </p>
+          <div className="mt-14 max-w-2xl space-y-4 border-t border-charcoal/10 pt-10">
+            <p className="text-sm leading-relaxed text-charcoal-muted">
+              Manufacturing and supply proceed only after written commercial agreement. Sampling,
+              lead times, and any partner-dependent stages are confirmed during requirement
+              assessment.
+            </p>
+            <p className="text-sm leading-relaxed text-charcoal-muted">
+              Fragrance trading, packaging, manufacturing, and private label follow this pathway.
+              Technology & Growth engagements follow a discovery-to-delivery sequence on each{" "}
+              <Link
+                href="/technology"
+                className="font-medium text-charcoal underline-offset-2 hover:underline"
+              >
+                Technology & Growth
+              </Link>{" "}
+              service page.
+            </p>
+          </div>
         </Container>
       </Section>
-      <QuoteCta title="Begin with a project inquiry" />
+      <QuoteCta
+        title="Begin a commercial conversation"
+        description="Share your brief for fragrance, packaging, manufacturing, or private label. Technology & Growth consultations are welcome through a dedicated quotation form."
+        primaryHref="/request-quote"
+        primaryLabel="Request a Quote"
+        secondaryHref="/technology/request-quote"
+        secondaryLabel="Technology quotation"
+      />
     </>
   );
 }
