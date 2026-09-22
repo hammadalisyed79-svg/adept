@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { marketingApproach, marketingOfferings } from "@/content/technology";
@@ -64,7 +65,19 @@ export default function TechnologyDigitalMarketingPage() {
               ))}
             </ol>
           </div>
-          <TechnologyVisual variant="marketing" aspectClassName="aspect-[4/3]" />
+          <div>
+            <MediaImage
+              mediaKey="industryFineFragrance"
+              aspectClassName="aspect-[4/3]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="border border-charcoal/10"
+              hoverScale={false}
+            />
+            <p className="mt-3 text-xs text-charcoal-muted">
+              Brand photography for atmosphere. Marketing interface preview appears in the hero
+              until approved campaign photography is available.
+            </p>
+          </div>
         </Container>
       </Section>
 

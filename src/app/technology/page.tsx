@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { technologyServices } from "@/content/technology";
@@ -35,8 +36,18 @@ export default function TechnologyOverviewPage() {
               title="Build capability around the brand"
               description="Fragrance trading, packaging, manufacturing, and private label remain our core. Technology & Growth adds software, web, marketing, and AI chatbot services for teams that need digital and operational support."
             />
+            <p className="mt-5 text-xs leading-relaxed text-charcoal-muted">
+              Interface previews on this site stand in until approved ADEPT technology photography
+              is available.
+            </p>
           </div>
-          <TechnologyVisual variant="growth" aspectClassName="aspect-[4/3]" />
+          <MediaImage
+            mediaKey="completeBrandSolution"
+            aspectClassName="aspect-[4/3]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+            hoverScale={false}
+          />
         </Container>
       </Section>
 

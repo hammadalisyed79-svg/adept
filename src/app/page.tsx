@@ -98,6 +98,9 @@ export default function HomePage() {
             ADEPT helps fragrance businesses connect their products with the systems and channels
             needed to grow.
           </p>
+          <p className="mt-3 max-w-2xl text-xs text-ivory/40">
+            Cards show interface previews until approved ADEPT technology photography is available.
+          </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-2 xl:grid-cols-4">
             {technologyServices.map((s) => (
               <Link
@@ -107,6 +110,7 @@ export default function HomePage() {
               >
                 <TechnologyVisual
                   variant={s.variant}
+                  tone="dark"
                   decorative
                   aspectClassName="aspect-[4/3]"
                   className="border-0 border-b border-ivory/10"

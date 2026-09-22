@@ -34,6 +34,8 @@ export const media = {
     id: "toll-manufacturing",
     src: `${base}/toll-manufacturing.png`,
     alt: "Illustrative stainless-steel fragrance processing environment — not a verified ADEPT facility photograph",
+    placeholderNote:
+      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
   },
   privateLabel: {
     id: "private-label",
@@ -73,9 +75,9 @@ export const media = {
   accessories: {
     id: "accessories",
     src: `${base}/accessories.png`,
-    alt: "Fragrance packaging accessories",
+    alt: "Illustrative packaging styling photography — replace with ADEPT fragrance packaging accessories when product photography is available",
     placeholderNote:
-      "FLAGGED: Replace with genuine ADEPT fragrance packaging accessories photography before Production photography sign-off. Current asset is generated studio imagery, not approved product photography.",
+      "Interim lifestyle styling image. Replace with genuine ADEPT fragrance packaging accessories photography (collars, rings, ribbons, finishing parts) before photography sign-off.",
   },
   completePackagingSet: {
     id: "complete-packaging-set",
@@ -91,16 +93,22 @@ export const media = {
     id: "manufacturing-filling",
     src: `${base}/manufacturing-filling.png`,
     alt: "Illustrative filling operation — not a verified ADEPT facility photograph",
+    placeholderNote:
+      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
   },
   manufacturingMixing: {
     id: "manufacturing-mixing",
     src: `${base}/manufacturing-mixing.png`,
     alt: "Illustrative mixing vessel — not a verified ADEPT facility photograph",
+    placeholderNote:
+      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
   },
   qualityControl: {
     id: "quality-control",
     src: `${base}/quality-control.png`,
     alt: "Illustrative quality inspection — not a verified ADEPT facility photograph",
+    placeholderNote:
+      "Illustrative manufacturing imagery until verified ADEPT facility photography is available.",
   },
   completeBrandSolution: {
     id: "complete-brand-solution",
@@ -130,30 +138,34 @@ export const media = {
   technologyGrowth: {
     id: "technology-growth",
     src: `${base}/technology-growth.svg`,
-    alt: "Abstract illustration for Technology & Growth Solutions — superseded by CSS TechnologyVisual on pages",
+    alt: "Technology & Growth interface preview — superseded by CSS TechnologyVisual on pages",
+    decorative: true,
     placeholderNote:
-      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions. File retained for registry compatibility only.",
+      "No approved photography yet. Pages use TechnologyVisual CSS interface previews. SVG retained for registry fallback only.",
   },
   technologyErp: {
     id: "technology-erp",
     src: `${base}/technology-erp.svg`,
-    alt: "Abstract ERP illustration — superseded by CSS TechnologyVisual on pages",
+    alt: "ERP interface preview — superseded by CSS TechnologyVisual on pages",
+    decorative: true,
     placeholderNote:
-      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
+      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
   },
   technologyWebsite: {
     id: "technology-website",
     src: `${base}/technology-website.svg`,
-    alt: "Abstract website illustration — superseded by CSS TechnologyVisual on pages",
+    alt: "Website interface preview — superseded by CSS TechnologyVisual on pages",
+    decorative: true,
     placeholderNote:
-      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
+      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
   },
   technologyMarketing: {
     id: "technology-marketing",
     src: `${base}/technology-marketing.svg`,
-    alt: "Abstract marketing illustration — superseded by CSS TechnologyVisual on pages",
+    alt: "Marketing interface preview — superseded by CSS TechnologyVisual on pages",
+    decorative: true,
     placeholderNote:
-      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
+      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
   },
 } as const satisfies Record<string, MediaAsset>;
 

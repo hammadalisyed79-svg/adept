@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { erpHowWeWork, erpOfferings } from "@/content/technology";
@@ -61,7 +62,19 @@ export default function TechnologyErpPage() {
               ))}
             </ol>
           </div>
-          <TechnologyVisual variant="erp" aspectClassName="aspect-[4/3]" />
+          <div>
+            <MediaImage
+              mediaKey="qualityControl"
+              aspectClassName="aspect-[4/3]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="border border-charcoal/10"
+              hoverScale={false}
+            />
+            <p className="mt-3 text-xs text-charcoal-muted">
+              Brand photography shown for atmosphere. ERP interface preview appears in the hero until
+              approved software photography is available.
+            </p>
+          </div>
         </Container>
       </Section>
 

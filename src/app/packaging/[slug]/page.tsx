@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
-import { packagingMediaBySlug, type MediaKey } from "@/content/media";
+import { getMedia, packagingMediaBySlug, type MediaKey } from "@/content/media";
 import { getPackagingCategory, packagingCategories } from "@/content/packaging";
 import { getSiteUrl } from "@/lib/company";
 
@@ -37,13 +37,18 @@ export default async function PackagingCategoryPage({ params }: Props) {
 
   const products = getPublishedProducts(category.slug);
   const mediaKey = (packagingMediaBySlug[category.slug] ?? "packagingComponents") as MediaKey;
+  const interimNote = getMedia(mediaKey).placeholderNote;
 
   return (
     <>
       <PageHero
         eyebrow="Packaging & Components"
         title={category.title}
-        description={category.summary}
+        description={
+          interimNote
+            ? `${category.summary} Imagery is interim until approved ADEPT product photography is available.`
+            : category.summary
+        }
         mediaKey={mediaKey}
       />
 

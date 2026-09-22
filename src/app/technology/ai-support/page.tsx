@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
+import { MediaImage } from "@/components/media/MediaImage";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { aiHowWeDeliver, aiOfferings } from "@/content/technology";
@@ -61,7 +62,19 @@ export default function TechnologyAiSupportPage() {
               ))}
             </ol>
           </div>
-          <TechnologyVisual variant="ai" aspectClassName="aspect-[4/3]" />
+          <div>
+            <MediaImage
+              mediaKey="fragranceTrading"
+              aspectClassName="aspect-[4/3]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="border border-charcoal/10"
+              hoverScale={false}
+            />
+            <p className="mt-3 text-xs text-charcoal-muted">
+              Service photography for atmosphere. Chatbot interface preview appears in the hero
+              until approved product photography is available.
+            </p>
+          </div>
         </Container>
       </Section>
 
