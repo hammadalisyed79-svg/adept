@@ -56,3 +56,27 @@ export const processSteps = [
       "Finished goods or agreed materials are prepared for dispatch according to the confirmed order and logistics instructions.",
   },
 ] as const;
+
+/** Four homepage phases (full 8-step detail remains on /process) */
+export const homepageProcessPhases = [
+  {
+    number: "01",
+    title: "Brief & Selection",
+    text: "Define the brief, then shortlist fragrance or packaging options.",
+  },
+  {
+    number: "02",
+    title: "Sampling & Approval",
+    text: "Evaluate samples and confirm the commercial direction.",
+  },
+  {
+    number: "03",
+    title: "Production & Quality",
+    text: "Plan production and run checks appropriate to the scope.",
+  },
+  {
+    number: "04",
+    title: "Packing & Dispatch",
+    text: "Prepare packaging and ship against confirmed logistics.",
+  },
+] as const;

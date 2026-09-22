@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { InquiryForm } from "@/components/forms/InquiryForm";
+import { MediaImage } from "@/components/media/MediaImage";
+import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
+import { company } from "@/lib/company";
 import { inquiryTypes } from "@/lib/validation/inquiry";
 
 export const metadata: Metadata = {
@@ -25,11 +28,53 @@ export default async function RequestQuotePage({ searchParams }: Props) {
       <PageHero
         eyebrow="Quotations"
         title="Request a quote"
-        description="Tell us what you need. Required fields capture the essentials; optional fields deepen the brief without blocking submission."
+        description="Share the essentials. Optional fields deepen the brief without blocking submission."
       />
       <Section className="bg-white">
-        <Container className="mx-auto max-w-4xl">
-          <InquiryForm defaultType={defaultType} sourcePage="/request-quote" />
+        <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="min-w-0">
+            <InquiryForm defaultType={defaultType} sourcePage="/request-quote" />
+          </div>
+          <aside className="order-first space-y-6 lg:order-last lg:sticky lg:top-28">
+            <MediaImage
+              mediaKey="completeBrandSolution"
+              hoverScale={false}
+              aspectClassName="aspect-[4/3] hidden lg:block"
+              sizes="22rem"
+              className="border border-charcoal/10"
+            />
+            <div className="border border-charcoal/10 bg-ivory p-6 md:p-7">
+              <p className="text-xs font-medium uppercase tracking-wideish text-champagne-deep">
+                Commercial inquiry
+              </p>
+              <h2 className="mt-3 font-display text-2xl text-charcoal">What happens next</h2>
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-charcoal-muted">
+                <li className="border-l-2 border-champagne pl-3">
+                  We review your brief against trading, packaging, or manufacturing scope.
+                </li>
+                <li className="border-l-2 border-champagne pl-3">
+                  Clarifying questions are sent by email when needed.
+                </li>
+                <li className="border-l-2 border-champagne pl-3">
+                  Commercial next steps follow once requirements are clear.
+                </li>
+              </ul>
+              <p className="mt-6 text-sm text-charcoal">
+                <span className="text-charcoal-muted">Email: </span>
+                <a
+                  href={`mailto:${company.email}`}
+                  className="underline underline-offset-2 hover:text-champagne-deep"
+                >
+                  {company.email}
+                </a>
+              </p>
+              <div className="mt-6">
+                <Button href="/contact" variant="secondary" className="w-full">
+                  Contact page
+                </Button>
+              </div>
+            </div>
+          </aside>
         </Container>
       </Section>
     </>

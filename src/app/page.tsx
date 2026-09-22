@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { EditorialImageCard } from "@/components/media/EditorialImageCard";
+import { HomepageProcess } from "@/components/media/HomepageProcess";
 import { MediaImage } from "@/components/media/MediaImage";
 import { PackagingVisualGrid } from "@/components/media/PackagingVisualGrid";
-import { ProcessTimeline } from "@/components/media/ProcessTimeline";
 import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
 import { divisionMediaByHref, industryMediaBySlug } from "@/content/media";
-import { company, getWhatsAppUrl, isTelephonePlaceholder, isWhatsAppPlaceholder } from "@/lib/company";
+import { company } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function HomePage() {
             title="Four core business divisions"
             description="Fragrance concentrates, packaging, manufacturing and private label — coordinated for B2B brand builders."
           />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5">
             {divisions.map((d, i) => (
               <EditorialImageCard
                 key={d.href}
@@ -88,8 +88,8 @@ export default function HomePage() {
             title="Build Every Detail of the Pack."
             description="Source individual components or coordinate a complete packaging system through ADEPT."
           />
-          <PackagingVisualGrid className="mt-12" />
-          <div className="mt-8 flex flex-wrap gap-3">
+          <PackagingVisualGrid className="mt-8 md:mt-12" />
+          <div className="mt-7 flex flex-wrap gap-3 md:mt-8">
             <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>
             <Button href="/packaging" variant="secondary">
               All packaging
@@ -100,7 +100,7 @@ export default function HomePage() {
 
       {/* Complete solution */}
       <Section className="bg-white">
-        <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <Container className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16 md:gap-10">
           <MediaImage
             mediaKey="completeBrandSolution"
             hoverScale={false}
@@ -115,11 +115,11 @@ export default function HomePage() {
             <h2 className="mt-3 font-display text-3xl leading-tight text-charcoal md:text-4xl">
               One Project. Every Component.
             </h2>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-charcoal-muted md:text-lg">
+            <p className="mt-4 max-w-prose text-base leading-relaxed text-charcoal-muted md:mt-5 md:text-lg">
               Source individual components or coordinate fragrance, packaging and production as
               one project.
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-charcoal-muted">
+            <ul className="mt-6 space-y-3 text-sm text-charcoal-muted md:mt-8">
               {[
                 "Fragrance concentrate",
                 "Bottle · Pump · Collar · Cap",
@@ -130,7 +130,7 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <div className="mt-9">
+            <div className="mt-7 md:mt-9">
               <Button href="/request-quote">Discuss Your Project</Button>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function HomePage() {
 
       {/* Manufacturing feature */}
       <Section className="bg-charcoal text-ivory">
-        <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <Container className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14 md:gap-10">
           <div>
             <p className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
               Toll manufacturing
@@ -147,11 +147,11 @@ export default function HomePage() {
             <h2 className="mt-3 font-display text-3xl leading-tight text-ivory md:text-4xl">
               From Compound to Finished Product.
             </h2>
-            <p className="mt-5 max-w-prose text-base leading-relaxed text-ivory/75">
+            <p className="mt-4 max-w-prose text-base leading-relaxed text-ivory/75 md:mt-5">
               Blending, processing, filling and packaging support — scoped project by project.
               Imagery is illustrative and does not depict verified ADEPT facilities.
             </p>
-            <div className="mt-9">
+            <div className="mt-7 md:mt-9">
               <Button
                 href="/services/toll-manufacturing"
                 variant="champagne"
@@ -187,20 +187,15 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Process */}
+      {/* Process — 4 strong phases */}
       <Section className="bg-ivory-soft">
         <Container>
           <SectionHeading
             eyebrow="How we work"
             title="A clear commercial process"
-            description="From first inquiry to dispatch — each stage reduces ambiguity for brand and procurement teams."
+            description="Four phases from brief to dispatch. Full detail lives on the Process page."
           />
-          <ProcessTimeline compact className="mt-12" />
-          <div className="mt-10">
-            <Button href="/process" variant="secondary">
-              See the full process
-            </Button>
-          </div>
+          <HomepageProcess className="mt-8 md:mt-12" />
         </Container>
       </Section>
 
@@ -211,7 +206,7 @@ export default function HomePage() {
             eyebrow="Industries we serve"
             title="Built for categories that depend on scent"
           />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-4">
             {industries.map((ind) => (
               <Link
                 key={ind.slug}
@@ -223,18 +218,21 @@ export default function HomePage() {
                   aspectClassName="aspect-[4/3]"
                   sizes="(max-width: 768px) 100vw, 25vw"
                 />
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep">
+                <div className="flex flex-1 flex-col border-t border-charcoal/5 p-4 md:p-5">
+                  <h3 className="font-display text-xl leading-snug text-charcoal group-hover:text-champagne-deep md:text-2xl">
                     {ind.title}
                   </h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-charcoal-muted">
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-charcoal-muted">
                     {ind.summary}
                   </p>
+                  <span className="mt-4 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+                    Explore →
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="mt-8">
+          <div className="mt-7 md:mt-8">
             <Button href="/industries" variant="ghost" className="px-0">
               View all industries →
             </Button>
@@ -244,62 +242,9 @@ export default function HomePage() {
 
       <QuoteCta
         title="Request a quotation"
-        description="Brief fragrance, packaging, or manufacturing requirements in one inquiry."
+        description="Brief fragrance, packaging, or manufacturing requirements in one inquiry. We respond by email."
+        showEmail
       />
-
-      <Section>
-        <Container className="grid gap-8 md:grid-cols-2 md:items-center">
-          <div>
-            <SectionHeading
-              eyebrow="Contact"
-              title="Speak with our commercial team"
-              description="Email is the primary channel for commercial inquiries."
-            />
-          </div>
-          <div className="space-y-3 text-sm text-charcoal-muted">
-            <p>
-              <span className="text-charcoal">Email:</span>{" "}
-              <a className="underline underline-offset-2" href={`mailto:${company.email}`}>
-                {company.email}
-              </a>
-            </p>
-            {!isTelephonePlaceholder() && (
-              <p>
-                <span className="text-charcoal">Telephone:</span>{" "}
-                <a
-                  className="underline underline-offset-2"
-                  href={`tel:${company.telephone.replace(/\s/g, "")}`}
-                >
-                  {company.telephone}
-                </a>
-              </p>
-            )}
-            {!isWhatsAppPlaceholder() && (
-              <p>
-                <Button
-                  href={getWhatsAppUrl(
-                    "Hello ADEPT Fragrances — I would like to discuss a fragrance project.",
-                  )}
-                  variant="champagne"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Message on WhatsApp
-                </Button>
-              </p>
-            )}
-            <p className="pt-2">
-              <Link href="/contact" className="text-charcoal underline underline-offset-2">
-                Open the contact page
-              </Link>
-              {" · "}
-              <Link href="/request-quote" className="text-charcoal underline underline-offset-2">
-                Request a quote
-              </Link>
-            </p>
-          </div>
-        </Container>
-      </Section>
     </>
   );
 }

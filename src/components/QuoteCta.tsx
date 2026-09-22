@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Section";
+import { company } from "@/lib/company";
 
 export function QuoteCta({
   title = "Ready to discuss your project?",
@@ -9,6 +10,7 @@ export function QuoteCta({
   primaryLabel = "Request a Quote",
   secondaryHref = "/contact",
   secondaryLabel = "Contact Us",
+  showEmail = false,
 }: {
   title?: string;
   description?: string;
@@ -16,6 +18,8 @@ export function QuoteCta({
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  /** Include email on the CTA band to avoid a separate contact strip */
+  showEmail?: boolean;
 }) {
   return (
     <Section className="bg-charcoal text-ivory">
@@ -29,6 +33,17 @@ export function QuoteCta({
             <p className="mt-4 max-w-xl text-base leading-relaxed text-ivory/70">
               {description}
             </p>
+            {showEmail && (
+              <p className="mt-5 text-sm text-ivory/65">
+                Email{" "}
+                <a
+                  href={`mailto:${company.email}`}
+                  className="text-ivory underline underline-offset-2 transition hover:text-champagne-soft"
+                >
+                  {company.email}
+                </a>
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap gap-3 md:justify-end">
             <Button href={primaryHref} variant="champagne">

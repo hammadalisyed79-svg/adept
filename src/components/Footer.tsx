@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import {
   company,
@@ -8,24 +11,56 @@ import {
 } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
+function FooterGroup({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  const id = `footer-${title.toLowerCase().replace(/\s+/g, "-")}`;
+
+  return (
+    <div className="border-b border-white/10 md:border-0">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between py-4 text-left md:pointer-events-none md:cursor-default md:py-0"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
+          {title}
+        </h2>
+        <span className="text-ivory/60 md:hidden" aria-hidden>
+          {open ? "−" : "+"}
+        </span>
+      </button>
+      <div id={id} className={`${open ? "block pb-4" : "hidden"} md:block md:pb-0`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-white/10 bg-charcoal text-ivory">
-      <div className="mx-auto grid max-w-content gap-12 px-5 py-16 md:grid-cols-4 md:px-8">
+      <div className="mx-auto grid max-w-content gap-8 px-5 py-12 md:grid-cols-4 md:gap-12 md:px-8 md:py-16">
         <div className="md:col-span-1">
           <Logo inverted />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-ivory/70">
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/70 md:mt-5">
             {company.positioning}
           </p>
         </div>
 
-        <div>
-          <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Divisions
-          </h2>
-          <ul className="mt-4 space-y-2.5">
+        <FooterGroup title="Divisions">
+          <ul className="space-y-2.5">
             {divisions.map((d) => (
               <li key={d.href}>
                 <Link href={d.href} className="text-sm text-ivory/75 transition hover:text-ivory">
@@ -49,13 +84,10 @@ export function Footer() {
               </Link>
             </li>
           </ul>
-        </div>
+        </FooterGroup>
 
-        <div>
-          <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Company
-          </h2>
-          <ul className="mt-4 space-y-2.5">
+        <FooterGroup title="Company">
+          <ul className="space-y-2.5">
             <li>
               <Link href="/about" className="text-sm text-ivory/75 transition hover:text-ivory">
                 About
@@ -87,13 +119,10 @@ export function Footer() {
               </Link>
             </li>
           </ul>
-        </div>
+        </FooterGroup>
 
-        <div>
-          <h2 className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Contact
-          </h2>
-          <ul className="mt-4 space-y-2.5 text-sm text-ivory/75">
+        <FooterGroup title="Contact" defaultOpen>
+          <ul className="space-y-2.5 text-sm text-ivory/75">
             <li>
               <a href={`mailto:${company.email}`} className="transition hover:text-ivory">
                 {company.email}
@@ -129,11 +158,11 @@ export function Footer() {
               <li className="pt-2 text-ivory/45">Location details available upon request.</li>
             )}
           </ul>
-        </div>
+        </FooterGroup>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-content flex-col gap-2 px-5 py-6 text-xs text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="mx-auto flex max-w-content flex-col gap-2 px-5 py-5 text-xs text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
           <p>
             © {year} {company.name}. {company.tagline}
           </p>

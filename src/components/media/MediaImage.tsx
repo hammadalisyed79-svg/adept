@@ -40,7 +40,7 @@ export function MediaImage({
           sizes={sizes}
           unoptimized={isSvg}
           quality={85}
-          className={`h-full w-full ${imgClassName} transition-transform duration-soft ${scaleClass}`}
+          className={`h-full w-full object-cover object-center [filter:saturate(0.96)_brightness(0.99)] ${imgClassName} transition-transform duration-soft ${scaleClass}`}
         />
       </div>
     );

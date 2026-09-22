@@ -7,15 +7,14 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3010";
-const outDir = join(process.cwd(), "visual-review", "final");
+const outDir = join(process.cwd(), "visual-review", "polish");
 mkdirSync(outDir, { recursive: true });
 
 const shots = [
   { slug: "homepage", path: "/", widths: [1440, 390] },
   { slug: "packaging", path: "/packaging", widths: [1440, 390] },
   { slug: "toll-manufacturing", path: "/services/toll-manufacturing", widths: [1440, 390] },
-  { slug: "fragrance-trading", path: "/services/fragrance-trading", widths: [1440] },
-  { slug: "request-quote", path: "/request-quote", widths: [390] },
+  { slug: "request-quote", path: "/request-quote", widths: [1440, 390] },
 ];
 
 async function preparePage(page) {

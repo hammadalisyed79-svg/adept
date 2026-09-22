@@ -33,20 +33,20 @@ export function EditorialImageCard({
         aspectClassName={aspectClassName}
         sizes="(max-width: 768px) 100vw, 50vw"
       />
-      <div className="flex flex-1 flex-col p-6 md:p-7">
+      <div className="flex flex-1 flex-col p-5 md:p-7">
         {(index || label) && (
-          <div className="mb-3 flex items-center gap-3 text-xs uppercase tracking-wideish">
+          <div className="mb-2 flex items-center gap-3 text-xs uppercase tracking-wideish md:mb-3">
             {index && <span className="text-champagne-deep">{index}</span>}
             {label && <span className="text-charcoal-muted">{label}</span>}
           </div>
         )}
-        <h3 className="font-display text-2xl text-charcoal group-hover:text-champagne-deep">
+        <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep md:text-2xl">
           {title}
         </h3>
-        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-charcoal-muted">
+        <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
           {description}
         </p>
-        <span className="mt-6 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
+        <span className="mt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:mt-6">
           Learn more →
         </span>
       </div>
