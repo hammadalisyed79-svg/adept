@@ -22,7 +22,7 @@ export const technologyServices = [
     title: "ERP Solutions",
     href: "/technology/erp",
     summary:
-      "Custom ERP development and implementation support for inventory, sales, purchasing, production, and reporting — scoped to your operations.",
+      "Custom and third-party ERP for inventory, sales, purchasing, production, and reporting — scoped to your operations.",
     variant: "erp" as TechnologyVisualVariant,
     label: "Software & operations",
   },
@@ -30,7 +30,7 @@ export const technologyServices = [
     title: "Website Development",
     href: "/technology/website-development",
     summary:
-      "Corporate, B2B, catalogue, and quotation-oriented websites — with optional integration to operational systems where supported.",
+      "Corporate, B2B, catalogue, and quotation websites, with optional links to operational systems where supported.",
     variant: "website" as TechnologyVisualVariant,
     label: "Digital presence",
   },
@@ -38,7 +38,7 @@ export const technologyServices = [
     title: "Digital Marketing",
     href: "/technology/digital-marketing",
     summary:
-      "Brand strategy, content, social, SEO, and paid campaigns managed as practical growth support for your business.",
+      "Brand, content, social, SEO, and paid campaigns as practical growth support for fragrance and related brands.",
     variant: "marketing" as TechnologyVisualVariant,
     label: "Brand & channels",
   },
@@ -46,7 +46,7 @@ export const technologyServices = [
     title: "AI Support & Chatbots",
     href: "/technology/ai-support",
     summary:
-      "AI-assisted customer support and website chatbots that answer common questions, capture leads, and hand off to your team when needed.",
+      "Website chatbots and AI support that answer common questions, capture leads, and hand off to your team.",
     variant: "ai" as TechnologyVisualVariant,
     label: "AI & automation",
   },

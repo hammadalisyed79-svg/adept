@@ -70,16 +70,13 @@ export default async function TechnologyRequestQuotePage({ searchParams }: Props
               defaultType={defaultType}
               sourcePage="/technology/request-quote"
             />
-            <div className="mt-8 lg:hidden">
-              <WhatHappensNextPanel />
-            </div>
           </div>
 
-          <aside className="order-2 hidden space-y-6 lg:sticky lg:top-28 lg:block">
+          <aside className="order-2 space-y-6 lg:sticky lg:top-28">
             <TechnologyVisual
               variant="growth"
               aspectClassName="aspect-[4/3]"
-              className="border border-charcoal/10"
+              className="hidden border border-charcoal/10 lg:block"
             />
             <WhatHappensNextPanel />
           </aside>

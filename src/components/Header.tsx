@@ -32,6 +32,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const menuId = useId();
+  const quoteHref = pathname.startsWith("/technology")
+    ? "/technology/request-quote"
+    : "/request-quote";
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -120,7 +123,7 @@ export function Header() {
 
         <div className="hidden shrink-0 lg:block">
           <Button
-            href="/request-quote"
+            href={quoteHref}
             variant="champagne"
             className="px-4 py-2.5 text-xs uppercase tracking-wideish xl:px-5"
           >
@@ -196,7 +199,7 @@ export function Header() {
             ),
           )}
           <Link
-            href="/request-quote"
+            href={quoteHref}
             onClick={closeMenu}
             className="mt-3 inline-flex w-full items-center justify-center gap-2 bg-champagne px-6 py-3 text-sm font-medium tracking-wide text-charcoal transition-colors duration-soft hover:bg-champagne-soft"
           >

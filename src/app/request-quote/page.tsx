@@ -68,23 +68,18 @@ export default async function RequestQuotePage({ searchParams }: Props) {
       />
       <Section className="bg-white">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_22rem]">
-          {/* Form first on mobile; desktop keeps form | sidebar */}
-          <div className="min-w-0 order-1">
+          <div className="order-1 min-w-0">
             <InquiryForm defaultType={defaultType} sourcePage="/request-quote" />
-            {/* Mobile only: panel below form */}
-            <div className="mt-8 lg:hidden">
-              <WhatHappensNextPanel />
-            </div>
           </div>
 
-          {/* Desktop sidebar */}
-          <aside className="order-2 hidden space-y-6 lg:sticky lg:top-28 lg:block">
+          {/* Single panel: below form on mobile, sticky sidebar on desktop */}
+          <aside className="order-2 space-y-6 lg:sticky lg:top-28">
             <MediaImage
               mediaKey="completeBrandSolution"
               hoverScale={false}
               aspectClassName="aspect-[4/3]"
               sizes="22rem"
-              className="border border-charcoal/10"
+              className="hidden border border-charcoal/10 lg:block"
             />
             <WhatHappensNextPanel />
           </aside>

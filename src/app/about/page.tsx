@@ -16,7 +16,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow={`About ${company.logoPrimary}`}
-        title="Everything you need to create a fragrance brand"
+        title="A B2B partner for fragrance concentrates, packaging, and manufacturing"
         description={company.heroSupporting}
       />
 

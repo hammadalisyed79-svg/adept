@@ -15,7 +15,9 @@ import { company } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
 export const metadata: Metadata = {
-  title: company.heroHeadline,
+  title: {
+    absolute: `${company.heroHeadline.replace(/\.\s*$/, "")} | ${company.name}`,
+  },
   description: company.heroSupporting,
   alternates: { canonical: "/" },
 };
@@ -111,9 +113,7 @@ export default function HomePage() {
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="text-xs uppercase tracking-wideish text-champagne-soft">{s.label}</p>
                   <h3 className="mt-2 font-display text-xl text-ivory md:text-2xl">{s.title}</h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ivory/65">
-                    {s.summary}
-                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-ivory/65">{s.summary}</p>
                   <span className="mt-4 text-sm font-medium text-champagne-soft group-hover:underline">
                     Explore →
                   </span>

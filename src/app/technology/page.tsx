@@ -67,7 +67,7 @@ export default function TechnologyOverviewPage() {
                   <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep md:text-2xl">
                     {s.title}
                   </h3>
-                  <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
                     {s.summary}
                   </p>
                   <span className="mt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:mt-6">
