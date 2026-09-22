@@ -1,19 +1,20 @@
 # Staging database isolation — ADEPT Fragrances
 
-**Status:** Prepared procedure (Production credentials not modified)  
-**Date:** 2026-09-21  
+**Status:** EXECUTED 2026-09-22 — Preview isolated on Free plan; Production store unchanged  
+**Date:** 2026-09-21 (procedure) / 2026-09-22 (execution)
 
-## Current configuration (audited)
+## Current configuration (post-isolation)
 
 | Item | Finding |
 |------|---------|
-| Storage | Vercel store `prisma-postgres-purple-drum` (Prisma Postgres) |
-| Connected environments | **preview AND production** |
-| Env vars injected | `DATABASE_URL_POSTGRES_URL`, `DATABASE_URL_DATABASE_URL`, `DATABASE_URL_PRISMA_DATABASE_URL` |
-| Manual `DATABASE_URL` | Also present on Preview + Production (same dual attachment) |
-| Isolation | **NOT ISOLATED** — Preview and Production share one database |
+| Production storage | `prisma-postgres-purple-drum` (`store_KtXMAUbnv6UZNedj`) — **production only** |
+| Preview storage | `adept-staging-postgres` (`store_damIXxKrVMmE3tpT`) — **preview only**, Free plan |
+| Production env | `DATABASE_URL` + `DATABASE_URL_*` → purple-drum |
+| Preview env | `DATABASE_URL`, `POSTGRES_URL`, `PRISMA_DATABASE_URL` → staging |
+| Isolation | **ISOLATED** — distinct DB user fingerprints (`…673b6b` vs `…4efe06`) |
+| Staging migrations | Applied 2026-09-22 (`migrate deploy` against Preview URL only) |
 
-Host observed in Preview build logs: `db.prisma.io` (connection strings never printed in reports).
+Host: `db.prisma.io` (connection strings never printed in reports).
 
 ## Goal
 
