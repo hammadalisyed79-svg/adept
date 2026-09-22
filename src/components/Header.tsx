@@ -24,6 +24,7 @@ const childHints: Record<string, string> = {
   "/technology/erp": "Custom & third-party ERP",
   "/technology/website-development": "Sites & catalogues",
   "/technology/digital-marketing": "Brand & campaigns",
+  "/technology/ai-support": "Chatbots & AI support",
 };
 
 export function Header() {

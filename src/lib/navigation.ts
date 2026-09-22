@@ -23,6 +23,7 @@ export const navigation: readonly NavItem[] = [
       { href: "/technology/erp", label: "ERP Solutions" },
       { href: "/technology/website-development", label: "Website Development" },
       { href: "/technology/digital-marketing", label: "Digital Marketing" },
+      { href: "/technology/ai-support", label: "AI Support & Chatbots" },
     ],
   },
   {

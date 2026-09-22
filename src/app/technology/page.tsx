@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { TechnologyVisual } from "@/components/media/TechnologyVisual";
-import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { techMailto, technologyServices } from "@/content/technology";
 import { company } from "@/lib/company";
@@ -10,7 +9,7 @@ import { company } from "@/lib/company";
 export const metadata: Metadata = {
   title: "Technology & Growth Solutions",
   description:
-    "ERP solutions, website development, and digital marketing for fragrance and related businesses — from ADEPT Fragrances.",
+    "ERP, website development, digital marketing, and AI chatbots for fragrance and related businesses — from ADEPT Fragrances.",
   alternates: { canonical: "/technology" },
 };
 
@@ -20,7 +19,7 @@ export default function TechnologyOverviewPage() {
       <PageHero
         eyebrow="Technology & Growth Solutions"
         title="Systems and channels that support commercial growth"
-        description="Beyond fragrance manufacturing, ADEPT helps businesses connect products with operational software, digital storefronts, and practical marketing support."
+        description="Beyond fragrance manufacturing, ADEPT helps businesses connect products with operational software, digital storefronts, marketing support, and AI-assisted chat."
         visual={
           <TechnologyVisual
             variant="growth"
@@ -35,7 +34,7 @@ export default function TechnologyOverviewPage() {
             <SectionHeading
               eyebrow="A complete commercial partner"
               title="Build capability around the brand"
-              description="Fragrance trading, packaging, manufacturing, and private label remain our core. Technology & Growth adds software, web, and marketing services for teams that need digital and operational support."
+              description="Fragrance trading, packaging, manufacturing, and private label remain our core. Technology & Growth adds software, web, marketing, and AI chatbot services for teams that need digital and operational support."
             />
           </div>
           <TechnologyVisual variant="growth" aspectClassName="aspect-[4/3]" />
@@ -46,10 +45,10 @@ export default function TechnologyOverviewPage() {
         <Container>
           <SectionHeading
             eyebrow="Services"
-            title="Three practical offerings"
-            description="Scoped project by project — so software, websites, and marketing support match how your business actually works."
+            title="Four practical offerings"
+            description="Scoped project by project — so software, websites, marketing, and AI support match how your business actually works."
           />
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-2 xl:grid-cols-4">
             {technologyServices.map((s, i) => (
               <Link
                 key={s.href}
@@ -84,7 +83,7 @@ export default function TechnologyOverviewPage() {
 
       <QuoteCta
         title="Discuss Technology & Growth"
-        description="Tell us whether you need ERP, website, or marketing support. We respond by email."
+        description="Tell us whether you need ERP, website, marketing, or AI chatbot support. We respond by email."
         primaryHref={techMailto("Technology & Growth inquiry")}
         primaryLabel={`Email ${company.email}`}
         showEmail

@@ -1,10 +1,11 @@
-type Variant = "growth" | "erp" | "website" | "marketing";
+type Variant = "growth" | "erp" | "website" | "marketing" | "ai";
 
 const labels: Record<Variant, string> = {
   growth: "Technology & Growth",
   erp: "Operational systems",
   website: "Digital presence",
   marketing: "Brand & channels",
+  ai: "AI support & chatbots",
 };
 
 /**
@@ -36,6 +37,7 @@ export function TechnologyVisual({
         {variant === "erp" && <ErpComposition />}
         {variant === "website" && <WebsiteComposition />}
         {variant === "marketing" && <MarketingComposition />}
+        {variant === "ai" && <AiComposition />}
       </div>
       <p className="absolute bottom-3 left-4 text-[10px] uppercase tracking-wideish text-charcoal/35 md:bottom-4 md:left-5">
         {labels[variant]}
@@ -166,6 +168,37 @@ function MarketingComposition() {
             <div className="h-10 flex-1 rounded-sm bg-charcoal/10" />
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function AiComposition() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <div className="rounded-sm border border-charcoal/10 bg-white p-4 shadow-sm">
+        <div className="mb-3 flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal text-[10px] font-medium text-champagne">
+            AI
+          </span>
+          <div className="h-2 w-24 rounded-full bg-charcoal/15" />
+        </div>
+        <div className="space-y-2">
+          <div className="max-w-[85%] rounded-sm bg-ivory px-3 py-2">
+            <div className="h-1.5 w-full rounded-full bg-charcoal/15" />
+            <div className="mt-1.5 h-1.5 w-2/3 rounded-full bg-charcoal/10" />
+          </div>
+          <div className="ml-auto max-w-[70%] rounded-sm bg-champagne/35 px-3 py-2">
+            <div className="h-1.5 w-full rounded-full bg-charcoal/20" />
+          </div>
+          <div className="max-w-[75%] rounded-sm bg-ivory px-3 py-2">
+            <div className="h-1.5 w-5/6 rounded-full bg-charcoal/15" />
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-2 rounded-sm border border-charcoal/10 bg-charcoal px-3 py-2.5">
+        <div className="h-2 flex-1 rounded-full bg-ivory/20" />
+        <div className="h-7 w-7 rounded-sm bg-champagne" />
       </div>
     </div>
   );

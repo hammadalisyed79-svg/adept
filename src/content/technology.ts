@@ -10,7 +10,12 @@ export function techMailto(subject: string): string {
   return `mailto:${technologyEmail}?subject=${encodeURIComponent(subject)}`;
 }
 
-export type TechnologyVisualVariant = "growth" | "erp" | "website" | "marketing";
+export type TechnologyVisualVariant =
+  | "growth"
+  | "erp"
+  | "website"
+  | "marketing"
+  | "ai";
 
 export const technologyServices = [
   {
@@ -36,6 +41,14 @@ export const technologyServices = [
       "Brand strategy, content, social, SEO, and paid campaigns managed as practical growth support for your business.",
     variant: "marketing" as TechnologyVisualVariant,
     label: "Brand & channels",
+  },
+  {
+    title: "AI Support & Chatbots",
+    href: "/technology/ai-support",
+    summary:
+      "AI-assisted customer support and website chatbots that answer common questions, capture leads, and hand off to your team when needed.",
+    variant: "ai" as TechnologyVisualVariant,
+    label: "AI & automation",
   },
 ] as const;
 
@@ -178,5 +191,51 @@ export const marketingApproach = [
   {
     title: "Measurement and reporting",
     text: "Track agreed metrics and report progress so decisions stay grounded in activity data.",
+  },
+] as const;
+
+export const aiOfferings = [
+  {
+    title: "Website chatbots",
+    text: "On-site assistants that greet visitors, answer frequent questions, and guide them toward the right contact or quotation path.",
+  },
+  {
+    title: "AI customer support",
+    text: "Assisted responses for common product, packaging, and process questions — with clear escalation to your commercial team.",
+  },
+  {
+    title: "Lead capture and qualification",
+    text: "Structured prompts that collect company, contact, and project details before handing off to sales.",
+  },
+  {
+    title: "Knowledge grounding",
+    text: "Chat behaviour shaped from your approved website content, FAQs, and service descriptions — not invented claims.",
+  },
+  {
+    title: "Human handoff",
+    text: "Routes that move complex or sensitive requests to email or your sales team when automation is not enough.",
+  },
+  {
+    title: "Website and CRM-friendly integration",
+    text: "Embedding on your site and connecting to inquiry or notification workflows where your systems allow.",
+  },
+] as const;
+
+export const aiHowWeDeliver = [
+  {
+    title: "Use-case and tone definition",
+    text: "Agree what the assistant should cover, what it must not claim, and when a human must take over.",
+  },
+  {
+    title: "Content and knowledge setup",
+    text: "Prepare approved source material — services, process, packaging categories, and contact rules.",
+  },
+  {
+    title: "Build and embed",
+    text: "Configure the chatbot experience and place it on the agreed pages with your brand styling.",
+  },
+  {
+    title: "Review, refine, and handoff",
+    text: "Test common conversations, adjust answers, and hand over operating guidance for your team.",
   },
 ] as const;

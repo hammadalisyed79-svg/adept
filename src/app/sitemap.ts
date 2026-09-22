@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/technology/erp",
     "/technology/website-development",
     "/technology/digital-marketing",
+    "/technology/ai-support",
     "/privacy",
     "/terms",
   ];

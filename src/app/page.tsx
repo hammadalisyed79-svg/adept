@@ -92,11 +92,11 @@ export default function HomePage() {
             Build the Brand. Power the Business.
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ivory/75 md:mt-6 md:text-lg">
-            From operational software and digital storefronts to marketing solutions, ADEPT helps
-            fragrance businesses connect their products with the systems and channels needed to
-            grow.
+            From operational software and digital storefronts to marketing and AI chat support,
+            ADEPT helps fragrance businesses connect their products with the systems and channels
+            needed to grow.
           </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-2 xl:grid-cols-4">
             {technologyServices.map((s) => (
               <Link
                 key={s.href}

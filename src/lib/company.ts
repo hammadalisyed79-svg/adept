@@ -23,7 +23,7 @@ export const company = {
   heroSupporting:
     "Fragrance concentrates, packaging components and manufacturing solutions — coordinated from concept to finished product.",
   positioning:
-    "A B2B partner for fragrance concentrates, packaging, manufacturing, and private label — with technology and marketing services to support commercial growth.",
+    "A B2B partner for fragrance concentrates, packaging, manufacturing, and private label — with technology, marketing, and AI chatbot services to support commercial growth.",
   email: process.env.COMPANY_EMAIL?.trim() || "info@adeptfragrances.com",
   /**
    * Notification recipient — retained for mail-code compatibility.
