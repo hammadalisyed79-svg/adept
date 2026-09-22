@@ -130,30 +130,30 @@ export const media = {
   technologyGrowth: {
     id: "technology-growth",
     src: `${base}/technology-growth.svg`,
-    alt: "Abstract illustration for Technology & Growth Solutions — placeholder visual",
+    alt: "Abstract illustration for Technology & Growth Solutions — superseded by CSS TechnologyVisual on pages",
     placeholderNote:
-      "Placeholder SVG. Replace with approved ADEPT Technology & Growth photography or licensed imagery before final Production sign-off.",
+      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions. File retained for registry compatibility only.",
   },
   technologyErp: {
     id: "technology-erp",
     src: `${base}/technology-erp.svg`,
-    alt: "Abstract illustration suggesting operational software dashboards — placeholder visual",
+    alt: "Abstract ERP illustration — superseded by CSS TechnologyVisual on pages",
     placeholderNote:
-      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
   },
   technologyWebsite: {
     id: "technology-website",
     src: `${base}/technology-website.svg`,
-    alt: "Abstract illustration suggesting a website layout — placeholder visual",
+    alt: "Abstract website illustration — superseded by CSS TechnologyVisual on pages",
     placeholderNote:
-      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
   },
   technologyMarketing: {
     id: "technology-marketing",
     src: `${base}/technology-marketing.svg`,
-    alt: "Abstract illustration suggesting digital marketing analytics — placeholder visual",
+    alt: "Abstract marketing illustration — superseded by CSS TechnologyVisual on pages",
     placeholderNote:
-      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+      "DEPRECATED for page heroes: use TechnologyVisual CSS compositions.",
   },
 } as const satisfies Record<string, MediaAsset>;
 

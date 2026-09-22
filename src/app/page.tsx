@@ -5,6 +5,7 @@ import { EditorialImageCard } from "@/components/media/EditorialImageCard";
 import { HomepageProcess } from "@/components/media/HomepageProcess";
 import { MediaImage } from "@/components/media/MediaImage";
 import { PackagingVisualGrid } from "@/components/media/PackagingVisualGrid";
+import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
@@ -102,11 +103,10 @@ export default function HomePage() {
                 href={s.href}
                 className="group flex flex-col border border-ivory/15 bg-charcoal-soft/40 transition duration-soft hover:border-champagne/40"
               >
-                <MediaImage
-                  mediaKey={s.mediaKey}
+                <TechnologyVisual
+                  variant={s.variant}
                   aspectClassName="aspect-[16/10]"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                  className="border-0"
+                  className="border-0 border-b border-ivory/10"
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="text-xs uppercase tracking-wideish text-champagne-soft">{s.label}</p>

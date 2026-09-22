@@ -48,7 +48,12 @@ export function Header() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   const parentActive = (item: NavItem) => {
-    if (item.matchPrefix) return pathname.startsWith(item.matchPrefix);
+    if (item.matchPrefix) {
+      const prefixes = Array.isArray(item.matchPrefix)
+        ? item.matchPrefix
+        : [item.matchPrefix];
+      return prefixes.some((prefix) => pathname.startsWith(prefix));
+    }
     return isActive(item.href);
   };
 
@@ -57,13 +62,13 @@ export function Header() {
       <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-5 py-3.5 md:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-6" aria-label="Primary">
           {navigation.map((item) =>
             item.children ? (
               <div key={item.label} className="relative group">
                 <button
                   type="button"
-                  className={`text-sm tracking-wide transition-colors duration-soft ${
+                  className={`whitespace-nowrap text-sm tracking-wide transition-colors duration-soft ${
                     parentActive(item)
                       ? "text-champagne-deep"
                       : "text-charcoal-muted hover:text-charcoal"
@@ -72,19 +77,19 @@ export function Header() {
                 >
                   {item.label}
                 </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[17rem] translate-y-1 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <ul className="mt-3 border border-charcoal/10 bg-white py-3 shadow-sm">
+                <div className="invisible absolute left-0 top-full z-50 min-w-[18rem] translate-y-1 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <ul className="mt-3 max-h-[70vh] overflow-y-auto border border-charcoal/10 bg-white py-3 shadow-sm">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className={`block px-5 py-3 transition-colors ${
+                          className={`block px-5 py-2.5 transition-colors ${
                             isActive(child.href)
                               ? "bg-ivory text-charcoal"
                               : "text-charcoal-muted hover:bg-ivory hover:text-charcoal"
                           }`}
                         >
-                          <span className="block text-sm">{child.label}</span>
+                          <span className="block text-sm whitespace-nowrap">{child.label}</span>
                           {childHints[child.href] && (
                             <span className="mt-0.5 block text-xs text-charcoal-muted/80">
                               {childHints[child.href]}
@@ -100,7 +105,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm tracking-wide transition-colors duration-soft ${
+                className={`whitespace-nowrap text-sm tracking-wide transition-colors duration-soft ${
                   isActive(item.href)
                     ? "text-champagne-deep"
                     : "text-charcoal-muted hover:text-charcoal"
@@ -112,11 +117,11 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden xl:block">
+        <div className="hidden shrink-0 lg:block">
           <Button
             href="/request-quote"
             variant="champagne"
-            className="px-5 py-2.5 text-xs uppercase tracking-wideish"
+            className="px-4 py-2.5 text-xs uppercase tracking-wideish xl:px-5"
           >
             Request a Quote
           </Button>
@@ -124,7 +129,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center border border-charcoal/15 text-charcoal xl:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center border border-charcoal/15 text-charcoal lg:hidden"
           aria-expanded={open}
           aria-controls={menuId}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -145,7 +150,7 @@ export function Header() {
 
       <div
         id={menuId}
-        className={`border-t border-charcoal/10 bg-ivory xl:hidden ${open ? "block" : "hidden"}`}
+        className={`border-t border-charcoal/10 bg-ivory lg:hidden ${open ? "block" : "hidden"}`}
       >
         <nav className="mx-auto flex max-w-content flex-col gap-1 px-5 py-4" aria-label="Mobile">
           {navigation.map((item) =>

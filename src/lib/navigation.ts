@@ -4,8 +4,8 @@ export type NavItem = {
   href: string;
   label: string;
   children?: readonly NavChild[];
-  /** Path prefix used to highlight the parent when a child is active */
-  matchPrefix?: string;
+  /** Path prefix(es) used to highlight the parent when a child is active */
+  matchPrefix?: string | readonly string[];
 };
 
 export const navigation: readonly NavItem[] = [
@@ -14,16 +14,20 @@ export const navigation: readonly NavItem[] = [
   {
     href: "/services/fragrance-trading",
     label: "Solutions",
-    matchPrefix: "/services",
+    matchPrefix: ["/services", "/technology"],
     children: [
       { href: "/services/fragrance-trading", label: "Fragrance Trading" },
       { href: "/services/toll-manufacturing", label: "Toll Manufacturing" },
       { href: "/services/private-label", label: "Private Label" },
+      { href: "/technology", label: "Technology & Growth" },
+      { href: "/technology/erp", label: "ERP Solutions" },
+      { href: "/technology/website-development", label: "Website Development" },
+      { href: "/technology/digital-marketing", label: "Digital Marketing" },
     ],
   },
   {
     href: "/packaging",
-    label: "Packaging & Components",
+    label: "Packaging",
     matchPrefix: "/packaging",
     children: [
       { href: "/packaging", label: "All Packaging" },
@@ -35,17 +39,6 @@ export const navigation: readonly NavItem[] = [
       { href: "/packaging/rigid-boxes", label: "Rigid Boxes" },
       { href: "/packaging/accessories", label: "Accessories" },
       { href: "/packaging/complete-packaging-sets", label: "Complete Packaging Sets" },
-    ],
-  },
-  {
-    href: "/technology",
-    label: "Technology & Growth",
-    matchPrefix: "/technology",
-    children: [
-      { href: "/technology", label: "Overview" },
-      { href: "/technology/erp", label: "ERP Solutions" },
-      { href: "/technology/website-development", label: "Website Development" },
-      { href: "/technology/digital-marketing", label: "Digital Marketing" },
     ],
   },
   { href: "/industries", label: "Industries" },

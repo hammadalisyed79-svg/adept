@@ -1,0 +1,442 @@
+[
+  {
+    "path": "/technology",
+    "width": 390,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "growth",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      },
+      {
+        "variant": "growth",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 348,
+        "height": 218,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 348,
+        "height": 218,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 348,
+        "height": 218,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology",
+    "width": 768,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "growth",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      },
+      {
+        "variant": "growth",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 340,
+        "height": 213,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 340,
+        "height": 213,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 340,
+        "height": 213,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology",
+    "width": 1024,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "growth",
+        "width": 460,
+        "height": 368,
+        "ok": true
+      },
+      {
+        "variant": "growth",
+        "width": 460,
+        "height": 345,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 305,
+        "height": 190,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 305,
+        "height": 190,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 305,
+        "height": 190,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology",
+    "width": 1440,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "growth",
+        "width": 524,
+        "height": 419,
+        "ok": true
+      },
+      {
+        "variant": "growth",
+        "width": 524,
+        "height": 393,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 347,
+        "height": 217,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 347,
+        "height": 217,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 347,
+        "height": 217,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/erp",
+    "width": 390,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "erp",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/erp",
+    "width": 768,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "erp",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/erp",
+    "width": 1024,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "erp",
+        "width": 460,
+        "height": 368,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 460,
+        "height": 345,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/erp",
+    "width": 1440,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "erp",
+        "width": 524,
+        "height": 419,
+        "ok": true
+      },
+      {
+        "variant": "erp",
+        "width": 524,
+        "height": 393,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/website-development",
+    "width": 390,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "website",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/website-development",
+    "width": 768,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "website",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/website-development",
+    "width": 1024,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "website",
+        "width": 460,
+        "height": 368,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 460,
+        "height": 345,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/website-development",
+    "width": 1440,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "website",
+        "width": 524,
+        "height": 419,
+        "ok": true
+      },
+      {
+        "variant": "website",
+        "width": 524,
+        "height": 393,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/digital-marketing",
+    "width": 390,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "marketing",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 350,
+        "height": 263,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/digital-marketing",
+    "width": 768,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "marketing",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 704,
+        "height": 528,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/digital-marketing",
+    "width": 1024,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "marketing",
+        "width": 460,
+        "height": 368,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 460,
+        "height": 345,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  },
+  {
+    "path": "/technology/digital-marketing",
+    "width": 1440,
+    "status": 200,
+    "brokenImages": [],
+    "imageCount": 0,
+    "techVisuals": [
+      {
+        "variant": "marketing",
+        "width": 524,
+        "height": 419,
+        "ok": true
+      },
+      {
+        "variant": "marketing",
+        "width": 524,
+        "height": 393,
+        "ok": true
+      }
+    ],
+    "techVisualsOk": true,
+    "overflow": false
+  }
+]

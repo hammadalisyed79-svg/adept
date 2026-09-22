@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
-import { EditorialImageCard } from "@/components/media/EditorialImageCard";
-import { MediaImage } from "@/components/media/MediaImage";
+import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { techMailto, technologyServices } from "@/content/technology";
@@ -21,35 +21,24 @@ export default function TechnologyOverviewPage() {
         eyebrow="Technology & Growth Solutions"
         title="Systems and channels that support commercial growth"
         description="Beyond fragrance manufacturing, ADEPT helps businesses connect products with operational software, digital storefronts, and practical marketing support."
-        mediaKey="technologyGrowth"
+        visual={
+          <TechnologyVisual
+            variant="growth"
+            aspectClassName="aspect-[4/3] lg:aspect-[5/4]"
+          />
+        }
       />
 
       <Section className="bg-white">
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Fifth division"
+              eyebrow="A complete commercial partner"
               title="Build capability around the brand"
               description="Fragrance trading, packaging, manufacturing, and private label remain our core. Technology & Growth adds software, web, and marketing services for teams that need digital and operational support."
             />
-            <p className="mt-6 text-sm leading-relaxed text-charcoal-muted">
-              Discuss a project by email at{" "}
-              <a
-                href={`mailto:${company.email}`}
-                className="text-charcoal underline underline-offset-2 hover:text-champagne-deep"
-              >
-                {company.email}
-              </a>
-              . Structured fragrance quotation types on the request-quote form are unchanged.
-            </p>
           </div>
-          <MediaImage
-            mediaKey="technologyGrowth"
-            hoverScale={false}
-            aspectClassName="aspect-[4/3]"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="border border-charcoal/10"
-          />
+          <TechnologyVisual variant="growth" aspectClassName="aspect-[4/3]" />
         </Container>
       </Section>
 
@@ -58,34 +47,44 @@ export default function TechnologyOverviewPage() {
           <SectionHeading
             eyebrow="Services"
             title="Three practical offerings"
-            description="Each service is scoped project by project. No unverified client portfolios or performance guarantees are presented here."
+            description="Scoped project by project — so software, websites, and marketing support match how your business actually works."
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-3">
             {technologyServices.map((s, i) => (
-              <EditorialImageCard
+              <Link
                 key={s.href}
                 href={s.href}
-                mediaKey={s.mediaKey}
-                index={`0${i + 1}`}
-                label={s.label}
-                title={s.title}
-                description={s.summary}
-                aspectClassName="aspect-[16/10]"
-              />
+                className="group flex flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
+              >
+                <TechnologyVisual
+                  variant={s.variant}
+                  aspectClassName="aspect-[16/10]"
+                  className="border-0 border-b border-charcoal/10"
+                />
+                <div className="flex flex-1 flex-col p-5 md:p-7">
+                  <div className="mb-2 flex items-center gap-3 text-xs uppercase tracking-wideish md:mb-3">
+                    <span className="text-champagne-deep">0{i + 1}</span>
+                    <span className="text-charcoal-muted">{s.label}</span>
+                  </div>
+                  <h3 className="font-display text-xl text-charcoal group-hover:text-champagne-deep md:text-2xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-charcoal-muted md:mt-3">
+                    {s.summary}
+                  </p>
+                  <span className="mt-5 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline md:mt-6">
+                    Learn more →
+                  </span>
+                </div>
+              </Link>
             ))}
-          </div>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Button href={techMailto("Technology & Growth inquiry")}>Email {company.email}</Button>
-            <Button href="/contact" variant="secondary">
-              Contact page
-            </Button>
           </div>
         </Container>
       </Section>
 
       <QuoteCta
-        title="Talk about Technology & Growth"
-        description="Tell us whether you need ERP, website, or marketing support. Email is the primary contact path for these services until dedicated inquiry types are authorized."
+        title="Discuss Technology & Growth"
+        description="Tell us whether you need ERP, website, or marketing support. We respond by email."
         primaryHref={techMailto("Technology & Growth inquiry")}
         primaryLabel={`Email ${company.email}`}
         showEmail
