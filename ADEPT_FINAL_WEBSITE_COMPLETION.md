@@ -10,7 +10,8 @@
 
 | Item | Value |
 |------|--------|
-| **Final Git commit** | `bc19d01383249d5c42a4470a7ebfe093ae35ca0f` |
+| **Final website commit (public)** | `bc19d01383249d5c42a4470a7ebfe093ae35ca0f` |
+| **Docs / evidence commit on main** | `543d51e` (report + screenshots; not required for site behaviour) |
 | **Final public deployment** | `dpl_qZdK4kYartRY6Uk1KyNZZkahM3sF` (`adept-nktdy2jrw-hammad-fedc.vercel.app`) |
 | **Previous public (rollback ref)** | `dpl_9eT1umstGZj56UdNhap1ia4XpNYs` |
 | **Apex** | `adeptfragrances.com` → 308 → `https://www.adeptfragrances.com/` |
