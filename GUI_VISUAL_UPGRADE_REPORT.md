@@ -1,118 +1,130 @@
 # ADEPT Fragrances — GUI / Visual Upgrade Report
 
-**Branch:** `gui-visual-upgrade`  
-**Scope:** Front-end visual UX only  
-**Date:** 2026-09-21  
+**Branch:** `gui-visual-upgrade` (non-production)  
+**Date:** 2026-09-22  
+**Scope:** Front-end visual UX only — functionality, inquiry logic, SMTP, ERP, DB, DNS unchanged  
 
-## Safety
-
-- Work performed on feature branch only — **not merged to Production / main**.
-- No changes to inquiry API logic, SMTP, ERP, database schema, DNS, or Vercel Production config.
-- No test inquiries submitted to Production.
-- Placeholder imagery is clearly labelled; manufacturing visuals are **not** claimed as ADEPT facilities.
+**Safety:** Local work only. **Not pushed. Not deployed to Production.** No Production DB writes. No inquiry forms submitted during QA.
 
 ---
 
-## Pages visually upgraded
+## What was implemented
 
-| Route | Changes |
-|-------|---------|
-| `/` | New hero (copy + image), editorial division cards, packaging visual grid, complete-solution section, charcoal manufacturing band, process timeline, industry image cards |
-| `/packaging` | Image-led category grid + hero media |
-| `/packaging/[slug]` | Category hero image, capabilities grid, “Tell Us What You’re Looking For” CTA |
-| `/services/fragrance-trading` | Technical / house-style layout, fine vs industrial, application visuals |
-| `/services/toll-manufacturing` | Process imagery band + image-led capability cards (verified copy retained) |
-| `/services/private-label` | “From Brief to Shelf” transformation story + journey steps |
-| `/process` | Horizontal (desktop) / vertical (mobile) timeline |
-| `/industries` + `/industries/[slug]` | Editorial image cards / hero media |
-| `/request-quote` | Wider layout; form visual grouping only |
+### 1. Homepage hero (priority)
+Replaced the text-only / glass aside hero with a two-column composition:
+- Left: ADEPT eyebrow, display headline, supporting line, CTAs (`Explore Our Solutions`, `Request a Quote`)
+- Right: large visual via `MediaImage` → `hero-fragrance-solutions` (bottle + cap + pump + concentrate + box composition placeholder)
+- Mobile: image stacks below content
 
-Navigation (`Header`) refined: sticky understated bar, dropdown spacing + short category hints. Label “Process” retained (structure unchanged).
+### 2. Four business divisions
+Editorial image cards (`EditorialImageCard`) with numbered labels:
+- Fragrance Trading · Packaging & Components · Toll Manufacturing · Private Label
 
----
+### 3. Eight packaging categories
+`PackagingVisualGrid` — tall image cards with title anchored at bottom; links to existing category routes. No fake MOQ/pricing.
 
-## Image slots / assets
+### 4. Additional homepage sections
+- **One Project. Every Component.** — complete brand solution visual + CTA
+- **From Compound to Finished Product.** — charcoal manufacturing band (illustrative imagery labelled)
+- Process timeline (horizontal xl+, vertical below)
+- Industry image cards
 
-**Registry:** `src/content/media.ts` — swap `src` paths later without editing layouts.
+### 5. Inner pages upgraded
+Packaging index/category, Fragrance Trading, Toll Manufacturing, Private Label, Process, Industries, Request Quote form grouping.
 
-**Placeholders:** `public/images/adept/*.svg` (22 files), generated via `scripts/generate-adept-placeholders.mjs`
+### 6. Typography / spacing / responsive
+Display serif headings, sans for nav/body/forms; narrower prose (`max-w-prose`); ivory ↔ white ↔ charcoal rhythm; consistent section padding.
 
-Including:  
-`hero-fragrance-solutions`, `fragrance-trading`, `packaging-components`, `toll-manufacturing`, `private-label`, packaging category slots, manufacturing / QC slots, industry slots, `complete-brand-solution`.
-
----
-
-## Components created
-
-- `MediaImage` — Next.js `Image`, fill + aspect ratios, SVG `unoptimized`, optional hover scale (~1.03), `priority` for heroes
-- `EditorialImageCard` — division-style editorial cards
-- `PackagingVisualGrid` — tall image cards with title anchored at bottom
-- `ProcessTimeline` — 8-step horizontal / vertical timeline
-- `PageHero` — optional media column (extracted for reuse)
+### 7. Media system
+Central registry `src/content/media.ts` — replace `src` later without layout edits.  
+22 composition SVG placeholders under `public/images/adept/` (clearly labelled; manufacturing marked illustrative).
 
 ---
 
-## Responsive
+## Code changes (key files)
 
-- Hero: content left / image right on desktop; stacked (image below) on mobile
-- Packaging grid: 4 → 2 → 1 columns
-- Process: horizontal ≥ `lg`, vertical below
-- Form: multi-column desktop groups, single column mobile
-- Header: existing mobile accordion preserved
-
----
-
-## Performance
-
-- `next/image` with responsive `sizes`
-- Aspect-ratio wrappers to limit CLS
-- `priority` only on primary heroes
-- SVG placeholders are lightweight; replace with WebP/AVIF photography when approved
-- Below-fold images lazy by default
-
----
-
-## Accessibility
-
-- Informative alts from media registry (placeholders note illustrative manufacturing)
-- Focus-visible form fields; checkbox selected states
-- Keyboard nav / sticky header behaviour preserved
-- `prefers-reduced-motion` respected for hover scale and fade utilities
+| File | Role |
+|------|------|
+| `src/app/page.tsx` | Image-led homepage |
+| `src/content/media.ts` | Asset registry + slug maps |
+| `src/components/media/MediaImage.tsx` | Next.js Image wrapper |
+| `src/components/media/EditorialImageCard.tsx` | Division cards |
+| `src/components/media/PackagingVisualGrid.tsx` | Packaging category grid |
+| `src/components/media/ProcessTimeline.tsx` | Process timeline (xl horizontal) |
+| `src/components/ui/PageHero.tsx` | Optional media hero |
+| `src/components/ui/Section.tsx` | Re-exports PageHero; prose width |
+| `src/components/Header.tsx` | Dropdown spacing + hints |
+| `src/components/forms/InquiryForm.tsx` | Visual field groups (logic unchanged) |
+| `src/app/packaging/**` | Image-led packaging pages |
+| `src/app/services/**` | Trading / toll / private-label visuals |
+| `src/app/process/page.tsx` | Timeline presentation |
+| `src/app/industries/**` | Industry imagery |
+| `src/content/process.ts` | Brief → Dispatch step titles |
+| `public/images/adept/*.svg` | 22 placeholders |
+| `scripts/generate-adept-placeholders.mjs` | Regenerates placeholders |
+| `scripts/capture-visual-review.mjs` | Screenshot capture |
 
 ---
 
-## Tests run / results
+## Image inventory (22 placeholders)
+
+| File | Used on | Purpose |
+|------|---------|---------|
+| `hero-fragrance-solutions.svg` | Homepage hero | Complete ecosystem composition |
+| `fragrance-trading.svg` | Home division, trading page | Concentrate evaluation |
+| `packaging-components.svg` | Home division, packaging hero | Components still-life |
+| `toll-manufacturing.svg` | Home division, toll hero | Illustrative process |
+| `private-label.svg` | Home division, PL hero | Finished pack |
+| `perfume-bottles.svg` … `complete-packaging-set.svg` | Packaging grid + category heroes | 8 categories |
+| `fragrance-oils.svg` | Trading page | Oils / blotters |
+| `manufacturing-mixing.svg` / `filling` / `quality-control` | Home + toll | Illustrative only |
+| `complete-brand-solution.svg` | Homepage complete section | Full project visual |
+| `industry-*.svg` (4) | Industries + home | Category editorials |
+
+Full replacement sizing: see `visual-review/IMAGE_REPLACEMENT_MANIFEST.md`.
+
+---
+
+## Screenshots
+
+Captured locally at **1440 / 1024 / 768 / 390** under `visual-review/`:
+
+- `homepage__*.png`
+- `packaging__*.png`
+- `perfume-bottles__*.png`
+- `caps__*.png`
+- `fragrance-trading__*.png`
+- `toll-manufacturing__*.png`
+- `private-label__*.png`
+- `request-quote__*.png`
+- Nav extras: `nav-dropdown-solutions__1440-desktop.png`, `nav-mobile-open__*.png`
+
+35 PNGs total. No horizontal overflow detected by capture script.
+
+---
+
+## Tests run (safe)
 
 | Command | Result |
 |---------|--------|
 | `npm run typecheck` | Pass |
 | `npm run lint` | Pass |
-| `npm test` | Pass (23 tests) |
 | `npm run build` | Pass |
+| Playwright visual capture (local `:3010`, dummy DB host) | Pass — 0 overflow |
+
+Inquiry / Production DB write tests **not** run.
 
 ---
 
-## Preview URL / screenshots
+## Missing real photography
 
-Not attached in this pass. Deploy the `gui-visual-upgrade` branch to a **Vercel Preview** (do not promote to Production) for visual QA at 1440 / 1024 / 768 / 390.
-
----
-
-## Missing real ADEPT photography
-
-Replace all SVG placeholders under `/public/images/adept/` with approved studio photography:
-
-1. Hero complete-ecosystem composition (bottle, cap, pump/collar, concentrate, rigid box, label)
-2. Division heroes (trading, packaging, toll, private label)
-3. Each packaging category
-4. Manufacturing process set (only if verified as ADEPT or clearly marked stock/illustrative)
-5. Industry editorials
-6. Private-label transformation sequence
-
-Update only `src` (and formats) in `src/content/media.ts` — page layouts stay unchanged.
+All 22 slots still need approved ADEPT studio photography. Update paths in `src/content/media.ts` only. Do not claim manufacturing placeholders depict ADEPT facilities until verified.
 
 ---
 
-## Out of scope (intentionally untouched)
+## Explicitly not done
 
-Backend inquiry creation, mail, ERP adapter, Prisma, env secrets, DNS, Production Vercel settings.
+- No merge to `main`
+- No push / Production deploy
+- No DNS, SMTP, ERP, or database changes
+- No inquiry monitoring documentation in this deliverable

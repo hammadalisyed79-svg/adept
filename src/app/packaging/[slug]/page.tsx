@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { QuoteCta } from "@/components/QuoteCta";
-import { MediaImage } from "@/components/media/MediaImage";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
@@ -51,32 +50,21 @@ export default async function PackagingCategoryPage({ params }: Props) {
 
       <Section className="bg-white">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-            <div>
-              <h2 className="font-display text-3xl text-charcoal">Capabilities & options</h2>
-              <p className="mt-3 max-w-prose text-sm text-charcoal-muted">
-                Discussion areas for this category. Exact availability is confirmed during commercial
-                review — we do not invent stock lists.
-              </p>
-              <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-                {category.points.map((p) => (
-                  <li
-                    key={p}
-                    className="border border-charcoal/10 bg-ivory px-5 py-4 text-sm text-charcoal"
-                  >
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <MediaImage
-              mediaKey={mediaKey}
-              hoverScale={false}
-              aspectClassName="aspect-[4/3]"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="border border-charcoal/10"
-            />
-          </div>
+          <h2 className="font-display text-3xl text-charcoal">Capabilities & options</h2>
+          <p className="mt-3 max-w-prose text-sm text-charcoal-muted">
+            Discussion areas for this category. Exact availability is confirmed during commercial
+            review — we do not invent stock lists.
+          </p>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {category.points.map((p) => (
+              <li
+                key={p}
+                className="border border-charcoal/10 bg-ivory px-5 py-4 text-sm text-charcoal"
+              >
+                {p}
+              </li>
+            ))}
+          </ul>
         </Container>
       </Section>
 

@@ -11,8 +11,8 @@ export function ProcessTimeline({ limit, className = "" }: Props) {
 
   return (
     <div className={className}>
-      {/* Desktop horizontal */}
-      <ol className="hidden lg:grid lg:grid-cols-8 lg:gap-3">
+      {/* Wide desktop horizontal — xl+ only (8 columns are too narrow at 1024) */}
+      <ol className="hidden xl:grid xl:grid-cols-8 xl:gap-3">
         {steps.map((step, i) => (
           <li key={step.number} className="relative flex flex-col">
             {i < steps.length - 1 && (
@@ -30,8 +30,8 @@ export function ProcessTimeline({ limit, className = "" }: Props) {
         ))}
       </ol>
 
-      {/* Mobile / tablet vertical */}
-      <ol className="relative space-y-0 border-l border-charcoal/15 pl-6 lg:hidden">
+      {/* Laptop / tablet / mobile vertical */}
+      <ol className="relative space-y-0 border-l border-charcoal/15 pl-6 xl:hidden">
         {steps.map((step) => (
           <li key={step.number} className="relative pb-8 last:pb-0">
             <span
