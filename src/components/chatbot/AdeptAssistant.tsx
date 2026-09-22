@@ -226,27 +226,27 @@ export function AdeptAssistant() {
   };
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-end p-3 sm:inset-x-auto sm:bottom-2 sm:right-2 sm:p-5 md:p-5">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-end p-3 sm:inset-x-auto sm:bottom-3 sm:right-3 sm:p-4 md:bottom-4 md:right-4 md:p-5">
       {panel !== "open" && (
         <div className="pointer-events-auto mb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-end pb-2 sm:pb-0">
           <button
             type="button"
-            className="group flex max-w-[12rem] items-center gap-2 rounded-sm border border-charcoal/15 bg-charcoal px-3 py-2.5 text-ivory shadow-sm transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory sm:max-w-none sm:gap-2.5 sm:px-4 sm:py-3"
+            className="group flex max-w-[14rem] items-center gap-2.5 rounded-sm border border-charcoal/15 bg-charcoal px-4 py-3 text-ivory shadow-md transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory sm:max-w-none sm:gap-3 sm:px-5 sm:py-3.5"
             aria-expanded={false}
             aria-controls={panelId}
             onClick={openChat}
           >
             <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm bg-champagne text-charcoal sm:h-8 sm:w-8"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-champagne text-charcoal sm:h-10 sm:w-10"
               aria-hidden
             >
               <ChatIcon />
             </span>
             <span className="min-w-0 text-left">
-              <span className="block truncate text-xs font-medium tracking-wide">
+              <span className="block truncate text-sm font-medium tracking-wide">
                 {ASSISTANT_NAME}
               </span>
-              <span className="block truncate text-[0.65rem] text-ivory/70">
+              <span className="block truncate text-xs text-ivory/70">
                 {ASSISTANT_STATUS}
               </span>
             </span>
@@ -260,22 +260,25 @@ export function AdeptAssistant() {
           role="dialog"
           aria-modal="false"
           aria-labelledby={titleId}
-          className="pointer-events-auto mb-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.25rem))] flex w-[min(100vw-1.5rem,22.5rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-lg sm:mb-[max(0.25rem,env(safe-area-inset-bottom))] sm:w-[22.5rem]"
-          style={{ maxHeight: "min(24rem, calc(100dvh - 11rem))" }}
+          className="pointer-events-auto flex w-[min(100vw-1.25rem,26rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-xl sm:mb-[max(0.25rem,env(safe-area-inset-bottom))] sm:w-[min(100vw-2rem,30rem)] md:w-[32rem]"
+          style={{
+            height: "min(42rem, calc(100dvh - 1.5rem - env(safe-area-inset-bottom, 0px)))",
+            maxHeight: "calc(100dvh - 1.5rem - env(safe-area-inset-bottom, 0px))",
+          }}
         >
-          <header className="flex shrink-0 items-start justify-between gap-3 border-b border-charcoal/10 bg-charcoal px-4 py-3 text-ivory">
+          <header className="flex shrink-0 items-start justify-between gap-3 border-b border-charcoal/10 bg-charcoal px-4 py-3.5 text-ivory sm:px-5 sm:py-4">
             <div className="min-w-0">
-              <h2 id={titleId} className="text-sm font-medium tracking-wide">
+              <h2 id={titleId} className="text-base font-medium tracking-wide">
                 {ASSISTANT_NAME}
               </h2>
-              <p className="mt-0.5 text-[0.65rem] leading-snug text-champagne-soft">
+              <p className="mt-0.5 text-xs leading-snug text-champagne-soft">
                 {visitorName ? `Helping ${visitorName}` : ASSISTANT_STATUS}
               </p>
             </div>
             <div className="flex shrink-0 gap-1">
               <button
                 type="button"
-                className="inline-flex h-9 w-9 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+                className="inline-flex h-10 w-10 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
                 aria-label="Minimise chat"
                 onClick={() => setPanel("minimized")}
               >
@@ -283,7 +286,7 @@ export function AdeptAssistant() {
               </button>
               <button
                 type="button"
-                className="inline-flex h-9 w-9 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+                className="inline-flex h-10 w-10 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
                 aria-label="Close chat"
                 onClick={closeChat}
               >
@@ -294,7 +297,7 @@ export function AdeptAssistant() {
 
           <div
             ref={listRef}
-            className="flex-1 space-y-3 overflow-y-auto px-4 py-3"
+            className="min-h-0 flex-1 space-y-3.5 overflow-y-auto overscroll-contain px-4 py-4 sm:px-5 sm:py-5"
             aria-live="polite"
             aria-relevant="additions"
           >
@@ -304,7 +307,7 @@ export function AdeptAssistant() {
                 className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[92%] rounded-sm px-3 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[95%] rounded-sm px-3.5 py-3 text-[0.9375rem] leading-relaxed sm:max-w-[90%] ${
                     m.role === "user"
                       ? "bg-champagne/25 text-charcoal"
                       : "border border-charcoal/10 bg-white text-charcoal"
@@ -312,12 +315,12 @@ export function AdeptAssistant() {
                 >
                   <p className="whitespace-pre-wrap">{m.text}</p>
                   {m.links && m.links.length > 0 && (
-                    <ul className="mt-2 space-y-1 border-t border-charcoal/10 pt-2">
+                    <ul className="mt-2.5 space-y-1.5 border-t border-charcoal/10 pt-2.5">
                       {m.links.map((link) => (
                         <li key={`${m.id}-${link.href}-${link.label}`}>
                           <Link
                             href={link.href}
-                            className="text-xs font-medium text-champagne-deep underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+                            className="text-sm font-medium text-champagne-deep underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
                           >
                             {link.label}
                           </Link>
@@ -329,28 +332,28 @@ export function AdeptAssistant() {
               </div>
             ))}
             {pending && (
-              <p className="text-xs text-charcoal-muted" aria-busy="true">
+              <p className="text-sm text-charcoal-muted" aria-busy="true">
                 One moment…
               </p>
             )}
           </div>
 
-          <div className="shrink-0 border-t border-charcoal/10 bg-white px-3 py-2.5">
-            <div className="mb-3 flex gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="shrink-0 border-t border-charcoal/10 bg-white px-4 py-3 sm:px-5 sm:py-4">
+            <div className="mb-3 flex flex-wrap gap-2">
               {quickActions.map((action) => (
                 <button
                   key={action.id}
                   type="button"
                   disabled={pending}
                   onClick={() => onQuickAction(action)}
-                  className="shrink-0 whitespace-nowrap rounded-sm border border-charcoal/15 bg-ivory px-2.5 py-1.5 text-[0.7rem] text-charcoal-muted transition-colors hover:border-champagne hover:text-charcoal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne disabled:opacity-50"
+                  className="rounded-sm border border-charcoal/15 bg-ivory px-3 py-2 text-xs text-charcoal-muted transition-colors hover:border-champagne hover:text-charcoal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne disabled:opacity-50"
                 >
                   {action.label}
                 </button>
               ))}
             </div>
 
-            <form onSubmit={onSubmit} className="flex flex-col gap-2">
+            <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
               <label htmlFor={`${panelId}-input`} className="sr-only">
                 Message ADEPT
               </label>
@@ -364,47 +367,47 @@ export function AdeptAssistant() {
                 className="absolute -left-[9999px] h-0 w-0 opacity-0"
                 aria-hidden
               />
-              <textarea
-                id={`${panelId}-input`}
-                ref={inputRef}
-                rows={2}
-                maxLength={CHAT_MESSAGE_MAX}
-                value={input}
-                disabled={pending}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    void sendMessage(input);
+              <div className="flex items-end gap-2">
+                <textarea
+                  id={`${panelId}-input`}
+                  ref={inputRef}
+                  rows={2}
+                  maxLength={CHAT_MESSAGE_MAX}
+                  value={input}
+                  disabled={pending}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      void sendMessage(input);
+                    }
+                  }}
+                  placeholder={
+                    phase === "awaiting_name" && !visitorName
+                      ? "Your name…"
+                      : "Type your message…"
                   }
-                }}
-                placeholder={
-                  phase === "awaiting_name" && !visitorName
-                    ? "Your name…"
-                    : "Type your message…"
-                }
-                className="w-full resize-none rounded-sm border border-charcoal/15 bg-ivory-soft px-3 py-2 text-sm text-charcoal placeholder:text-charcoal-muted/60 focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne disabled:opacity-60"
-              />
+                  className="min-h-[3.25rem] w-full flex-1 resize-none rounded-sm border border-charcoal/15 bg-ivory-soft px-3.5 py-2.5 text-sm text-charcoal placeholder:text-charcoal-muted/60 focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne disabled:opacity-60"
+                />
+                <button
+                  type="submit"
+                  disabled={pending || !input.trim()}
+                  className="shrink-0 rounded-sm bg-champagne px-4 py-2.5 text-sm font-medium tracking-wide text-charcoal transition-colors hover:bg-champagne-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Send
+                </button>
+              </div>
               {error && (
                 <p className="text-xs text-red-700" role="alert">
                   {error}
                 </p>
               )}
-              <div className="flex items-center justify-between gap-2">
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-[0.65rem] text-charcoal-muted underline-offset-2 hover:underline"
-                >
-                  {CONTACT_EMAIL}
-                </a>
-                <button
-                  type="submit"
-                  disabled={pending || !input.trim()}
-                  className="shrink-0 rounded-sm bg-champagne px-3 py-2 text-xs font-medium tracking-wide text-charcoal transition-colors hover:bg-champagne-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  Send
-                </button>
-              </div>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-xs text-charcoal-muted underline-offset-2 hover:underline"
+              >
+                {CONTACT_EMAIL}
+              </a>
             </form>
           </div>
         </div>
