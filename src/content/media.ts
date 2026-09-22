@@ -74,6 +74,8 @@ export const media = {
     id: "accessories",
     src: `${base}/accessories.png`,
     alt: "Fragrance packaging accessories",
+    placeholderNote:
+      "FLAGGED: Replace with genuine ADEPT fragrance packaging accessories photography before Production photography sign-off. Current asset is generated studio imagery, not approved product photography.",
   },
   completePackagingSet: {
     id: "complete-packaging-set",
