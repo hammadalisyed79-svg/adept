@@ -1,5 +1,6 @@
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import type { Metadata } from "next";
+import { AdeptAssistant } from "@/components/chatbot/AdeptAssistant";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { company, getSiteUrl, isTelephonePlaceholder } from "@/lib/company";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <AdeptAssistant />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
