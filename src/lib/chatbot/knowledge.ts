@@ -25,7 +25,7 @@ export const ASSISTANT_STATUS = "Commercial guidance";
 
 /** Opening message for a fresh conversation. */
 export const WELCOME_MESSAGE =
-  "Hello — welcome to ADEPT Fragrances.\n\nWe help brands with fragrance concentrates, packaging components, manufacturing support, private label, and Technology & Growth services. Tell me what you are working on, or choose a topic below.";
+  "Hello — welcome to ADEPT Fragrances.\n\nI am here to help with fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth. May I have your name, please?";
 
 export const CONTACT_EMAIL = "info@adeptfragrances.com";
 
@@ -479,7 +479,7 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
 ];
 
 export const FALLBACK_ANSWER =
-  "I may not have that detail published yet. For anything commercial — pricing, volumes, or availability — please use a quotation form or email info@adeptfragrances.com and our team will follow up with verified next steps.";
+  "I want to make sure I guide you correctly. Could you share a little more — for example fragrance, packaging, manufacturing, private label, technology, or whether you need a quotation? You can also email info@adeptfragrances.com and our team will follow up.";
 
 export const FALLBACK_LINKS: readonly ChatLink[] = [
   { label: "Request a Quote", href: "/request-quote" },

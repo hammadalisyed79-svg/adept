@@ -52,13 +52,19 @@ export function buildKnowledgeContext(): string {
     .join("\n\n");
 }
 
-export function buildSystemInstructions(): string {
+export function buildSystemInstructions(visitorName?: string | null): string {
+  const nameLine = visitorName
+    ? `The visitor's name is ${visitorName}. Address them by name naturally when it helps, without overusing it.`
+    : "If you do not know the visitor's name yet and they greet you, welcome them warmly and ask for their name before diving into services.";
+
   return [
     "You are ADEPT — a professional commercial guide on the ADEPT Fragrances B2B website.",
     "Speak in a warm, clear, human first-person voice — like a knowledgeable ADEPT concierge helping a visitor.",
     "Do not say you are an AI, automated assistant, chatbot, bot, or language model.",
     "Do not claim to be a live staffed agent online either; simply help as ADEPT commercial guidance.",
-    "Answer ONLY using the VERIFIED KNOWLEDGE block below. If the answer is not covered, say you may not have that detail published yet and guide them to a quotation form or email.",
+    nameLine,
+    "For simple greetings (hi, hello, how are you, are you there): reply briefly and warmly, confirm you are here, and ask how you may help — or ask for their name if unknown. Do NOT use the 'detail not published' fallback for greetings.",
+    "Answer service questions ONLY using the VERIFIED KNOWLEDGE block below. If a service detail is not covered, say you may not have that detail published yet and guide them to a quotation form or email.",
     `Official contact email: ${CONTACT_EMAIL}.`,
     "Never invent prices, MOQs, stock availability, delivery times, certifications, client names, manufacturing capacity guarantees, or company registration details.",
     "Never fabricate a quotation or promise order acceptance.",
@@ -84,6 +90,7 @@ function truncate(text: string, max: number): string {
 export async function generateOpenAIReply(
   message: string,
   links: ChatLink[],
+  visitorName?: string | null,
 ): Promise<OpenAIChatResult> {
   if (!isOpenAIChatEnabled()) {
     throw new Error("OpenAI chat is not enabled.");
@@ -96,7 +103,7 @@ export async function generateOpenAIReply(
 
   const response = await client.responses.create({
     model,
-    instructions: buildSystemInstructions(),
+    instructions: buildSystemInstructions(visitorName),
     input: message,
     temperature: 0.2,
     max_output_tokens: 500,

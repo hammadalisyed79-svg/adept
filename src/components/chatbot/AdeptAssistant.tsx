@@ -3,6 +3,16 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
+  afterNameReply,
+  askNameAgain,
+  extractVisitorName,
+  greetingReply,
+  isGreeting,
+  looksLikeServiceQuestion,
+  politeFallback,
+  type ChatPhase,
+} from "@/lib/chatbot/conversation";
+import {
   ASSISTANT_NAME,
   ASSISTANT_STATUS,
   CONTACT_EMAIL,
@@ -44,17 +54,22 @@ function createWelcome(): ChatMessage {
     id: uid(),
     role: "assistant",
     text: WELCOME_MESSAGE,
-    links: [
-      { label: "Request a Quote", href: "/request-quote" },
-      { label: "Technology quotation", href: "/technology/request-quote" },
-      { label: `Email ${CONTACT_EMAIL}`, href: `mailto:${CONTACT_EMAIL}` },
-    ],
   };
+}
+
+function pushAssistant(
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
+  text: string,
+  links?: ChatLink[],
+) {
+  setMessages((prev) => [...prev, { id: uid(), role: "assistant", text, links }]);
 }
 
 export function AdeptAssistant() {
   const [panel, setPanel] = useState<PanelState>("closed");
   const [messages, setMessages] = useState<ChatMessage[]>(() => [createWelcome()]);
+  const [phase, setPhase] = useState<ChatPhase>("awaiting_name");
+  const [visitorName, setVisitorName] = useState<string | null>(null);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,13 +81,14 @@ export function AdeptAssistant() {
 
   const resetConversation = useCallback(() => {
     setMessages([createWelcome()]);
+    setPhase("awaiting_name");
+    setVisitorName(null);
     setInput("");
     setError(null);
     setPending(false);
   }, []);
 
   const openChat = useCallback(() => {
-    // Fresh conversation every time the visitor connects from closed.
     resetConversation();
     setPanel("open");
   }, [resetConversation]);
@@ -103,6 +119,33 @@ export function AdeptAssistant() {
     return () => window.removeEventListener("keydown", onKey);
   }, [panel]);
 
+  const askApi = useCallback(async (text: string, name: string | null) => {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: text,
+        visitorName: name ?? undefined,
+        website: honeypotRef.current?.value ?? "",
+      }),
+    });
+    const data = (await res.json()) as ApiOk | ApiErr;
+    if (!res.ok || !data.ok) {
+      const err = data as ApiErr;
+      if (res.status === 429) {
+        setError(err.error || "Please wait a moment before sending again.");
+      }
+      pushAssistant(
+        setMessages,
+        err.error ||
+          `Something went wrong on my side. Please email ${CONTACT_EMAIL} or use a quotation form and we will follow up.`,
+        err.links,
+      );
+      return;
+    }
+    pushAssistant(setMessages, data.reply, data.links);
+  }, []);
+
   const sendMessage = useCallback(
     async (raw: string) => {
       const text = raw.trim();
@@ -114,63 +157,60 @@ export function AdeptAssistant() {
       setInput("");
 
       try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: text,
-            website: honeypotRef.current?.value ?? "",
-          }),
-        });
-
-        const data = (await res.json()) as ApiOk | ApiErr;
-
-        if (!res.ok || !data.ok) {
-          const err = data as ApiErr;
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: uid(),
-              role: "assistant",
-              text:
-                err.error ||
-                `Something went wrong on my side. Please email ${CONTACT_EMAIL} or use a quotation form and we will follow up.`,
-              links: err.links,
-            },
-          ]);
-          if (res.status === 429) {
-            setError(err.error || "Please wait a moment before sending again.");
+        if (phase === "awaiting_name") {
+          if (isGreeting(text)) {
+            const g = greetingReply(text);
+            pushAssistant(setMessages, g.text, g.links);
+            return;
           }
+
+          if (looksLikeServiceQuestion(text)) {
+            setPhase("helping");
+            await askApi(text, visitorName);
+            return;
+          }
+
+          const name = extractVisitorName(text);
+          if (name) {
+            setVisitorName(name);
+            setPhase("helping");
+            const r = afterNameReply(name);
+            pushAssistant(setMessages, r.text, r.links);
+            return;
+          }
+
+          pushAssistant(setMessages, askNameAgain().text);
           return;
         }
 
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: uid(),
-            role: "assistant",
-            text: data.reply,
-            links: data.links,
-          },
-        ]);
+        if (isGreeting(text) && !looksLikeServiceQuestion(text)) {
+          const who = visitorName ? `, ${visitorName}` : "";
+          pushAssistant(
+            setMessages,
+            `Hello again${who}. How may I help you today — fragrance, packaging, manufacturing, private label, technology, or a quotation?`,
+          );
+          return;
+        }
+
+        if (!visitorName) {
+          const lateName = extractVisitorName(text);
+          if (lateName && !looksLikeServiceQuestion(text)) {
+            setVisitorName(lateName);
+            const r = afterNameReply(lateName);
+            pushAssistant(setMessages, r.text, r.links);
+            return;
+          }
+        }
+
+        await askApi(text, visitorName);
       } catch {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: uid(),
-            role: "assistant",
-            text: `I could not reach the server just now. Please try again shortly, email ${CONTACT_EMAIL}, or use a quotation form.`,
-            links: [
-              { label: "Request a Quote", href: "/request-quote" },
-              { label: "Contact", href: "/contact" },
-            ],
-          },
-        ]);
+        const fb = politeFallback(visitorName);
+        pushAssistant(setMessages, fb.text, fb.links);
       } finally {
         setPending(false);
       }
     },
-    [pending],
+    [askApi, pending, phase, visitorName],
   );
 
   const onSubmit = (e: React.FormEvent) => {
@@ -179,6 +219,9 @@ export function AdeptAssistant() {
   };
 
   const onQuickAction = (action: (typeof quickActions)[number]) => {
+    if (phase === "awaiting_name") {
+      setPhase("helping");
+    }
     void sendMessage(action.prompt);
   };
 
@@ -226,7 +269,7 @@ export function AdeptAssistant() {
                 {ASSISTANT_NAME}
               </h2>
               <p className="mt-0.5 text-[0.65rem] leading-snug text-champagne-soft">
-                {ASSISTANT_STATUS}
+                {visitorName ? `Helping ${visitorName}` : ASSISTANT_STATUS}
               </p>
             </div>
             <div className="flex shrink-0 gap-1">
@@ -335,7 +378,11 @@ export function AdeptAssistant() {
                     void sendMessage(input);
                   }
                 }}
-                placeholder="Type your message…"
+                placeholder={
+                  phase === "awaiting_name" && !visitorName
+                    ? "Your name…"
+                    : "Type your message…"
+                }
                 className="w-full resize-none rounded-sm border border-charcoal/15 bg-ivory-soft px-3 py-2 text-sm text-charcoal placeholder:text-charcoal-muted/60 focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne disabled:opacity-60"
               />
               {error && (

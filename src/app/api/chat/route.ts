@@ -90,9 +90,10 @@ export async function POST(request: Request) {
 
   const faq = faqPayload(parsed.data.message);
 
-  // Safe paths that should not call OpenAI (commercial redirect / unsafe / empty)
+  // Safe paths that should not call OpenAI (greetings / commercial / unsafe / empty)
   const skipOpenAI =
     faq.matchedTopic === null ||
+    faq.matchedTopic === "Greeting" ||
     faq.matchedTopic === "Requesting quotations" ||
     /cannot collect passwords/i.test(faq.reply);
 
@@ -101,7 +102,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const ai = await generateOpenAIReply(parsed.data.message, faq.links);
+    const ai = await generateOpenAIReply(
+      parsed.data.message,
+      faq.links,
+      parsed.data.visitorName,
+    );
     return NextResponse.json({
       ok: true,
       mode: ai.mode,

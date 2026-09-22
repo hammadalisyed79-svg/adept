@@ -7,6 +7,7 @@ import {
   type KnowledgeEntry,
   UNSAFE_REQUEST_PATTERN,
 } from "@/lib/chatbot/knowledge";
+import { greetingReply, isGreeting } from "@/lib/chatbot/conversation";
 
 export type ChatMatchResult = {
   mode: "faq";
@@ -28,9 +29,13 @@ function scoreEntry(message: string, entry: KnowledgeEntry): number {
   let score = 0;
   for (const keyword of entry.keywords) {
     const k = keyword.toLowerCase();
-    if (k.length <= 2) continue;
+    if (k.length < 2) continue;
+    if (k.length <= 2) {
+      const re = new RegExp(`(?:^|\\s)${k}(?:\\s|$)`);
+      if (re.test(message)) score += 2;
+      continue;
+    }
     if (message.includes(k)) {
-      // Longer phrases weigh more
       score += Math.min(k.split(/\s+/).length + 1, 4);
     }
   }
@@ -44,10 +49,21 @@ export function matchKnowledge(rawMessage: string): ChatMatchResult {
     return {
       mode: "faq",
       reply:
-        "Please share a short question about our services, packaging, technology, process, or contact — or tap a topic below.",
+        "Please share a short question about our services — or tell me your name and how I may help.",
       links: [...FALLBACK_LINKS],
       matchedTopic: null,
       entryId: null,
+    };
+  }
+
+  if (isGreeting(rawMessage)) {
+    const g = greetingReply(rawMessage);
+    return {
+      mode: "faq",
+      reply: g.text,
+      links: g.links ? [...g.links] : [],
+      matchedTopic: "Greeting",
+      entryId: "greeting",
     };
   }
 
@@ -65,7 +81,6 @@ export function matchKnowledge(rawMessage: string): ChatMatchResult {
     };
   }
 
-  // Prefer the dedicated quotation topic when the user is clearly asking commercial terms
   if (COMMERCIAL_REDIRECT_PATTERN.test(rawMessage)) {
     const quoteEntry = knowledgeBase.find((e) => e.id === "quote");
     if (quoteEntry) {
@@ -87,7 +102,6 @@ export function matchKnowledge(rawMessage: string): ChatMatchResult {
     }
   }
 
-  // Threshold: require a meaningful keyword hit
   if (!best || best.score < 2) {
     return {
       mode: "faq",

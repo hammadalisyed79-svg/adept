@@ -12,6 +12,14 @@ export const chatMessageSchema = z.object({
     .trim()
     .min(1, "Message is required")
     .max(CHAT_MESSAGE_MAX, `Keep messages under ${CHAT_MESSAGE_MAX} characters`),
+  /** Optional first name from the browser session — not persisted server-side. */
+  visitorName: z
+    .string()
+    .trim()
+    .min(1)
+    .max(60)
+    .regex(/^[a-zA-Z][a-zA-Z'\s-]{0,58}[a-zA-Z]?$/, "Invalid name")
+    .optional(),
   /** Honeypot — must remain empty. */
   website: z.string().max(0).optional().or(z.literal("")),
 });

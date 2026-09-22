@@ -13,7 +13,7 @@ describe("matchKnowledge FAQ assistant", () => {
     const result = matchKnowledge("Do you supply fragrance concentrates and sampling?");
     expect(result.mode).toBe("faq");
     expect(result.entryId).toBe("fragrance-trading");
-    expect(result.reply).toMatch(/fragrance trading/i);
+    expect(result.reply).toMatch(/fragrance concentrates/i);
     expect(result.links.some((l) => l.href.includes("FRAGRANCE_TRADING"))).toBe(true);
   });
 
@@ -36,7 +36,7 @@ describe("matchKnowledge FAQ assistant", () => {
   it("does not invent prices — redirects commercial questions to quote forms", () => {
     const result = matchKnowledge("What is your price and MOQ for concentrates?");
     expect(result.entryId).toBe("quote");
-    expect(result.reply).toMatch(/cannot provide prices/i);
+    expect(result.reply).toMatch(/cannot confirm prices/i);
     expect(result.reply).not.toMatch(/\$\d|\d+\s*kg/i);
   });
 
@@ -48,13 +48,45 @@ describe("matchKnowledge FAQ assistant", () => {
   it("admits when information is unavailable", () => {
     const result = matchKnowledge("What is the weather in Karachi tomorrow?");
     expect(result.entryId).toBeNull();
-    expect(result.reply).toMatch(/do not have verified/i);
+    expect(result.reply).toMatch(/guide you correctly|share a little more/i);
   });
 
   it("identifies contact email without claiming live human chat", () => {
     const result = matchKnowledge("How can I contact ADEPT and speak to someone?");
     expect(result.reply).toMatch(/info@adeptfragrances\.com/);
-    expect(result.reply).toMatch(/does not mean a staffed live agent/i);
+    expect(result.reply).toMatch(/quotation forms|commercial team/i);
+  });
+  it("greets warmly and asks for a name", () => {
+    const hi = matchKnowledge("hi are you there");
+    expect(hi.matchedTopic).toBe("Greeting");
+    expect(hi.reply).toMatch(/yes, I am here/i);
+    expect(hi.reply).toMatch(/name/i);
+    expect(hi.reply).not.toMatch(/not have that detail published/i);
+
+    const how = matchKnowledge("how are you");
+    expect(how.matchedTopic).toBe("Greeting");
+    expect(how.reply).toMatch(/well|thank you/i);
+    expect(how.reply).toMatch(/name/i);
+  });
+});
+
+describe("conversation helpers", () => {
+  it("extracts names and builds after-name replies", async () => {
+    const {
+      extractVisitorName,
+      afterNameReply,
+      isGreeting,
+    } = await import("@/lib/chatbot/conversation");
+
+    expect(isGreeting("hi")).toBe(true);
+    expect(isGreeting("how are you")).toBe(true);
+    expect(isGreeting("Tell me about fragrance")).toBe(false);
+    expect(extractVisitorName("My name is Sara")).toBe("Sara");
+    expect(extractVisitorName("James")).toBe("James");
+
+    const next = afterNameReply("Sara");
+    expect(next.text).toMatch(/Thank you, Sara/i);
+    expect(next.text).toMatch(/How may I help/i);
   });
 });
 
