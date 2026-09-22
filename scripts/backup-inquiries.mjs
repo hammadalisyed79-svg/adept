@@ -1,12 +1,23 @@
 /**
- * Backup BusinessInquiry (+ related) rows to JSON before schema changes.
+ * Export BusinessInquiry (+ related) rows to JSON.
+ *
+ * IMPORTANT: This is an inquiry/metadata SNAPSHOT, not a full PostgreSQL
+ * physical backup and not a verified restore point. Do not treat the output
+ * as Production disaster-recovery evidence.
+ *
  * Usage: node scripts/backup-inquiries.mjs [output-path]
- * Requires DATABASE_URL (or resolved Neon/Vercel aliases) — never commit the backup if it contains PII.
+ * Local default: ADEPT_DB_TARGET=local (plain DATABASE_URL only).
+ * Production read requires ADEPT_ALLOW_PRODUCTION_DB=1 and ADEPT_DB_TARGET=production_read.
  */
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
+import {
+  assertOrExit,
+  inferDbOperationMode,
+  resolveDatabaseUrlForMode,
+} from "./lib/db-target-guard.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -33,27 +44,10 @@ function loadDotEnv() {
 
 loadDotEnv();
 
-const candidates = [
-  "DATABASE_URL",
-  "DATABASE_URL_PRISMA_DATABASE_URL",
-  "DATABASE_URL_DATABASE_URL",
-  "DATABASE_URL_POSTGRES_URL",
-];
-for (const key of candidates) {
-  const value = process.env[key];
-  if (value && value.trim() && value !== "[SENSITIVE]") {
-    process.env.DATABASE_URL = value.trim();
-    console.log(`[backup] Using ${key}`);
-    break;
-  }
-}
+const mode = inferDbOperationMode();
+const resolved = resolveDatabaseUrlForMode(mode);
+assertOrExit(resolved);
 
-if (!process.env.DATABASE_URL) {
-  console.error("[backup] No DATABASE_URL resolved");
-  process.exit(1);
-}
-
-// Ensure client is generated
 spawnSync("npx", ["prisma", "generate"], {
   stdio: "inherit",
   shell: process.platform === "win32",
@@ -66,7 +60,7 @@ const prisma = new PrismaClient();
 const stamp = new Date().toISOString().replace(/[:.]/g, "-");
 const out =
   process.argv[2] ||
-  resolve(process.cwd(), "backups", `inquiries-backup-${stamp}.json`);
+  resolve(process.cwd(), "backups", `inquiries-snapshot-${stamp}.json`);
 
 async function main() {
   const inquiries = await prisma.businessInquiry.findMany({
@@ -76,18 +70,19 @@ async function main() {
   mkdirSync(dirname(out), { recursive: true });
   const payload = {
     createdAt: new Date().toISOString(),
+    backupKind: "inquiry_json_snapshot",
+    recoverableFullDatabaseBackup: false,
     count: inquiries.length,
-    hostHint: (() => {
-      try {
-        return new URL(process.env.DATABASE_URL).host;
-      } catch {
-        return "unknown";
-      }
-    })(),
+    hostHint: resolved.identity.host,
+    userSuffix: resolved.identity.userSuffix,
+    mode: resolved.mode,
     inquiries,
   };
   writeFileSync(out, JSON.stringify(payload, null, 2), "utf8");
   console.log(`[backup] Wrote ${inquiries.length} inquiries to ${out}`);
+  console.log(
+    "[backup] Kind=inquiry_json_snapshot — NOT a verified full-database backup/restore point.",
+  );
   console.log("[backup] Do not commit this file if it contains customer PII.");
 }
 

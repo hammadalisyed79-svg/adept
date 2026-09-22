@@ -1,27 +1,30 @@
 import { PrismaClient } from "@prisma/client";
+import {
+  applyResolvedDatabaseUrl,
+  inferDbOperationMode,
+  resolveDatabaseUrlForMode,
+} from "@/lib/db-target-guard";
 
-function resolveDatabaseUrl(): string | undefined {
-  const candidates = [
-    "DATABASE_URL",
-    "DATABASE_URL_PRISMA_DATABASE_URL",
-    "DATABASE_URL_DATABASE_URL",
-    "DATABASE_URL_POSTGRES_URL",
-    "POSTGRES_PRISMA_URL",
-    "POSTGRES_URL",
-    "PRISMA_DATABASE_URL",
-  ];
-  for (const key of candidates) {
-    const value = process.env[key];
-    if (value && value.trim().length > 0 && value !== "[SENSITIVE]") {
-      return value.trim();
-    }
+const mode = inferDbOperationMode();
+const resolved = resolveDatabaseUrlForMode(mode);
+
+if (!resolved.ok) {
+  // Fail closed for local/preview/staging; hosted production without URL still fails loudly.
+  if (
+    mode === "local" ||
+    mode === "staging" ||
+    mode === "hosted_preview" ||
+    mode === "production_migrate" ||
+    mode === "production_read"
+  ) {
+    throw new Error(`[db-target-guard] ${resolved.error}`);
   }
-  return undefined;
+  console.error(`[db-target-guard] ${resolved.error}`);
 }
 
-const databaseUrl = resolveDatabaseUrl();
-if (databaseUrl) {
-  process.env.DATABASE_URL = databaseUrl;
+const databaseUrl = resolved.ok ? resolved.url : undefined;
+if (resolved.ok) {
+  applyResolvedDatabaseUrl(resolved);
 }
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
