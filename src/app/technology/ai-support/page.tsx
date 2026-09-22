@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { aiHowWeDeliver, aiOfferings } from "@/content/technology";
 
@@ -20,7 +19,14 @@ export default function TechnologyAiSupportPage() {
         title="Assist visitors. Capture interest. Hand off with clarity."
         description="Website chatbots and AI support that answer common questions, collect project details, and connect serious enquiries to your team."
         visual={
-          <TechnologyVisual variant="ai" aspectClassName="aspect-[4/3] lg:aspect-[5/4]" />
+          <MediaImage
+            mediaKey="technologyAi"
+            aspectClassName="aspect-[4/3] lg:aspect-[5/4]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+            hoverScale={false}
+            priority
+          />
         }
       />
 
@@ -70,10 +76,6 @@ export default function TechnologyAiSupportPage() {
               className="border border-charcoal/10"
               hoverScale={false}
             />
-            <p className="mt-3 text-xs text-charcoal-muted">
-              Service photography for atmosphere. Chatbot interface preview appears in the hero
-              until approved product photography is available.
-            </p>
           </div>
         </Container>
       </Section>

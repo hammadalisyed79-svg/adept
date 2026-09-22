@@ -2,6 +2,7 @@
  * Technology & Growth Solutions — public service copy.
  */
 
+import type { MediaKey } from "@/content/media";
 import { company } from "@/lib/company";
 
 export const technologyEmail = company.email;
@@ -10,20 +11,13 @@ export function techMailto(subject: string): string {
   return `mailto:${technologyEmail}?subject=${encodeURIComponent(subject)}`;
 }
 
-export type TechnologyVisualVariant =
-  | "growth"
-  | "erp"
-  | "website"
-  | "marketing"
-  | "ai";
-
 export const technologyServices = [
   {
     title: "ERP Solutions",
     href: "/technology/erp",
     summary:
       "Custom and third-party ERP for inventory, sales, purchasing, production, and reporting — scoped to your operations.",
-    variant: "erp" as TechnologyVisualVariant,
+    mediaKey: "technologyErp" as MediaKey,
     label: "Software & operations",
   },
   {
@@ -31,7 +25,7 @@ export const technologyServices = [
     href: "/technology/website-development",
     summary:
       "Corporate, B2B, catalogue, and quotation websites, with optional links to operational systems where supported.",
-    variant: "website" as TechnologyVisualVariant,
+    mediaKey: "technologyWebsite" as MediaKey,
     label: "Digital presence",
   },
   {
@@ -39,7 +33,7 @@ export const technologyServices = [
     href: "/technology/digital-marketing",
     summary:
       "Brand, content, social, SEO, and paid campaigns as practical growth support for fragrance and related brands.",
-    variant: "marketing" as TechnologyVisualVariant,
+    mediaKey: "technologyMarketing" as MediaKey,
     label: "Brand & channels",
   },
   {
@@ -47,7 +41,7 @@ export const technologyServices = [
     href: "/technology/ai-support",
     summary:
       "Website chatbots and AI support that answer common questions, capture leads, and hand off to your team.",
-    variant: "ai" as TechnologyVisualVariant,
+    mediaKey: "technologyAi" as MediaKey,
     label: "AI & automation",
   },
 ] as const;

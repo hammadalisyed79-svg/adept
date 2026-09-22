@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { TechnologyInquiryForm } from "@/components/forms/TechnologyInquiryForm";
-import { TechnologyVisual } from "@/components/media/TechnologyVisual";
+import { MediaImage } from "@/components/media/MediaImage";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
@@ -61,7 +61,7 @@ export default async function TechnologyRequestQuotePage({ searchParams }: Props
       <PageHero
         eyebrow="Technology & Growth"
         title="Discuss Your Technology Project"
-        description="Select ERP, website development, or digital marketing. Optional service details appear after you choose a service."
+        description="Select ERP, website development, digital marketing, or AI support. Optional service details appear after you choose a service."
       />
       <Section className="bg-white">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_22rem]">
@@ -73,10 +73,12 @@ export default async function TechnologyRequestQuotePage({ searchParams }: Props
           </div>
 
           <aside className="order-2 space-y-6 lg:sticky lg:top-28">
-            <TechnologyVisual
-              variant="growth"
+            <MediaImage
+              mediaKey="technologyGrowth"
               aspectClassName="aspect-[4/3]"
               className="hidden border border-charcoal/10 lg:block"
+              sizes="22rem"
+              hoverScale={false}
             />
             <WhatHappensNextPanel />
           </aside>

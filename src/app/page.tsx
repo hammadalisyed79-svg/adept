@@ -5,7 +5,6 @@ import { EditorialImageCard } from "@/components/media/EditorialImageCard";
 import { HomepageProcess } from "@/components/media/HomepageProcess";
 import { MediaImage } from "@/components/media/MediaImage";
 import { PackagingVisualGrid } from "@/components/media/PackagingVisualGrid";
-import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
@@ -98,9 +97,6 @@ export default function HomePage() {
             ADEPT helps fragrance businesses connect their products with the systems and channels
             needed to grow.
           </p>
-          <p className="mt-3 max-w-2xl text-xs text-ivory/40">
-            Cards show interface previews until approved ADEPT technology photography is available.
-          </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-2 xl:grid-cols-4">
             {technologyServices.map((s) => (
               <Link
@@ -108,12 +104,13 @@ export default function HomePage() {
                 href={s.href}
                 className="group flex h-full flex-col border border-ivory/15 bg-charcoal-soft/40 transition duration-soft hover:border-champagne/40"
               >
-                <TechnologyVisual
-                  variant={s.variant}
-                  tone="dark"
+                <MediaImage
+                  mediaKey={s.mediaKey}
                   decorative
                   aspectClassName="aspect-[4/3]"
                   className="border-0 border-b border-ivory/10"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                  hoverScale={false}
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="text-xs uppercase tracking-wideish text-champagne-soft">{s.label}</p>

@@ -137,35 +137,28 @@ export const media = {
   },
   technologyGrowth: {
     id: "technology-growth",
-    src: `${base}/technology-growth.svg`,
-    alt: "Technology & Growth interface preview — superseded by CSS TechnologyVisual on pages",
-    decorative: true,
-    placeholderNote:
-      "No approved photography yet. Pages use TechnologyVisual CSS interface previews. SVG retained for registry fallback only.",
+    src: `${base}/technology-growth.png`,
+    alt: "Professional workspace representing Technology & Growth systems for fragrance businesses",
   },
   technologyErp: {
     id: "technology-erp",
-    src: `${base}/technology-erp.svg`,
-    alt: "ERP interface preview — superseded by CSS TechnologyVisual on pages",
-    decorative: true,
-    placeholderNote:
-      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
+    src: `${base}/technology-erp.png`,
+    alt: "Operations desk and dashboard context for ERP solutions",
   },
   technologyWebsite: {
     id: "technology-website",
-    src: `${base}/technology-website.svg`,
-    alt: "Website interface preview — superseded by CSS TechnologyVisual on pages",
-    decorative: true,
-    placeholderNote:
-      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
+    src: `${base}/technology-website.png`,
+    alt: "Laptop and fragrance packaging for website and digital storefront development",
   },
   technologyMarketing: {
     id: "technology-marketing",
-    src: `${base}/technology-marketing.svg`,
-    alt: "Marketing interface preview — superseded by CSS TechnologyVisual on pages",
-    decorative: true,
-    placeholderNote:
-      "No approved photography yet. Pages use TechnologyVisual CSS interface previews.",
+    src: `${base}/technology-marketing.png`,
+    alt: "Brand campaign planning desk for digital marketing",
+  },
+  technologyAi: {
+    id: "technology-ai",
+    src: `${base}/technology-ai.png`,
+    alt: "Support workstation representing AI chatbots and commercial guidance",
   },
 } as const satisfies Record<string, MediaAsset>;
 

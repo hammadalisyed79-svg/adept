@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { technologyServices } from "@/content/technology";
 
@@ -21,9 +20,13 @@ export default function TechnologyOverviewPage() {
         title="Systems and channels that support commercial growth"
         description="One of five ADEPT business divisions — ERP, websites, digital marketing, and AI chatbots that help fragrance and related businesses connect products with systems and channels."
         visual={
-          <TechnologyVisual
-            variant="growth"
+          <MediaImage
+            mediaKey="technologyGrowth"
             aspectClassName="aspect-[4/3] lg:aspect-[5/4]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+            hoverScale={false}
+            priority
           />
         }
       />
@@ -36,10 +39,6 @@ export default function TechnologyOverviewPage() {
               title="Build capability around the brand"
               description="Technology & Growth sits alongside fragrance trading, packaging, manufacturing, and private label. This division focuses on software, web, marketing, and AI chatbot services for teams that need digital and operational support."
             />
-            <p className="mt-5 text-xs leading-relaxed text-charcoal-muted">
-              Interface previews on this site stand in until approved ADEPT technology photography
-              is available.
-            </p>
           </div>
           <MediaImage
             mediaKey="completeBrandSolution"
@@ -65,11 +64,13 @@ export default function TechnologyOverviewPage() {
                 href={s.href}
                 className="group flex h-full flex-col border border-charcoal/10 bg-white transition duration-soft hover:border-champagne/50"
               >
-                <TechnologyVisual
-                  variant={s.variant}
+                <MediaImage
+                  mediaKey={s.mediaKey}
                   decorative
                   aspectClassName="aspect-[16/10]"
                   className="border-0 border-b border-charcoal/10"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                  hoverScale={false}
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-7">
                   <div className="mb-2 flex items-center gap-3 text-xs uppercase tracking-wideish md:mb-3">

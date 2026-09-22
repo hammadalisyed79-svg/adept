@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
-import { TechnologyVisual } from "@/components/media/TechnologyVisual";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { websiteFromBriefToLaunch, websiteOfferings } from "@/content/technology";
 
@@ -20,9 +19,13 @@ export default function TechnologyWebsitePage() {
         title="Digital storefronts and commercial sites"
         description="Corporate and B2B websites, catalogues, quotation experiences, and ecommerce where the commercial model fits — with system integration when APIs allow."
         visual={
-          <TechnologyVisual
-            variant="website"
+          <MediaImage
+            mediaKey="technologyWebsite"
             aspectClassName="aspect-[4/3] lg:aspect-[5/4]"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="border border-charcoal/10"
+            hoverScale={false}
+            priority
           />
         }
       />
@@ -73,10 +76,6 @@ export default function TechnologyWebsitePage() {
               className="border border-charcoal/10"
               hoverScale={false}
             />
-            <p className="mt-3 text-xs text-charcoal-muted">
-              Fragrance brand photography for atmosphere. Website interface preview appears in the
-              hero until approved project photography is available.
-            </p>
           </div>
         </Container>
       </Section>
