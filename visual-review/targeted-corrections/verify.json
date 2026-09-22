@@ -1,0 +1,192 @@
+{
+  "base": "http://127.0.0.1:3458",
+  "checks": [
+    {
+      "name": "home-title",
+      "ok": true,
+      "title": "Everything You Need to Create a Fragrance Brand | ADEPT Fragrances",
+      "hasBrand": true,
+      "keepsMeaning": true
+    },
+    {
+      "name": "about-h1",
+      "ok": true,
+      "h1": "A B2B partner for fragrance concentrates, packaging, and manufacturing",
+      "distinct": true
+    },
+    {
+      "name": "sitemap-tech-quote",
+      "ok": true,
+      "hasTechQuote": true,
+      "hasQueryVariants": false
+    },
+    {
+      "name": "quote-aside-single",
+      "ok": true,
+      "fragrance": 1,
+      "technology": 1,
+      "bothSingle": true
+    },
+    {
+      "name": "cta-contextual",
+      "ok": true,
+      "techHref": "/technology/request-quote",
+      "homeHref": "/request-quote",
+      "fragHref": "/request-quote"
+    },
+    {
+      "name": "mobile-cta-tech",
+      "ok": true,
+      "href": "/technology/request-quote"
+    },
+    {
+      "name": "mobile-cta-home",
+      "ok": true,
+      "href": "/request-quote"
+    },
+    {
+      "name": "tech-cards-visual",
+      "ok": true,
+      "found": true,
+      "cardCount": 4,
+      "variants": [
+        "erp",
+        "website",
+        "marketing",
+        "ai"
+      ],
+      "overflow": false,
+      "texts": [
+        {
+          "title": "ERP Solutions",
+          "truncated": false,
+          "len": 115
+        },
+        {
+          "title": "Website Development",
+          "truncated": false,
+          "len": 110
+        },
+        {
+          "title": "Digital Marketing",
+          "truncated": false,
+          "len": 109
+        },
+        {
+          "title": "AI Support & Chatbots",
+          "truncated": false,
+          "len": 103
+        }
+      ],
+      "clippedLabels": true
+    },
+    {
+      "name": "overflow-390",
+      "ok": true,
+      "rows": [
+        {
+          "path": "/",
+          "overflow": false
+        },
+        {
+          "path": "/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/technology/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/about",
+          "overflow": false
+        },
+        {
+          "path": "/technology",
+          "overflow": false
+        }
+      ],
+      "anyOverflow": false
+    },
+    {
+      "name": "overflow-768",
+      "ok": true,
+      "rows": [
+        {
+          "path": "/",
+          "overflow": false
+        },
+        {
+          "path": "/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/technology/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/about",
+          "overflow": false
+        },
+        {
+          "path": "/technology",
+          "overflow": false
+        }
+      ],
+      "anyOverflow": false
+    },
+    {
+      "name": "overflow-1024",
+      "ok": true,
+      "rows": [
+        {
+          "path": "/",
+          "overflow": false
+        },
+        {
+          "path": "/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/technology/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/about",
+          "overflow": false
+        },
+        {
+          "path": "/technology",
+          "overflow": false
+        }
+      ],
+      "anyOverflow": false
+    },
+    {
+      "name": "overflow-1440",
+      "ok": true,
+      "rows": [
+        {
+          "path": "/",
+          "overflow": false
+        },
+        {
+          "path": "/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/technology/request-quote",
+          "overflow": false
+        },
+        {
+          "path": "/about",
+          "overflow": false
+        },
+        {
+          "path": "/technology",
+          "overflow": false
+        }
+      ],
+      "anyOverflow": false
+    }
+  ]
+}

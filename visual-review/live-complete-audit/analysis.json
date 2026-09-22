@@ -1,0 +1,956 @@
+{
+  "summary": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Everything You Need to Create a Fragrance Brand.",
+      "h1": [
+        "Everything You Need to Create a Fragrance Brand."
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 120,
+      "canonical": "https://www.adeptfragrances.com",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "title": "About | ADEPT Fragrances",
+      "h1": [
+        "Everything you need to create a fragrance brand"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 138,
+      "canonical": "https://www.adeptfragrances.com/about",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/catalogue",
+      "status": 200,
+      "title": "B2B Catalogue | ADEPT Fragrances",
+      "h1": [
+        "Quotation-based product catalogue"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 115,
+      "canonical": "https://www.adeptfragrances.com/catalogue",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "title": "Contact | ADEPT Fragrances",
+      "h1": [
+        "Talk to our commercial team"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 135,
+      "canonical": "https://www.adeptfragrances.com/contact",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [
+        {
+          "action": null,
+          "method": null,
+          "inputs": 17,
+          "required": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/industries",
+      "status": 200,
+      "title": "Industries | ADEPT Fragrances",
+      "h1": [
+        "Categories we support"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 112,
+      "canonical": "https://www.adeptfragrances.com/industries",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/industries/candles-home-fragrance",
+      "status": 200,
+      "title": "Candles and Home Fragrance | ADEPT Fragrances",
+      "h1": [
+        "Candles and Home Fragrance"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 72,
+      "canonical": "https://www.adeptfragrances.com/industries/candles-home-fragrance",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/industries/fine-fragrance",
+      "status": 200,
+      "title": "Fine Fragrance | ADEPT Fragrances",
+      "h1": [
+        "Fine Fragrance"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 87,
+      "canonical": "https://www.adeptfragrances.com/industries/fine-fragrance",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/industries/home-care-detergents",
+      "status": 200,
+      "title": "Home Care and Detergents | ADEPT Fragrances",
+      "h1": [
+        "Home Care and Detergents"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 83,
+      "canonical": "https://www.adeptfragrances.com/industries/home-care-detergents",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/industries/personal-care",
+      "status": 200,
+      "title": "Personal Care | ADEPT Fragrances",
+      "h1": [
+        "Personal Care"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 82,
+      "canonical": "https://www.adeptfragrances.com/industries/personal-care",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/insights",
+      "status": 200,
+      "title": "Insights | ADEPT Fragrances",
+      "h1": [
+        "Practical guidance for fragrance buyers"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 115,
+      "canonical": "https://www.adeptfragrances.com/insights",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/insights/fine-fragrance-vs-industrial-fragrance",
+      "status": 200,
+      "title": "Fine Fragrance vs Industrial Fragrance | ADEPT Fragrances",
+      "h1": [
+        "Fine Fragrance vs Industrial Fragrance"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 117,
+      "canonical": "https://www.adeptfragrances.com/insights/fine-fragrance-vs-industrial-fragrance",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/insights/fragrance-selection-for-detergents",
+      "status": 200,
+      "title": "Fragrance Selection for Detergents | ADEPT Fragrances",
+      "h1": [
+        "Fragrance Selection for Detergents"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 100,
+      "canonical": "https://www.adeptfragrances.com/insights/fragrance-selection-for-detergents",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/insights/private-label-perfume-manufacturing",
+      "status": 200,
+      "title": "Private-Label Perfume Manufacturing | ADEPT Fragrances",
+      "h1": [
+        "Private-Label Perfume Manufacturing"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 104,
+      "canonical": "https://www.adeptfragrances.com/insights/private-label-perfume-manufacturing",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/insights/understanding-fragrance-concentration",
+      "status": 200,
+      "title": "Understanding Fragrance Concentration | ADEPT Fragrances",
+      "h1": [
+        "Understanding Fragrance Concentration"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 110,
+      "canonical": "https://www.adeptfragrances.com/insights/understanding-fragrance-concentration",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging",
+      "status": 200,
+      "title": "Packaging & Components | ADEPT Fragrances",
+      "h1": [
+        "Build Every Detail of the Pack."
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 122,
+      "canonical": "https://www.adeptfragrances.com/packaging",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/accessories",
+      "status": 200,
+      "title": "Accessories | ADEPT Fragrances",
+      "h1": [
+        "Accessories"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 104,
+      "canonical": "https://www.adeptfragrances.com/packaging/accessories",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/caps",
+      "status": 200,
+      "title": "Caps | ADEPT Fragrances",
+      "h1": [
+        "Caps"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 76,
+      "canonical": "https://www.adeptfragrances.com/packaging/caps",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/complete-packaging-sets",
+      "status": 200,
+      "title": "Complete Packaging Sets | ADEPT Fragrances",
+      "h1": [
+        "Complete Packaging Sets"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 90,
+      "canonical": "https://www.adeptfragrances.com/packaging/complete-packaging-sets",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/folding-cartons",
+      "status": 200,
+      "title": "Folding Cartons | ADEPT Fragrances",
+      "h1": [
+        "Folding Cartons"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 84,
+      "canonical": "https://www.adeptfragrances.com/packaging/folding-cartons",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/labels-and-stickers",
+      "status": 200,
+      "title": "Labels & Stickers | ADEPT Fragrances",
+      "h1": [
+        "Labels & Stickers"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 104,
+      "canonical": "https://www.adeptfragrances.com/packaging/labels-and-stickers",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/perfume-bottles",
+      "status": 200,
+      "title": "Perfume Bottles | ADEPT Fragrances",
+      "h1": [
+        "Perfume Bottles"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 110,
+      "canonical": "https://www.adeptfragrances.com/packaging/perfume-bottles",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/pumps-and-collars",
+      "status": 200,
+      "title": "Pumps & Collars | ADEPT Fragrances",
+      "h1": [
+        "Pumps & Collars"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 87,
+      "canonical": "https://www.adeptfragrances.com/packaging/pumps-and-collars",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/packaging/rigid-boxes",
+      "status": 200,
+      "title": "Rigid Boxes | ADEPT Fragrances",
+      "h1": [
+        "Rigid Boxes"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 83,
+      "canonical": "https://www.adeptfragrances.com/packaging/rigid-boxes",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy Policy | ADEPT Fragrances",
+      "h1": [
+        "Privacy Policy"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 73,
+      "canonical": "https://www.adeptfragrances.com/privacy",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/process",
+      "status": 200,
+      "title": "Our Process | ADEPT Fragrances",
+      "h1": [
+        "How we work with business clients"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 106,
+      "canonical": "https://www.adeptfragrances.com/process",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/request-quote",
+      "status": 200,
+      "title": "Request a Quote | ADEPT Fragrances",
+      "h1": [
+        "Request a quote"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 113,
+      "canonical": "https://www.adeptfragrances.com/request-quote",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [
+        {
+          "action": null,
+          "method": null,
+          "inputs": 17,
+          "required": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/services/fragrance-trading",
+      "status": 200,
+      "title": "Fragrance Trading | ADEPT Fragrances",
+      "h1": [
+        "Fragrance concentrates for serious brands"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 101,
+      "canonical": "https://www.adeptfragrances.com/services/fragrance-trading",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/services/private-label",
+      "status": 200,
+      "title": "Private Label | ADEPT Fragrances",
+      "h1": [
+        "From Brief to Shelf."
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 97,
+      "canonical": "https://www.adeptfragrances.com/services/private-label",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/services/toll-manufacturing",
+      "status": 200,
+      "title": "Toll Manufacturing | ADEPT Fragrances",
+      "h1": [
+        "From Compound to Finished Product."
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 99,
+      "canonical": "https://www.adeptfragrances.com/services/toll-manufacturing",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "title": "Technology & Growth Solutions | ADEPT Fragrances",
+      "h1": [
+        "Systems and channels that support commercial growth"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 122,
+      "canonical": "https://www.adeptfragrances.com/technology",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/technology/ai-support",
+      "status": 200,
+      "title": "AI Support & Chatbots | ADEPT Fragrances",
+      "h1": [
+        "Assist visitors. Capture interest. Hand off with clarity."
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 129,
+      "canonical": "https://www.adeptfragrances.com/technology/ai-support",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/technology/digital-marketing",
+      "status": 200,
+      "title": "Digital Marketing | ADEPT Fragrances",
+      "h1": [
+        "Practical marketing support for brand growth"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 131,
+      "canonical": "https://www.adeptfragrances.com/technology/digital-marketing",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/technology/erp",
+      "status": 200,
+      "title": "ERP Solutions | ADEPT Fragrances",
+      "h1": [
+        "Operational software scoped to how you work"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 140,
+      "canonical": "https://www.adeptfragrances.com/technology/erp",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/technology/request-quote",
+      "status": 200,
+      "title": "Discuss Your Technology Project | ADEPT Fragrances",
+      "h1": [
+        "Discuss Your Technology Project"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 126,
+      "canonical": "https://www.adeptfragrances.com/technology/request-quote",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [
+        {
+          "action": null,
+          "method": null,
+          "inputs": 14,
+          "required": 5
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/technology/website-development",
+      "status": 200,
+      "title": "Website Development | ADEPT Fragrances",
+      "h1": [
+        "Digital storefronts and commercial sites"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 121,
+      "canonical": "https://www.adeptfragrances.com/technology/website-development",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms of Use | ADEPT Fragrances",
+      "h1": [
+        "Terms of Use"
+      ],
+      "h1Count": 1,
+      "hasDesc": true,
+      "descLen": 56,
+      "canonical": "https://www.adeptfragrances.com/terms",
+      "overflow1440": false,
+      "overflow390": false,
+      "brokenImgs": 0,
+      "emptyAlts": 0,
+      "consoleErrors": 0,
+      "netFails": 0,
+      "netFailSamples": [],
+      "forms": [],
+      "error": null
+    }
+  ],
+  "issues": [],
+  "formChecks": [
+    {
+      "path": "/request-quote",
+      "label": "Fragrance quotation",
+      "steps": [
+        {
+          "step": "empty-submit",
+          "ok": true,
+          "invalidCount": 15,
+          "alertLikeCount": 2,
+          "note": "Expect client validation to block empty submit"
+        },
+        {
+          "step": "bad-email",
+          "ok": true,
+          "invalidCount": 15,
+          "note": "Invalid email should remain blocked; no Production POST intended"
+        },
+        {
+          "step": "no-success-screen",
+          "ok": true,
+          "note": "Must not show success after validation-only checks"
+        }
+      ],
+      "formCount": 1,
+      "validationScreenshot": "visual-review/live-complete-audit/screenshots/form-validation_request-quote__1440.png",
+      "successScreenVisible": false
+    },
+    {
+      "path": "/technology/request-quote",
+      "label": "Technology quotation (default)",
+      "steps": [
+        {
+          "step": "empty-submit",
+          "ok": true,
+          "invalidCount": 8,
+          "alertLikeCount": 7,
+          "note": "Expect client validation to block empty submit"
+        },
+        {
+          "step": "bad-email",
+          "ok": true,
+          "invalidCount": 8,
+          "note": "Invalid email should remain blocked; no Production POST intended"
+        },
+        {
+          "step": "no-success-screen",
+          "ok": true,
+          "note": "Must not show success after validation-only checks"
+        }
+      ],
+      "formCount": 1,
+      "validationScreenshot": "visual-review/live-complete-audit/screenshots/form-validation_technology_request-quote__1440.png",
+      "successScreenVisible": false
+    },
+    {
+      "path": "/technology/request-quote?type=erp",
+      "label": "Technology ERP deep link",
+      "steps": [
+        {
+          "step": "empty-submit",
+          "ok": true,
+          "invalidCount": 8,
+          "alertLikeCount": 7,
+          "note": "Expect client validation to block empty submit"
+        },
+        {
+          "step": "bad-email",
+          "ok": true,
+          "invalidCount": 8,
+          "note": "Invalid email should remain blocked; no Production POST intended"
+        },
+        {
+          "step": "no-success-screen",
+          "ok": true,
+          "note": "Must not show success after validation-only checks"
+        }
+      ],
+      "formCount": 1,
+      "validationScreenshot": "visual-review/live-complete-audit/screenshots/form-validation_technology_request-quote_type_erp__1440.png",
+      "successScreenVisible": false
+    },
+    {
+      "path": "/technology/request-quote?type=website",
+      "label": "Technology Website deep link",
+      "steps": [
+        {
+          "step": "empty-submit",
+          "ok": true,
+          "invalidCount": 8,
+          "alertLikeCount": 7,
+          "note": "Expect client validation to block empty submit"
+        },
+        {
+          "step": "bad-email",
+          "ok": true,
+          "invalidCount": 8,
+          "note": "Invalid email should remain blocked; no Production POST intended"
+        },
+        {
+          "step": "no-success-screen",
+          "ok": true,
+          "note": "Must not show success after validation-only checks"
+        }
+      ],
+      "formCount": 1,
+      "validationScreenshot": "visual-review/live-complete-audit/screenshots/form-validation_technology_request-quote_type_website__1440.png",
+      "successScreenVisible": false
+    },
+    {
+      "path": "/technology/request-quote?type=marketing",
+      "label": "Technology Marketing deep link",
+      "steps": [
+        {
+          "step": "empty-submit",
+          "ok": true,
+          "invalidCount": 8,
+          "alertLikeCount": 7,
+          "note": "Expect client validation to block empty submit"
+        },
+        {
+          "step": "bad-email",
+          "ok": true,
+          "invalidCount": 8,
+          "note": "Invalid email should remain blocked; no Production POST intended"
+        },
+        {
+          "step": "no-success-screen",
+          "ok": true,
+          "note": "Must not show success after validation-only checks"
+        }
+      ],
+      "formCount": 1,
+      "validationScreenshot": "visual-review/live-complete-audit/screenshots/form-validation_technology_request-quote_type_marketing__1440.png",
+      "successScreenVisible": false
+    },
+    {
+      "path": "/technology/request-quote?type=erp",
+      "label": "deep-link-selection-erp",
+      "selectedEnumPresent": true,
+      "otherEnums": {
+        "TECHNOLOGY_ERP": true,
+        "TECHNOLOGY_WEBSITE": false,
+        "TECHNOLOGY_MARKETING": false
+      }
+    },
+    {
+      "path": "/technology/request-quote?type=website",
+      "label": "deep-link-selection-website",
+      "selectedEnumPresent": true,
+      "otherEnums": {
+        "TECHNOLOGY_ERP": false,
+        "TECHNOLOGY_WEBSITE": true,
+        "TECHNOLOGY_MARKETING": false
+      }
+    },
+    {
+      "path": "/technology/request-quote?type=marketing",
+      "label": "deep-link-selection-marketing",
+      "selectedEnumPresent": true,
+      "otherEnums": {
+        "TECHNOLOGY_ERP": false,
+        "TECHNOLOGY_WEBSITE": false,
+        "TECHNOLOGY_MARKETING": true
+      }
+    }
+  ],
+  "notInSitemap": [
+    "/technology/request-quote"
+  ],
+  "apex": {
+    "status": 308,
+    "location": "https://www.adeptfragrances.com/"
+  }
+}
