@@ -121,7 +121,7 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-          <div className="mt-8 md:mt-10">
+          <div className="mt-8 flex justify-center md:mt-10">
             <Button href="/technology" variant="champagne" className="border-0">
               Technology & Growth overview
             </Button>

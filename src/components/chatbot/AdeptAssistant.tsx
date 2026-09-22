@@ -165,28 +165,28 @@ export function AdeptAssistant() {
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-0 right-0 z-[60] p-4 sm:p-5 md:bottom-2 md:right-2">
-      {/* Launcher — offset on small screens to clear sticky mobile CTAs */}
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-end p-3 sm:inset-x-auto sm:bottom-2 sm:right-2 sm:p-5 md:p-5">
+      {/* Launcher — compact on mobile, clears bottom CTA band */}
       {panel !== "open" && (
-        <div className="pointer-events-auto mb-[max(0.5rem,env(safe-area-inset-bottom))] flex justify-end pb-14 sm:pb-4">
+        <div className="pointer-events-auto mb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-end pb-2 sm:pb-0">
           <button
             type="button"
-            className="group flex items-center gap-2.5 rounded-sm border border-charcoal/15 bg-charcoal px-4 py-3 text-ivory shadow-sm transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory"
+            className="group flex max-w-[11.5rem] items-center gap-2 rounded-sm border border-charcoal/15 bg-charcoal px-3 py-2.5 text-ivory shadow-sm transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory sm:max-w-none sm:gap-2.5 sm:px-4 sm:py-3"
             aria-expanded={false}
             aria-controls={panelId}
             onClick={() => setPanel("open")}
           >
             <span
-              className="flex h-8 w-8 items-center justify-center rounded-sm bg-champagne text-charcoal"
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm bg-champagne text-charcoal sm:h-8 sm:w-8"
               aria-hidden
             >
               <ChatIcon />
             </span>
-            <span className="text-left">
-              <span className="block text-xs font-medium tracking-wide">
+            <span className="min-w-0 text-left">
+              <span className="block truncate text-xs font-medium tracking-wide">
                 {ASSISTANT_NAME}
               </span>
-              <span className="block text-[0.65rem] text-ivory/70">
+              <span className="block truncate text-[0.65rem] text-ivory/70">
                 Automated · ask about services
               </span>
             </span>
@@ -200,8 +200,8 @@ export function AdeptAssistant() {
           role="dialog"
           aria-modal="false"
           aria-labelledby={titleId}
-          className="pointer-events-auto mb-[max(0.25rem,env(safe-area-inset-bottom))] flex w-[min(100vw-2rem,22.5rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-lg sm:w-[22.5rem]"
-          style={{ maxHeight: "min(32rem, calc(100dvh - 6rem))" }}
+          className="pointer-events-auto mb-[max(4.75rem,calc(env(safe-area-inset-bottom)+3.5rem))] flex w-[min(100vw-1.5rem,22.5rem)] flex-col overflow-hidden rounded-sm border border-charcoal/15 bg-ivory-soft shadow-lg sm:mb-[max(0.25rem,env(safe-area-inset-bottom))] sm:w-[22.5rem]"
+          style={{ maxHeight: "min(26rem, calc(100dvh - 9.5rem))" }}
         >
           <header className="flex shrink-0 items-start justify-between gap-3 border-b border-charcoal/10 bg-charcoal px-4 py-3 text-ivory">
             <div className="min-w-0">
