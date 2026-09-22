@@ -1,5 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { matchKnowledge } from "@/lib/chatbot/match";
+import {
+  hasOpenAIApiKey,
+  isOpenAIChatEnabled,
+  getOpenAIModel,
+  DEFAULT_OPENAI_MODEL,
+} from "@/lib/chatbot/openai";
 import { chatMessageSchema } from "@/lib/validation/chat";
 
 describe("matchKnowledge FAQ assistant", () => {
@@ -54,7 +60,9 @@ describe("matchKnowledge FAQ assistant", () => {
 
 describe("chatMessageSchema", () => {
   it("accepts normal messages", () => {
-    const parsed = chatMessageSchema.safeParse({ message: "Tell me about toll manufacturing" });
+    const parsed = chatMessageSchema.safeParse({
+      message: "Tell me about toll manufacturing",
+    });
     expect(parsed.success).toBe(true);
   });
 
@@ -69,5 +77,44 @@ describe("chatMessageSchema", () => {
       website: "http://spam.example",
     });
     expect(parsed.success).toBe(false);
+  });
+});
+
+describe("OpenAI gating", () => {
+  const prevKey = process.env.OPENAI_API_KEY;
+  const prevEnabled = process.env.OPENAI_CHAT_ENABLED;
+  const prevModel = process.env.OPENAI_CHAT_MODEL;
+
+  beforeEach(() => {
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_CHAT_ENABLED;
+    delete process.env.OPENAI_CHAT_MODEL;
+  });
+
+  afterEach(() => {
+    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = prevKey;
+    if (prevEnabled === undefined) delete process.env.OPENAI_CHAT_ENABLED;
+    else process.env.OPENAI_CHAT_ENABLED = prevEnabled;
+    if (prevModel === undefined) delete process.env.OPENAI_CHAT_MODEL;
+    else process.env.OPENAI_CHAT_MODEL = prevModel;
+  });
+
+  it("stays disabled without API key", () => {
+    process.env.OPENAI_CHAT_ENABLED = "true";
+    expect(hasOpenAIApiKey()).toBe(false);
+    expect(isOpenAIChatEnabled()).toBe(false);
+  });
+
+  it("requires explicit OPENAI_CHAT_ENABLED=true even with a key", () => {
+    process.env.OPENAI_API_KEY = "sk-test-key-not-real-abcdefghijklmnop";
+    expect(hasOpenAIApiKey()).toBe(true);
+    expect(isOpenAIChatEnabled()).toBe(false);
+    process.env.OPENAI_CHAT_ENABLED = "true";
+    expect(isOpenAIChatEnabled()).toBe(true);
+  });
+
+  it("defaults model to gpt-4o-mini", () => {
+    expect(getOpenAIModel()).toBe(DEFAULT_OPENAI_MODEL);
   });
 });

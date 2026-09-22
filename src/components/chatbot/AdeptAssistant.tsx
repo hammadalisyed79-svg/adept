@@ -25,6 +25,7 @@ type ApiOk = {
   reply: string;
   links?: ChatLink[];
   mode?: string;
+  provider?: string;
 };
 
 type ApiErr = {
@@ -54,6 +55,7 @@ export function AdeptAssistant() {
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [providerLabel, setProviderLabel] = useState("Automated assistant");
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const honeypotRef = useRef<HTMLInputElement>(null);
@@ -130,6 +132,11 @@ export function AdeptAssistant() {
           links: data.links,
         },
       ]);
+      if (data.provider === "openai" || data.mode === "openai") {
+        setProviderLabel("AI-assisted · grounded answers");
+      } else {
+        setProviderLabel("Knowledge-based FAQ answers");
+      }
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -202,7 +209,7 @@ export function AdeptAssistant() {
                 {ASSISTANT_NAME}
               </h2>
               <p className="mt-0.5 text-[0.65rem] leading-snug text-ivory/70">
-                Automated FAQ assistant · not a live human agent
+                Automated AI assistant · not a live human agent
               </p>
             </div>
             <div className="flex shrink-0 gap-1">
@@ -325,7 +332,7 @@ export function AdeptAssistant() {
               )}
               <div className="flex items-center justify-between gap-2">
                 <p className="text-[0.65rem] text-charcoal-muted">
-                  Knowledge-based answers ·{" "}
+                  {providerLabel} ·{" "}
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
                     className="underline-offset-2 hover:underline"

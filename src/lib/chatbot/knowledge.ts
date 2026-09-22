@@ -20,7 +20,7 @@ export type KnowledgeEntry = {
 export const ASSISTANT_NAME = "ADEPT Assistant";
 
 export const ASSISTANT_DISCLAIMER =
-  "I am an automated assistant on the ADEPT Fragrances website — not a human representative. I can guide you to services and quotation forms using published information.";
+  "I am an automated AI assistant on the ADEPT Fragrances website — not a human representative. I guide visitors using ADEPT’s published service information and quotation forms.";
 
 export const CONTACT_EMAIL = "info@adeptfragrances.com";
 
@@ -288,7 +288,7 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "ai service",
     ],
     answer:
-      "ADEPT offers AI Support & Chatbots as a Technology & Growth service: website chatbots, AI customer support grounded in approved content, lead capture and qualification, knowledge grounding, human handoff paths, and website or CRM-friendly integration where systems allow. This on-site ADEPT Assistant is a knowledge-based FAQ guide for visitors to adeptfragrances.com. To discuss a chatbot project for your own brand, email info@adeptfragrances.com or use the Technology overview.",
+      "ADEPT offers AI Support & Chatbots as a Technology & Growth service: website chatbots, AI customer support grounded in approved content, lead capture and qualification, knowledge grounding, human handoff paths, and website or CRM-friendly integration where systems allow. This on-site ADEPT Assistant helps visitors to adeptfragrances.com with published service guidance. To discuss a chatbot project for your own brand, email info@adeptfragrances.com or use the Technology overview.",
     links: [
       { label: "AI Support & Chatbots", href: "/technology/ai-support" },
       { label: "Technology & Growth", href: "/technology" },
