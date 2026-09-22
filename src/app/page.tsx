@@ -59,15 +59,15 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Four divisions */}
+      {/* Five divisions */}
       <Section id="divisions" className="bg-white">
         <Container>
           <SectionHeading
             eyebrow="Business divisions"
-            title="Four core business divisions"
-            description="Fragrance concentrates, packaging, manufacturing and private label — coordinated for B2B brand builders."
+            title="Five business divisions"
+            description="Fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth — coordinated for B2B brand builders."
           />
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-3">
             {divisions.map((d, i) => (
               <EditorialImageCard
                 key={d.href}
@@ -84,11 +84,11 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Beyond Manufacturing — Technology & Growth */}
+      {/* Inside Technology & Growth */}
       <Section className="bg-charcoal text-ivory">
         <Container>
           <p className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
-            Beyond product supply
+            Inside Technology & Growth
           </p>
           <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ivory md:text-4xl lg:text-5xl">
             Build the Brand. Power the Business.

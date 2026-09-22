@@ -19,7 +19,7 @@ export default function TechnologyOverviewPage() {
       <PageHero
         eyebrow="Technology & Growth Solutions"
         title="Systems and channels that support commercial growth"
-        description="Beyond fragrance manufacturing, ADEPT helps businesses connect products with operational software, digital storefronts, marketing support, and AI-assisted chat."
+        description="One of five ADEPT business divisions — ERP, websites, digital marketing, and AI chatbots that help fragrance and related businesses connect products with systems and channels."
         visual={
           <TechnologyVisual
             variant="growth"
@@ -34,7 +34,7 @@ export default function TechnologyOverviewPage() {
             <SectionHeading
               eyebrow="A complete commercial partner"
               title="Build capability around the brand"
-              description="Fragrance trading, packaging, manufacturing, and private label remain our core. Technology & Growth adds software, web, marketing, and AI chatbot services for teams that need digital and operational support."
+              description="Technology & Growth sits alongside fragrance trading, packaging, manufacturing, and private label. This division focuses on software, web, marketing, and AI chatbot services for teams that need digital and operational support."
             />
             <p className="mt-5 text-xs leading-relaxed text-charcoal-muted">
               Interface previews on this site stand in until approved ADEPT technology photography

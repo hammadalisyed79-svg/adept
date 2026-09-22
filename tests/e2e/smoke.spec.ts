@@ -7,7 +7,7 @@ test.describe("primary journeys", () => {
       "Everything You Need to Create a Fragrance Brand",
     );
     await expect(page.getByText("ADEPT Fragrances").first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Four core business divisions" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Five business divisions" })).toBeVisible();
     await page.getByRole("link", { name: "Explore Packaging" }).click();
     await expect(page).toHaveURL(/packaging/);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Perfume packaging");

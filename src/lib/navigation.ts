@@ -50,6 +50,11 @@ export const navigation: readonly NavItem[] = [
         hint: "Concentrates & sampling",
       },
       {
+        href: "/packaging",
+        label: "Packaging & Components",
+        hint: "Bottles to complete sets",
+      },
+      {
         href: "/services/toll-manufacturing",
         label: "Toll Manufacturing",
         hint: "Blending to filling",
@@ -138,14 +143,14 @@ export const divisions = [
     href: "/services/fragrance-trading",
     summary:
       "Sourcing and commercial supply of fine and industrial fragrance concentrates for brand and manufacturing applications.",
-    mode: "Trading & sourcing",
+    mode: "Concentrates & supply",
   },
   {
     title: "Packaging & Components",
     href: "/packaging",
     summary:
       "Perfume bottles, closures, pumps, labels, cartons, rigid boxes, accessories, and complete packaging sets for fragrance brands.",
-    mode: "Trading & sourcing",
+    mode: "Components & systems",
   },
   {
     title: "Toll Manufacturing",
@@ -160,5 +165,12 @@ export const divisions = [
     summary:
       "Coordinated pathways from fragrance direction and sampling through packaging alignment and finished-product delivery.",
     mode: "Integrated services",
+  },
+  {
+    title: "Technology & Growth",
+    href: "/technology",
+    summary:
+      "ERP, website development, digital marketing, and AI chatbots — practical systems and channels for fragrance and related businesses.",
+    mode: "Software & growth",
   },
 ] as const;

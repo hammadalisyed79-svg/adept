@@ -54,8 +54,8 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-charcoal text-ivory">
-      <div className="mx-auto grid max-w-content gap-8 px-5 py-12 md:grid-cols-4 md:gap-12 md:px-8 md:py-16">
-        <div className="md:col-span-1">
+      <div className="mx-auto grid max-w-content gap-8 px-5 py-12 md:grid-cols-2 lg:grid-cols-5 md:gap-10 md:px-8 md:py-16">
+        <div className="md:col-span-2 lg:col-span-1">
           <Logo inverted />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/70 md:mt-5">
             {company.positioning}
@@ -71,11 +71,11 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/technology" className="text-sm text-ivory/75 transition hover:text-ivory">
-                Technology & Growth
-              </Link>
-            </li>
+          </ul>
+        </FooterGroup>
+
+        <FooterGroup title="Explore">
+          <ul className="space-y-2.5">
             <li>
               <Link href="/catalogue" className="text-sm text-ivory/75 transition hover:text-ivory">
                 Catalogue

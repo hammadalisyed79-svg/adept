@@ -191,6 +191,7 @@ export const divisionMediaByHref: Record<string, MediaKey> = {
   "/packaging": "packagingComponents",
   "/services/toll-manufacturing": "tollManufacturing",
   "/services/private-label": "privateLabel",
+  "/technology": "technologyGrowth",
 };
 
 export const industryMediaBySlug: Record<string, MediaKey> = {

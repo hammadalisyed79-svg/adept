@@ -7,7 +7,7 @@ import { divisions } from "@/lib/navigation";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${company.name} — fragrance concentrates, packaging components, private-label services, and manufacturing solutions for B2B buyers.`,
+  description: `About ${company.name} — fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth for B2B buyers.`,
   alternates: { canonical: "/about" },
 };
 
@@ -16,7 +16,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow={`About ${company.logoPrimary}`}
-        title="A B2B partner for fragrance concentrates, packaging, and manufacturing"
+        title="A B2B partner for fragrance, packaging, manufacturing, and growth systems"
         description={company.heroSupporting}
       />
 
@@ -24,14 +24,15 @@ export default function AboutPage() {
         <Container className="grid gap-12 lg:grid-cols-2">
           <SectionHeading
             eyebrow="Introduction"
-            title="A complete B2B fragrance supplier"
-            description="We work with brand owners, formulators, and procurement teams across concentrates, packaging components, and manufacturing pathways."
+            title="A complete B2B fragrance partner"
+            description="We work with brand owners, formulators, and procurement teams across concentrates, packaging, manufacturing, private label, and Technology & Growth."
           />
           <div className="space-y-5 text-base leading-relaxed text-charcoal-muted">
             <p>
               {company.name} is organized around business buyers. Our positioning covers fragrance
-              concentrates, perfume packaging components and accessories, private-label services, and
-              manufacturing solutions — without retail perfume storefront positioning.
+              concentrates, perfume packaging components and accessories, private-label services,
+              manufacturing solutions, and Technology & Growth — without retail perfume storefront
+              positioning.
             </p>
             <p>
               We do not claim that every product is manufactured in-house. Trading, sourcing, and
@@ -56,10 +57,10 @@ export default function AboutPage() {
         <Container>
           <SectionHeading
             eyebrow="Divisions"
-            title="Four business divisions"
-            description="Each division supports a distinct commercial pathway. Packaging is a core business line alongside fragrance trading and manufacturing services."
+            title="Five business divisions"
+            description="Each division supports a distinct commercial pathway — including Technology & Growth for ERP, websites, marketing, and AI support."
           />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {divisions.map((d) => (
               <Link
                 key={d.href}
@@ -85,16 +86,17 @@ export default function AboutPage() {
           <div>
             <h2 className="font-display text-3xl text-charcoal">Mission</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
-              To provide integrated fragrance, packaging, and manufacturing solutions that help brands
-              move from concept to finished product with commercial clarity.
+              To provide integrated fragrance, packaging, manufacturing, and Technology & Growth
+              solutions that help brands move from concept to finished product — and the systems that
+              support commercial clarity.
             </p>
           </div>
           <div>
             <h2 className="font-display text-3xl text-charcoal">Vision</h2>
             <p className="mt-4 leading-relaxed text-charcoal-muted">
               To be a trusted B2B counterpart for fragrance brand builders — precise in process,
-              restrained in claims, and reliable in follow-through across trading, sourcing, and
-              manufacturing.
+              restrained in claims, and reliable in follow-through across trading, sourcing,
+              manufacturing, and growth systems.
             </p>
           </div>
         </Container>
@@ -150,7 +152,14 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <QuoteCta title={`Partner with ${company.name} on your next fragrance project`} />
+      <QuoteCta
+        title={`Partner with ${company.name} on your next project`}
+        description="Tell us about fragrance, packaging, manufacturing, private-label, or Technology & Growth requirements. Our team will respond with next steps."
+        primaryHref="/request-quote"
+        primaryLabel="Request a Quote"
+        secondaryHref="/technology/request-quote"
+        secondaryLabel="Technology quotation"
+      />
     </>
   );
 }
