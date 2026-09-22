@@ -21,10 +21,17 @@ function childKey(entry: NavMenuEntry, index: number): string {
   return entry.href;
 }
 
+function blurActiveElement() {
+  const active = document.activeElement;
+  if (active instanceof HTMLElement) active.blur();
+}
+
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  /** Desktop flyout — closed after a child link is chosen or route changes. */
+  const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
   const menuId = useId();
   const quoteHref = pathname.startsWith("/technology")
     ? "/technology/request-quote"
@@ -37,9 +44,18 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    setOpen(false);
+    setExpanded(null);
+    setDesktopOpen(null);
+    blurActiveElement();
+  }, [pathname]);
+
   const closeMenu = () => {
     setOpen(false);
     setExpanded(null);
+    setDesktopOpen(null);
+    blurActiveElement();
   };
 
   const isActive = (href: string) =>
@@ -64,6 +80,7 @@ export function Header() {
   const renderDesktopChildLink = (child: NavChild, indented = false) => (
     <Link
       href={child.href}
+      onClick={closeMenu}
       className={`block py-2.5 transition-colors ${
         indented ? "pl-8 pr-5" : "px-5"
       } ${
@@ -186,7 +203,12 @@ export function Header() {
         <nav className="hidden items-center gap-5 lg:flex xl:gap-6" aria-label="Primary">
           {navigation.map((item) =>
             item.children ? (
-              <div key={item.label} className="relative group">
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => setDesktopOpen(item.label)}
+                onMouseLeave={() => setDesktopOpen(null)}
+              >
                 <button
                   type="button"
                   className={`whitespace-nowrap text-sm tracking-wide transition-colors duration-soft ${
@@ -195,12 +217,25 @@ export function Header() {
                       : "text-charcoal-muted hover:text-charcoal"
                   }`}
                   aria-haspopup="menu"
-                  aria-expanded="false"
+                  aria-expanded={desktopOpen === item.label}
+                  onClick={() =>
+                    setDesktopOpen((v) => (v === item.label ? null : item.label))
+                  }
+                  onFocus={() => setDesktopOpen(item.label)}
                 >
                   {item.label}
                 </button>
-                <div className="invisible absolute left-0 top-full z-50 min-w-[18rem] translate-y-1 opacity-0 transition-all duration-soft group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <ul className="mt-3 max-h-[70vh] overflow-y-auto border border-charcoal/10 bg-white py-3 shadow-sm">
+                <div
+                  className={`absolute left-0 top-full z-50 min-w-[18rem] transition-all duration-soft ${
+                    desktopOpen === item.label
+                      ? "visible translate-y-0 opacity-100"
+                      : "invisible pointer-events-none translate-y-1 opacity-0"
+                  }`}
+                >
+                  <ul
+                    role="menu"
+                    className="mt-3 max-h-[70vh] overflow-y-auto border border-charcoal/10 bg-white py-3 shadow-sm"
+                  >
                     {renderDesktopEntries(item.children)}
                   </ul>
                 </div>
