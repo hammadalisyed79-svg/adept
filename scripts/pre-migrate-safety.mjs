@@ -1,28 +1,31 @@
 /**
  * Pre-migrate safety check — logs host + inquiry reference list (no PII emails).
- * Intended to run on Vercel only when RUN_DB_MIGRATE=true.
+ * Fail-closed: Production targets require explicit migrate authorization.
  */
 import { PrismaClient } from "@prisma/client";
+import {
+  assertOrExit,
+  inferDbOperationMode,
+  resolveDatabaseUrlForMode,
+} from "./lib/db-target-guard.mjs";
 
-const url =
-  process.env.DATABASE_URL ||
-  process.env.DATABASE_URL_PRISMA_DATABASE_URL ||
-  process.env.DATABASE_URL_DATABASE_URL ||
-  process.env.DATABASE_URL_POSTGRES_URL;
+const mode =
+  process.env.ADEPT_DB_TARGET ||
+  (process.env.ADEPT_ALLOW_PRODUCTION_MIGRATE === "1"
+    ? "production_migrate"
+    : process.env.VERCEL_ENV === "production"
+      ? "hosted_production"
+      : process.env.VERCEL_ENV === "preview"
+        ? "hosted_preview"
+        : "staging");
 
-if (!url || url === "[SENSITIVE]") {
-  console.error("[pre-migrate] No database URL available");
-  process.exit(1);
+if (!process.env.ADEPT_DB_TARGET) {
+  process.env.ADEPT_DB_TARGET =
+    mode === "hosted_production" ? "production_migrate" : mode === "hosted_preview" ? "staging" : mode;
 }
 
-process.env.DATABASE_URL = url;
-
-let host = "unknown";
-try {
-  host = new URL(url).host;
-} catch {
-  host = "unparseable";
-}
+const resolved = resolveDatabaseUrlForMode(inferDbOperationMode());
+assertOrExit(resolved);
 
 const prisma = new PrismaClient();
 
@@ -40,7 +43,13 @@ async function main() {
     JSON.stringify(
       {
         phase: "pre-migrate-safety",
-        dbHost: host,
+        mode: resolved.mode,
+        identity: {
+          host: resolved.identity.host,
+          userSuffix: resolved.identity.userSuffix,
+          isKnownProduction: resolved.identity.isKnownProduction,
+          isKnownStaging: resolved.identity.isKnownStaging,
+        },
         inquiryCount: rows.length,
         references: rows.map((r) => ({
           reference: r.reference,

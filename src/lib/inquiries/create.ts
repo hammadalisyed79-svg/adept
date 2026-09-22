@@ -3,28 +3,137 @@ import {
   NotificationChannel,
   NotificationStatus,
   type BusinessInquiry,
+  type InquiryType,
 } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { getErpAdapter } from "@/lib/erp/adapter";
 import { sendInquiryNotification } from "@/lib/mail";
 import { generateInquiryReference, hashIp } from "@/lib/reference";
 import type { InquiryInput } from "@/lib/validation/inquiry";
+import {
+  technologyTypeLabels,
+  type TechnologyInquiryInput,
+} from "@/lib/validation/technology-inquiry";
 
 export type CreateInquiryResult =
   | { ok: true; inquiry: BusinessInquiry }
   | { ok: false; error: string; code: "DUPLICATE" | "PERSISTENCE" | "VALIDATION" };
 
+function isTechnologyInput(
+  input: InquiryInput | TechnologyInquiryInput,
+): input is TechnologyInquiryInput {
+  return (
+    input.inquiryType === "TECHNOLOGY_ERP" ||
+    input.inquiryType === "TECHNOLOGY_WEBSITE" ||
+    input.inquiryType === "TECHNOLOGY_MARKETING"
+  );
+}
+
+function buildTechnologyDetails(input: TechnologyInquiryInput): string | undefined {
+  const details: Record<string, string> = {};
+  const assign = (key: string, value?: string) => {
+    if (value) details[key] = value;
+  };
+
+  if (input.inquiryType === "TECHNOLOGY_ERP") {
+    assign("industry", input.industry);
+    assign("requiredModules", input.requiredModules);
+    assign("existingSoftware", input.existingSoftware);
+    assign("numberOfUsers", input.numberOfUsers);
+    assign("integrationRequirements", input.integrationRequirements);
+  }
+  if (input.inquiryType === "TECHNOLOGY_WEBSITE") {
+    assign("websiteType", input.websiteType);
+    assign("existingWebsiteUrl", input.existingWebsiteUrl);
+    assign("approximatePageCount", input.approximatePageCount);
+    assign("ecommerceRequired", input.ecommerceRequired);
+    assign("integrationRequirements", input.integrationRequirements);
+  }
+  if (input.inquiryType === "TECHNOLOGY_MARKETING") {
+    assign("currentChannels", input.currentChannels);
+    assign("marketingObjectives", input.marketingObjectives);
+    assign("targetAudience", input.targetAudience);
+    assign("interestedChannels", input.interestedChannels);
+    assign("monthlyMarketingBudget", input.monthlyMarketingBudget);
+  }
+
+  return Object.keys(details).length ? JSON.stringify(details) : undefined;
+}
+
+function toCreateData(input: InquiryInput | TechnologyInquiryInput) {
+  if (isTechnologyInput(input)) {
+    const label = technologyTypeLabels[input.inquiryType];
+    return {
+      inquiryType: input.inquiryType as InquiryType,
+      contactName: input.contactName,
+      companyName: input.companyName,
+      email: input.email.toLowerCase(),
+      phone: input.phone?.trim() || "Not provided",
+      country: input.country,
+      industry:
+        input.inquiryType === "TECHNOLOGY_ERP"
+          ? input.industry?.trim() || "Technology"
+          : "Technology",
+      productCategory:
+        input.inquiryType === "TECHNOLOGY_WEBSITE"
+          ? input.websiteType?.trim() || label
+          : label,
+      estimatedQuantity: input.estimatedBudget?.trim() || "N/A",
+      quantityUnit: "TBD" as const,
+      projectDescription: input.projectDescription,
+      expectedTimeline: input.expectedTimeline,
+      estimatedBudget: input.estimatedBudget,
+      technologyDetailsJson: buildTechnologyDetails(input),
+      sourcePage: input.sourcePage,
+    };
+  }
+
+  return {
+    inquiryType: input.inquiryType,
+    contactName: input.contactName,
+    companyName: input.companyName,
+    email: input.email.toLowerCase(),
+    phone: input.phone,
+    country: input.country,
+    industry: input.industry,
+    productCategory: input.productCategory,
+    estimatedQuantity: input.estimatedQuantity,
+    quantityUnit: input.quantityUnit,
+    projectDescription: input.projectDescription,
+    targetPrice: input.targetPrice,
+    fragranceDirection: input.fragranceDirection,
+    requiredConcentration: input.requiredConcentration,
+    bottleSize: input.bottleSize,
+    packagingRequirements: input.packagingRequirements,
+    expectedTimeline: input.expectedTimeline,
+    sampleRequirements: input.sampleRequirements,
+    packagingCategories: input.packagingCategories?.length
+      ? input.packagingCategories.join(", ")
+      : undefined,
+    deliveryDestination: input.deliveryDestination,
+    componentReference: input.componentReference,
+    matchingRequirements: input.matchingRequirements,
+    material: input.material,
+    colourFinish: input.colourFinish,
+    capacitySize: input.capacitySize,
+    lineItemsJson: input.lineItems?.length
+      ? JSON.stringify(input.lineItems)
+      : undefined,
+    sourcePage: input.sourcePage,
+  };
+}
+
 export async function createBusinessInquiry(
-  input: InquiryInput,
+  input: InquiryInput | TechnologyInquiryInput,
   meta: { ip?: string; userAgent?: string },
 ): Promise<CreateInquiryResult> {
   const reference = generateInquiryReference();
   const ipHash = meta.ip ? hashIp(meta.ip) : undefined;
+  const email = input.email.toLowerCase();
 
-  // Soft duplicate guard: same email + type within 2 minutes
   const recent = await prisma.businessInquiry.findFirst({
     where: {
-      email: input.email.toLowerCase(),
+      email,
       inquiryType: input.inquiryType,
       createdAt: { gte: new Date(Date.now() - 2 * 60 * 1000) },
     },
@@ -42,40 +151,11 @@ export async function createBusinessInquiry(
 
   let inquiry: BusinessInquiry;
   try {
+    const data = toCreateData(input);
     inquiry = await prisma.businessInquiry.create({
       data: {
         reference,
-        inquiryType: input.inquiryType,
-        contactName: input.contactName,
-        companyName: input.companyName,
-        email: input.email.toLowerCase(),
-        phone: input.phone,
-        country: input.country,
-        industry: input.industry,
-        productCategory: input.productCategory,
-        estimatedQuantity: input.estimatedQuantity,
-        quantityUnit: input.quantityUnit,
-        projectDescription: input.projectDescription,
-        targetPrice: input.targetPrice,
-        fragranceDirection: input.fragranceDirection,
-        requiredConcentration: input.requiredConcentration,
-        bottleSize: input.bottleSize,
-        packagingRequirements: input.packagingRequirements,
-        expectedTimeline: input.expectedTimeline,
-        sampleRequirements: input.sampleRequirements,
-        packagingCategories: input.packagingCategories?.length
-          ? input.packagingCategories.join(", ")
-          : undefined,
-        deliveryDestination: input.deliveryDestination,
-        componentReference: input.componentReference,
-        matchingRequirements: input.matchingRequirements,
-        material: input.material,
-        colourFinish: input.colourFinish,
-        capacitySize: input.capacitySize,
-        lineItemsJson: input.lineItems?.length
-          ? JSON.stringify(input.lineItems)
-          : undefined,
-        sourcePage: input.sourcePage,
+        ...data,
         userAgent: meta.userAgent?.slice(0, 300),
         ipHash,
         notificationStatus: NotificationStatus.PENDING,
@@ -83,7 +163,9 @@ export async function createBusinessInquiry(
         activities: {
           create: {
             action: "CREATED",
-            detail: "Inquiry received via website",
+            detail: isTechnologyInput(input)
+              ? `Technology inquiry received (${technologyTypeLabels[input.inquiryType]})`
+              : "Inquiry received via website",
           },
         },
       },
@@ -97,7 +179,6 @@ export async function createBusinessInquiry(
     };
   }
 
-  // Notifications & ERP — never undo a successful save; side-effect failures must not hide the inquiry
   try {
     const mail = await sendInquiryNotification(inquiry);
     const notificationStatus: NotificationStatus = mail.sent
@@ -202,7 +283,7 @@ export async function createBusinessInquiry(
         },
       });
     } catch {
-      // Inquiry already saved — do not fail the request
+      // Inquiry already saved
     }
   }
 

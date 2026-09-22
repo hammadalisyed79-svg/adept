@@ -1,6 +1,13 @@
 import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
+import {
+  assertOrExit,
+  inferDbOperationMode,
+  isProductionMigrateAuthorized,
+  resolveDatabaseUrlForMode,
+  summarizeUrlIdentity,
+} from "./lib/db-target-guard.mjs";
 
 /** Load local .env into process.env when keys are unset (Prisma CLI does this; this script must too). */
 function loadDotEnv() {
@@ -28,35 +35,9 @@ function loadDotEnv() {
 
 loadDotEnv();
 
-const candidates = [
-  "DATABASE_URL",
-  "DATABASE_URL_PRISMA_DATABASE_URL",
-  "DATABASE_URL_DATABASE_URL",
-  "DATABASE_URL_POSTGRES_URL",
-  "POSTGRES_PRISMA_URL",
-  "POSTGRES_URL",
-  "PRISMA_DATABASE_URL",
-];
-
-let chosen = null;
-for (const key of candidates) {
-  const value = process.env[key];
-  if (value && value.trim().length > 0 && value !== "[SENSITIVE]") {
-    process.env.DATABASE_URL = value.trim();
-    chosen = key;
-    break;
-  }
-}
-
-if (!chosen) {
-  console.error(
-    "[db] No nonempty database URL found. Checked:",
-    candidates.join(", "),
-  );
-  process.exit(1);
-}
-
-console.log(`[db] Using connection string from ${chosen}`);
+const mode = inferDbOperationMode();
+const resolved = resolveDatabaseUrlForMode(mode);
+assertOrExit(resolved);
 
 function run(command, args) {
   const result = spawnSync(command, args, {
@@ -72,8 +53,19 @@ function run(command, args) {
 run("npx", ["prisma", "generate"]);
 
 // Migrations are NOT part of normal builds.
-// Set RUN_DB_MIGRATE=true only for an authorized, one-off staging migrate deploy.
+// RUN_DB_MIGRATE=true is for authorized staging (or separately authorized Production) only.
 if (process.env.RUN_DB_MIGRATE === "true") {
+  const migrateIdentity = summarizeUrlIdentity(process.env.DATABASE_URL);
+  if (migrateIdentity.isKnownProduction && !isProductionMigrateAuthorized()) {
+    console.error(
+      JSON.stringify({
+        ok: false,
+        error:
+          "REFUSED_PRODUCTION_MIGRATE — RUN_DB_MIGRATE cannot target Production without ADEPT_ALLOW_PRODUCTION_MIGRATE=1 and ADEPT_PRODUCTION_MIGRATE_CONFIRM=prisma-postgres-purple-drum",
+      }),
+    );
+    process.exit(2);
+  }
   console.log(
     "[db] RUN_DB_MIGRATE=true — pre-migrate safety snapshot, then prisma migrate deploy.",
   );
@@ -81,7 +73,7 @@ if (process.env.RUN_DB_MIGRATE === "true") {
   run("npx", ["prisma", "migrate", "deploy"]);
 } else {
   console.log(
-    "[db] Skipping migrate during build (set RUN_DB_MIGRATE=true only for authorized staging migrate).",
+    "[db] Skipping migrate during build (set RUN_DB_MIGRATE=true only for authorized migrate).",
   );
 }
 

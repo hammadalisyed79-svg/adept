@@ -35,6 +35,18 @@ export function Button({
 
   if ("href" in props && props.href) {
     const { href, target, rel } = props;
+    const external =
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
+      href.startsWith("http://") ||
+      href.startsWith("https://");
+    if (external) {
+      return (
+        <a href={href} className={classes} target={target} rel={rel}>
+          {children}
+        </a>
+      );
+    }
     return (
       <Link href={href} className={classes} target={target} rel={rel}>
         {children}

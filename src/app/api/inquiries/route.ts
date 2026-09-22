@@ -3,6 +3,10 @@ import { createBusinessInquiry } from "@/lib/inquiries/create";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { hashIp } from "@/lib/reference";
 import { inquirySchema } from "@/lib/validation/inquiry";
+import {
+  isTechnologyInquiryType,
+  technologyInquirySchema,
+} from "@/lib/validation/technology-inquiry";
 
 export const runtime = "nodejs";
 
@@ -23,7 +27,18 @@ export async function POST(request: Request) {
     );
   }
 
-  const parsed = inquirySchema.safeParse(body);
+  const inquiryType =
+    typeof body === "object" &&
+    body !== null &&
+    "inquiryType" in body &&
+    typeof (body as { inquiryType?: unknown }).inquiryType === "string"
+      ? (body as { inquiryType: string }).inquiryType
+      : undefined;
+
+  const parsed = isTechnologyInquiryType(inquiryType ?? "")
+    ? technologyInquirySchema.safeParse(body)
+    : inquirySchema.safeParse(body);
+
   if (!parsed.success) {
     return NextResponse.json(
       {
@@ -35,7 +50,6 @@ export async function POST(request: Request) {
     );
   }
 
-  // Honeypot
   if (parsed.data.website) {
     return NextResponse.json(
       { ok: false, error: "Unable to process request." },

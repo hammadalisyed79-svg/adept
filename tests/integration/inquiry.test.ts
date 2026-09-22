@@ -178,6 +178,102 @@ describe("inquiry persistence", () => {
     expect(fragrance.ok).toBe(true);
   });
 
+  it("persists TECHNOLOGY_ERP / WEBSITE / MARKETING with details JSON and SMTP skipped", async () => {
+    delete process.env.SMTP_HOST;
+    delete process.env.SMTP_USER;
+    delete process.env.SMTP_PASS;
+
+    const stamp = Date.now();
+    const cases = [
+      {
+        inquiryType: "TECHNOLOGY_ERP" as const,
+        email: `tech-erp-${stamp}@example.com`,
+        industry: "Fragrance manufacturing",
+        requiredModules: "Inventory, Production",
+        numberOfUsers: "25",
+        projectDescription:
+          "ERP consultation for multi-warehouse inventory and production reporting.",
+      },
+      {
+        inquiryType: "TECHNOLOGY_WEBSITE" as const,
+        email: `tech-web-${stamp}@example.com`,
+        websiteType: "B2B",
+        existingWebsiteUrl: "https://example-brand.com",
+        ecommerceRequired: "No",
+        projectDescription:
+          "Website development for B2B catalogue and quotation request experience.",
+      },
+      {
+        inquiryType: "TECHNOLOGY_MARKETING" as const,
+        email: `tech-mkt-${stamp}@example.com`,
+        marketingObjectives: "Qualified B2B leads",
+        interestedChannels: "LinkedIn, SEO",
+        monthlyMarketingBudget: "TBD",
+        projectDescription:
+          "Digital marketing support for fragrance brand growth across priority channels.",
+      },
+    ];
+
+    for (const c of cases) {
+      const result = await createBusinessInquiry(
+        {
+          contactName: "Technology Tester",
+          companyName: "ADEPT Test Co",
+          email: c.email,
+          phone: "+1 555 0200",
+          country: "United Arab Emirates",
+          inquiryType: c.inquiryType,
+          projectDescription: c.projectDescription,
+          industry: "industry" in c ? c.industry : undefined,
+          requiredModules: "requiredModules" in c ? c.requiredModules : undefined,
+          numberOfUsers: "numberOfUsers" in c ? c.numberOfUsers : undefined,
+          websiteType: "websiteType" in c ? c.websiteType : undefined,
+          existingWebsiteUrl:
+            "existingWebsiteUrl" in c ? c.existingWebsiteUrl : undefined,
+          ecommerceRequired:
+            "ecommerceRequired" in c ? c.ecommerceRequired : undefined,
+          marketingObjectives:
+            "marketingObjectives" in c ? c.marketingObjectives : undefined,
+          interestedChannels:
+            "interestedChannels" in c ? c.interestedChannels : undefined,
+          monthlyMarketingBudget:
+            "monthlyMarketingBudget" in c ? c.monthlyMarketingBudget : undefined,
+          sourcePage: "/technology/request-quote",
+          website: "",
+        },
+        { ip: "203.0.113.40", userAgent: "vitest-technology" },
+      );
+
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+
+      expect(result.inquiry.reference).toMatch(/^ADF-\d{8}-[A-F0-9]{6}$/);
+      expect(result.inquiry.inquiryType).toBe(c.inquiryType);
+      expect(result.inquiry.notificationStatus).toBe("SKIPPED");
+      expect(result.inquiry.technologyDetailsJson).toBeTruthy();
+
+      const stored = await prisma.businessInquiry.findUnique({
+        where: { id: result.inquiry.id },
+      });
+      expect(stored?.inquiryType).toBe(c.inquiryType);
+      expect(stored?.estimatedBudget ?? null).toBeNull();
+    }
+
+    const fragrance = await createBusinessInquiry(
+      {
+        ...baseInput,
+        email: `fragrance-after-tech-${stamp}@example.com`,
+        inquiryType: "FRAGRANCE_TRADING",
+        productCategory: "EDP concentrate",
+        quantityUnit: "kg",
+        projectDescription:
+          "Confirm fragrance trading inquiries still persist after technology inquiry types.",
+      },
+      { ip: "203.0.113.41" },
+    );
+    expect(fragrance.ok).toBe(true);
+  });
+
   it("retains inquiry when SMTP is configured but delivery fails", async () => {
     process.env.SMTP_HOST = "127.0.0.1";
     process.env.SMTP_PORT = "1";

@@ -8,18 +8,23 @@ export function PageHero({
   title,
   description,
   mediaKey,
+  visual,
   children,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   mediaKey?: MediaKey;
+  /** Optional custom visual (e.g. CSS composition) instead of mediaKey */
+  visual?: ReactNode;
   children?: ReactNode;
 }) {
+  const showMedia = Boolean(visual || mediaKey);
+
   return (
     <div className="border-b border-charcoal/10 bg-ivory">
       <Container
-        className={`py-14 md:py-20 ${mediaKey ? "grid gap-10 lg:grid-cols-2 lg:items-end" : ""}`}
+        className={`py-14 md:py-20 ${showMedia ? "grid gap-10 lg:grid-cols-2 lg:items-end" : ""}`}
       >
         <div>
           {eyebrow && (
@@ -37,7 +42,8 @@ export function PageHero({
           )}
           {children}
         </div>
-        {mediaKey && (
+        {visual}
+        {!visual && mediaKey && (
           <MediaImage
             mediaKey={mediaKey}
             priority

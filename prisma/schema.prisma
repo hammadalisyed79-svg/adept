@@ -13,6 +13,9 @@ enum InquiryType {
   PRIVATE_LABEL
   PACKAGING_COMPONENTS
   GENERAL
+  TECHNOLOGY_ERP
+  TECHNOLOGY_WEBSITE
+  TECHNOLOGY_MARKETING
 }
 
 enum InquiryStatus {
@@ -78,6 +81,10 @@ model BusinessInquiry {
   colourFinish           String?
   capacitySize           String?
   lineItemsJson          String?         @db.Text
+
+  // Technology & Growth (optional / additive)
+  estimatedBudget        String?
+  technologyDetailsJson  String?         @db.Text
 
   sourcePage         String?
   userAgent          String?
