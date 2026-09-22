@@ -1,0 +1,136 @@
+[
+  {
+    "check": "tech-visuals-dom",
+    "count": 4,
+    "clipChecks": [
+      {
+        "variant": "erp",
+        "box": {
+          "x": 177,
+          "y": 329.40625,
+          "width": 255,
+          "height": 191.25
+        },
+        "overflow": "hidden",
+        "frameH": 191,
+        "frameW": 255,
+        "aspectHint": "1.33",
+        "clippedChild": false
+      },
+      {
+        "variant": "website",
+        "box": {
+          "x": 454,
+          "y": 329.40625,
+          "width": 255,
+          "height": 191.25
+        },
+        "overflow": "hidden",
+        "frameH": 191,
+        "frameW": 255,
+        "aspectHint": "1.33",
+        "clippedChild": false
+      },
+      {
+        "variant": "marketing",
+        "box": {
+          "x": 731,
+          "y": 329.40625,
+          "width": 255,
+          "height": 191.25
+        },
+        "overflow": "hidden",
+        "frameH": 191,
+        "frameW": 255,
+        "aspectHint": "1.33",
+        "clippedChild": false
+      },
+      {
+        "variant": "ai",
+        "box": {
+          "x": 1008,
+          "y": 329.40625,
+          "width": 255,
+          "height": 191.25
+        },
+        "overflow": "hidden",
+        "frameH": 191,
+        "frameW": 255,
+        "aspectHint": "1.33",
+        "clippedChild": false
+      }
+    ]
+  },
+  {
+    "check": "industry-descriptions",
+    "industryClamp": [
+      {
+        "text": "Support for perfume houses and emerging fragrance brands seeking concentrates, sampling, and finished-product manufacturing pathways.",
+        "clamp": "none",
+        "truncatedAppearance": false
+      },
+      {
+        "text": "Application-focused fragrance selection and supply for personal care formulations where scent performance and stability matter.",
+        "clamp": "none",
+        "truncatedAppearance": false
+      },
+      {
+        "text": "Industrial fragrance options developed for functional products where cost, performance, and application fit are critical.",
+        "clamp": "none",
+        "truncatedAppearance": false
+      },
+      {
+        "text": "Fragrance selection and supply for candle makers and home fragrance brands seeking distinctive scent profiles.",
+        "clamp": "none",
+        "truncatedAppearance": false
+      }
+    ]
+  },
+  {
+    "check": "overflow-x-1440",
+    "overflowX": {
+      "docScrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyScrollWidth": 1440
+    }
+  },
+  {
+    "check": "chatbot-mobile",
+    "layout": {
+      "overflowX": false,
+      "dialogHeight": 512,
+      "overlaps": [
+        {
+          "text": "Request a Quote",
+          "overlap": false,
+          "btnTop": -10415,
+          "dialogTop": 312
+        },
+        {
+          "text": "Request a Quote",
+          "overlap": false,
+          "btnTop": -4550,
+          "dialogTop": 312
+        },
+        {
+          "text": "Request a Quote",
+          "overlap": true,
+          "btnTop": 580,
+          "dialogTop": 312
+        },
+        {
+          "text": "Contact Us",
+          "overlap": true,
+          "btnTop": 580,
+          "dialogTop": 312
+        },
+        {
+          "text": "Request a Quote",
+          "overlap": true,
+          "btnTop": 538,
+          "dialogTop": 312
+        }
+      ]
+    }
+  }
+]
