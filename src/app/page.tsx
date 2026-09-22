@@ -107,7 +107,7 @@ export default function HomePage() {
               >
                 <TechnologyVisual
                   variant={s.variant}
-                  aspectClassName="aspect-[16/10]"
+                  aspectClassName="aspect-[4/3]"
                   className="border-0 border-b border-ivory/10"
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -271,7 +271,7 @@ export default function HomePage() {
                   <h3 className="font-display text-xl leading-snug text-charcoal group-hover:text-champagne-deep md:text-2xl">
                     {ind.title}
                   </h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-charcoal-muted">
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal-muted">
                     {ind.summary}
                   </p>
                   <span className="mt-4 text-sm font-medium text-charcoal underline-offset-4 group-hover:underline">
