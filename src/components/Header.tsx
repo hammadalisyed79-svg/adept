@@ -20,6 +20,10 @@ const childHints: Record<string, string> = {
   "/packaging/rigid-boxes": "Presentation packaging",
   "/packaging/accessories": "Finishing details",
   "/packaging/complete-packaging-sets": "Coordinated systems",
+  "/technology": "Software, web & marketing",
+  "/technology/erp": "Custom & third-party ERP",
+  "/technology/website-development": "Sites & catalogues",
+  "/technology/digital-marketing": "Brand & campaigns",
 };
 
 export function Header() {

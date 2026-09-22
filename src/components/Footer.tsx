@@ -69,6 +69,11 @@ export function Footer() {
               </li>
             ))}
             <li>
+              <Link href="/technology" className="text-sm text-ivory/75 transition hover:text-ivory">
+                Technology & Growth
+              </Link>
+            </li>
+            <li>
               <Link href="/catalogue" className="text-sm text-ivory/75 transition hover:text-ivory">
                 Catalogue
               </Link>

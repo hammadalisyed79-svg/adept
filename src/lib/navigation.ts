@@ -37,6 +37,17 @@ export const navigation: readonly NavItem[] = [
       { href: "/packaging/complete-packaging-sets", label: "Complete Packaging Sets" },
     ],
   },
+  {
+    href: "/technology",
+    label: "Technology & Growth",
+    matchPrefix: "/technology",
+    children: [
+      { href: "/technology", label: "Overview" },
+      { href: "/technology/erp", label: "ERP Solutions" },
+      { href: "/technology/website-development", label: "Website Development" },
+      { href: "/technology/digital-marketing", label: "Digital Marketing" },
+    ],
+  },
   { href: "/industries", label: "Industries" },
   { href: "/process", label: "Process" },
   { href: "/insights", label: "Insights" },

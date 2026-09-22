@@ -20,6 +20,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/insights",
     "/contact",
     "/request-quote",
+    "/technology",
+    "/technology/erp",
+    "/technology/website-development",
+    "/technology/digital-marketing",
     "/privacy",
     "/terms",
   ];

@@ -127,6 +127,34 @@ export const media = {
     src: `${base}/industry-candles.png`,
     alt: "Candle and home fragrance vessels",
   },
+  technologyGrowth: {
+    id: "technology-growth",
+    src: `${base}/technology-growth.svg`,
+    alt: "Abstract illustration for Technology & Growth Solutions — placeholder visual",
+    placeholderNote:
+      "Placeholder SVG. Replace with approved ADEPT Technology & Growth photography or licensed imagery before final Production sign-off.",
+  },
+  technologyErp: {
+    id: "technology-erp",
+    src: `${base}/technology-erp.svg`,
+    alt: "Abstract illustration suggesting operational software dashboards — placeholder visual",
+    placeholderNote:
+      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+  },
+  technologyWebsite: {
+    id: "technology-website",
+    src: `${base}/technology-website.svg`,
+    alt: "Abstract illustration suggesting a website layout — placeholder visual",
+    placeholderNote:
+      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+  },
+  technologyMarketing: {
+    id: "technology-marketing",
+    src: `${base}/technology-marketing.svg`,
+    alt: "Abstract illustration suggesting digital marketing analytics — placeholder visual",
+    placeholderNote:
+      "Placeholder SVG. Replace with approved imagery before final Production sign-off.",
+  },
 } as const satisfies Record<string, MediaAsset>;
 
 export type MediaKey = keyof typeof media;

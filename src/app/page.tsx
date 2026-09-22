@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Container, Section, SectionHeading } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
 import { divisionMediaByHref, industryMediaBySlug } from "@/content/media";
+import { technologyServices } from "@/content/technology";
 import { company } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
 
@@ -76,6 +77,54 @@ export default function HomePage() {
                 aspectClassName="aspect-[16/10]"
               />
             ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Beyond Manufacturing — Technology & Growth */}
+      <Section className="bg-charcoal text-ivory">
+        <Container>
+          <p className="text-xs font-medium uppercase tracking-wideish text-champagne-soft">
+            Beyond Manufacturing
+          </p>
+          <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ivory md:text-4xl lg:text-5xl">
+            Build the Brand. Power the Business.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ivory/75 md:mt-6 md:text-lg">
+            From operational software and digital storefronts to marketing solutions, ADEPT helps
+            fragrance businesses connect their products with the systems and channels needed to
+            grow.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12 md:gap-5 lg:grid-cols-3">
+            {technologyServices.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="group flex flex-col border border-ivory/15 bg-charcoal-soft/40 transition duration-soft hover:border-champagne/40"
+              >
+                <MediaImage
+                  mediaKey={s.mediaKey}
+                  aspectClassName="aspect-[16/10]"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="border-0"
+                />
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <p className="text-xs uppercase tracking-wideish text-champagne-soft">{s.label}</p>
+                  <h3 className="mt-2 font-display text-xl text-ivory md:text-2xl">{s.title}</h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ivory/65">
+                    {s.summary}
+                  </p>
+                  <span className="mt-4 text-sm font-medium text-champagne-soft group-hover:underline">
+                    Explore →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 md:mt-10">
+            <Button href="/technology" variant="champagne" className="border-0">
+              Technology & Growth overview
+            </Button>
           </div>
         </Container>
       </Section>
