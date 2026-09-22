@@ -44,7 +44,7 @@ export function matchKnowledge(rawMessage: string): ChatMatchResult {
     return {
       mode: "faq",
       reply:
-        "Please type a short question about ADEPT services, packaging, technology, quotations, or contact — or choose a quick action below.",
+        "Please share a short question about our services, packaging, technology, process, or contact — or tap a topic below.",
       links: [...FALLBACK_LINKS],
       matchedTopic: null,
       entryId: null,
@@ -55,7 +55,7 @@ export function matchKnowledge(rawMessage: string): ChatMatchResult {
     return {
       mode: "faq",
       reply:
-        "I cannot collect passwords, payment details, or confidential identity documents in this chat. For commercial discussions, please use ADEPT’s quotation forms or email info@adeptfragrances.com. Do not send sensitive credentials through this assistant.",
+        "I cannot collect passwords, payment details, or confidential identity documents here. For commercial discussions, please use our quotation forms or email info@adeptfragrances.com — and never send credentials through this chat.",
       links: [
         { label: "Request a Quote", href: "/request-quote" },
         { label: "Email ADEPT", href: "mailto:info@adeptfragrances.com" },

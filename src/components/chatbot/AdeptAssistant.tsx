@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
-  ASSISTANT_DISCLAIMER,
   ASSISTANT_NAME,
+  ASSISTANT_STATUS,
   CONTACT_EMAIL,
+  WELCOME_MESSAGE,
   quickActions,
   type ChatLink,
 } from "@/lib/chatbot/knowledge";
@@ -38,29 +39,48 @@ function uid(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-const welcome: ChatMessage = {
-  id: "welcome",
-  role: "assistant",
-  text: `${ASSISTANT_DISCLAIMER}\n\nAsk about fragrance, packaging, manufacturing, private label, Technology & Growth services, quotations, or contact. Or use a quick action below.`,
-  links: [
-    { label: "Request a Quote", href: "/request-quote" },
-    { label: "Technology quotation", href: "/technology/request-quote" },
-    { label: `Email ${CONTACT_EMAIL}`, href: `mailto:${CONTACT_EMAIL}` },
-  ],
-};
+function createWelcome(): ChatMessage {
+  return {
+    id: uid(),
+    role: "assistant",
+    text: WELCOME_MESSAGE,
+    links: [
+      { label: "Request a Quote", href: "/request-quote" },
+      { label: "Technology quotation", href: "/technology/request-quote" },
+      { label: `Email ${CONTACT_EMAIL}`, href: `mailto:${CONTACT_EMAIL}` },
+    ],
+  };
+}
 
 export function AdeptAssistant() {
   const [panel, setPanel] = useState<PanelState>("closed");
-  const [messages, setMessages] = useState<ChatMessage[]>([welcome]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [createWelcome()]);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [providerLabel, setProviderLabel] = useState("Automated assistant");
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const honeypotRef = useRef<HTMLInputElement>(null);
   const panelId = useId();
   const titleId = useId();
+
+  const resetConversation = useCallback(() => {
+    setMessages([createWelcome()]);
+    setInput("");
+    setError(null);
+    setPending(false);
+  }, []);
+
+  const openChat = useCallback(() => {
+    // Fresh conversation every time the visitor connects from closed.
+    resetConversation();
+    setPanel("open");
+  }, [resetConversation]);
+
+  const closeChat = useCallback(() => {
+    setPanel("closed");
+    resetConversation();
+  }, [resetConversation]);
 
   useEffect(() => {
     if (panel === "open" && listRef.current) {
@@ -83,77 +103,75 @@ export function AdeptAssistant() {
     return () => window.removeEventListener("keydown", onKey);
   }, [panel]);
 
-  const sendMessage = useCallback(async (raw: string) => {
-    const text = raw.trim();
-    if (!text || pending) return;
+  const sendMessage = useCallback(
+    async (raw: string) => {
+      const text = raw.trim();
+      if (!text || pending) return;
 
-    setError(null);
-    setPending(true);
-    setMessages((prev) => [...prev, { id: uid(), role: "user", text }]);
-    setInput("");
+      setError(null);
+      setPending(true);
+      setMessages((prev) => [...prev, { id: uid(), role: "user", text }]);
+      setInput("");
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text,
-          website: honeypotRef.current?.value ?? "",
-        }),
-      });
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: text,
+            website: honeypotRef.current?.value ?? "",
+          }),
+        });
 
-      const data = (await res.json()) as ApiOk | ApiErr;
+        const data = (await res.json()) as ApiOk | ApiErr;
 
-      if (!res.ok || !data.ok) {
-        const err = data as ApiErr;
+        if (!res.ok || !data.ok) {
+          const err = data as ApiErr;
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: uid(),
+              role: "assistant",
+              text:
+                err.error ||
+                `Something went wrong on my side. Please email ${CONTACT_EMAIL} or use a quotation form and we will follow up.`,
+              links: err.links,
+            },
+          ]);
+          if (res.status === 429) {
+            setError(err.error || "Please wait a moment before sending again.");
+          }
+          return;
+        }
+
         setMessages((prev) => [
           ...prev,
           {
             id: uid(),
             role: "assistant",
-            text:
-              err.error ||
-              "Something went wrong. Please email info@adeptfragrances.com or use a quotation form.",
-            links: err.links,
+            text: data.reply,
+            links: data.links,
           },
         ]);
-        if (res.status === 429) {
-          setError(err.error || "Rate limit reached.");
-        }
-        return;
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: uid(),
+            role: "assistant",
+            text: `I could not reach the server just now. Please try again shortly, email ${CONTACT_EMAIL}, or use a quotation form.`,
+            links: [
+              { label: "Request a Quote", href: "/request-quote" },
+              { label: "Contact", href: "/contact" },
+            ],
+          },
+        ]);
+      } finally {
+        setPending(false);
       }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: uid(),
-          role: "assistant",
-          text: data.reply,
-          links: data.links,
-        },
-      ]);
-      if (data.provider === "openai" || data.mode === "openai") {
-        setProviderLabel("AI-assisted · grounded answers");
-      } else {
-        setProviderLabel("Knowledge-based FAQ answers");
-      }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: uid(),
-          role: "assistant",
-          text: "The assistant could not reach the server. Please try again, email info@adeptfragrances.com, or use a quotation form.",
-          links: [
-            { label: "Request a Quote", href: "/request-quote" },
-            { label: "Contact", href: "/contact" },
-          ],
-        },
-      ]);
-    } finally {
-      setPending(false);
-    }
-  }, [pending]);
+    },
+    [pending],
+  );
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,15 +184,14 @@ export function AdeptAssistant() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-end p-3 sm:inset-x-auto sm:bottom-2 sm:right-2 sm:p-5 md:p-5">
-      {/* Launcher — compact on mobile, clears bottom CTA band */}
       {panel !== "open" && (
         <div className="pointer-events-auto mb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-end pb-2 sm:pb-0">
           <button
             type="button"
-            className="group flex max-w-[11.5rem] items-center gap-2 rounded-sm border border-charcoal/15 bg-charcoal px-3 py-2.5 text-ivory shadow-sm transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory sm:max-w-none sm:gap-2.5 sm:px-4 sm:py-3"
+            className="group flex max-w-[12rem] items-center gap-2 rounded-sm border border-charcoal/15 bg-charcoal px-3 py-2.5 text-ivory shadow-sm transition-colors duration-soft hover:bg-charcoal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-ivory sm:max-w-none sm:gap-2.5 sm:px-4 sm:py-3"
             aria-expanded={false}
             aria-controls={panelId}
-            onClick={() => setPanel("open")}
+            onClick={openChat}
           >
             <span
               className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm bg-champagne text-charcoal sm:h-8 sm:w-8"
@@ -187,7 +204,7 @@ export function AdeptAssistant() {
                 {ASSISTANT_NAME}
               </span>
               <span className="block truncate text-[0.65rem] text-ivory/70">
-                Automated · ask about services
+                {ASSISTANT_STATUS}
               </span>
             </span>
           </button>
@@ -208,15 +225,15 @@ export function AdeptAssistant() {
               <h2 id={titleId} className="text-sm font-medium tracking-wide">
                 {ASSISTANT_NAME}
               </h2>
-              <p className="mt-0.5 text-[0.65rem] leading-snug text-ivory/70">
-                Automated AI assistant · not a live human agent
+              <p className="mt-0.5 text-[0.65rem] leading-snug text-champagne-soft">
+                {ASSISTANT_STATUS}
               </p>
             </div>
             <div className="flex shrink-0 gap-1">
               <button
                 type="button"
                 className="inline-flex h-9 w-9 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
-                aria-label="Minimise assistant"
+                aria-label="Minimise chat"
                 onClick={() => setPanel("minimized")}
               >
                 <MinimizeIcon />
@@ -224,8 +241,8 @@ export function AdeptAssistant() {
               <button
                 type="button"
                 className="inline-flex h-9 w-9 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
-                aria-label="Close assistant"
-                onClick={() => setPanel("closed")}
+                aria-label="Close chat"
+                onClick={closeChat}
               >
                 <CloseIcon />
               </button>
@@ -270,15 +287,12 @@ export function AdeptAssistant() {
             ))}
             {pending && (
               <p className="text-xs text-charcoal-muted" aria-busy="true">
-                Looking up ADEPT information…
+                One moment…
               </p>
             )}
           </div>
 
           <div className="shrink-0 border-t border-charcoal/10 bg-white px-3 py-2.5">
-            <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.12em] text-charcoal/50">
-              Quick actions
-            </p>
             <div className="mb-3 flex gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {quickActions.map((action) => (
                 <button
@@ -295,9 +309,8 @@ export function AdeptAssistant() {
 
             <form onSubmit={onSubmit} className="flex flex-col gap-2">
               <label htmlFor={`${panelId}-input`} className="sr-only">
-                Message to ADEPT Assistant
+                Message ADEPT
               </label>
-              {/* Honeypot */}
               <input
                 ref={honeypotRef}
                 type="text"
@@ -322,7 +335,7 @@ export function AdeptAssistant() {
                     void sendMessage(input);
                   }
                 }}
-                placeholder="Ask about services or quotations…"
+                placeholder="Type your message…"
                 className="w-full resize-none rounded-sm border border-charcoal/15 bg-ivory-soft px-3 py-2 text-sm text-charcoal placeholder:text-charcoal-muted/60 focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne disabled:opacity-60"
               />
               {error && (
@@ -331,15 +344,12 @@ export function AdeptAssistant() {
                 </p>
               )}
               <div className="flex items-center justify-between gap-2">
-                <p className="text-[0.65rem] text-charcoal-muted">
-                  {providerLabel} ·{" "}
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="underline-offset-2 hover:underline"
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                </p>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-[0.65rem] text-charcoal-muted underline-offset-2 hover:underline"
+                >
+                  {CONTACT_EMAIL}
+                </a>
                 <button
                   type="submit"
                   disabled={pending || !input.trim()}

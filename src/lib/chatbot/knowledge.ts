@@ -1,6 +1,6 @@
 /**
- * Verified ADEPT knowledge for the on-site assistant (FAQ mode).
- * Sourced from public website service pages — no invented commercial claims.
+ * ADEPT Concierge knowledge — grounded in published website content.
+ * Warm, professional first-person voice. No invented commercial claims.
  */
 
 export type ChatLink = {
@@ -17,78 +17,95 @@ export type KnowledgeEntry = {
   links?: readonly ChatLink[];
 };
 
-export const ASSISTANT_NAME = "ADEPT Assistant";
+/** Public display name in the chat header and launcher. */
+export const ASSISTANT_NAME = "ADEPT";
 
-export const ASSISTANT_DISCLAIMER =
-  "I am an automated AI assistant on the ADEPT Fragrances website — not a human representative. I guide visitors using ADEPT’s published service information and quotation forms.";
+/** Short status line under the name — professional, not technical. */
+export const ASSISTANT_STATUS = "Commercial guidance";
+
+/** Opening message for a fresh conversation. */
+export const WELCOME_MESSAGE =
+  "Hello — welcome to ADEPT Fragrances.\n\nWe help brands with fragrance concentrates, packaging components, manufacturing support, private label, and Technology & Growth services. Tell me what you are working on, or choose a topic below.";
 
 export const CONTACT_EMAIL = "info@adeptfragrances.com";
 
-/** Quick-action chips shown in the panel (navigation / guided prompts). */
+/** Quick-action chips — short labels, easy to tap. */
 export const quickActions = [
   {
     id: "fragrance",
-    label: "Explore Fragrance Solutions",
+    label: "Fragrance",
     href: "/services/fragrance-trading",
     prompt: "Tell me about fragrance concentrates and sampling",
   },
   {
     id: "packaging",
-    label: "Packaging Requirements",
+    label: "Packaging",
     href: "/packaging",
     prompt: "What packaging and components do you offer?",
   },
   {
     id: "toll",
-    label: "Toll Manufacturing",
+    label: "Manufacturing",
     href: "/services/toll-manufacturing",
     prompt: "Tell me about toll manufacturing",
   },
   {
     id: "private-label",
-    label: "Private Label",
+    label: "Private label",
     href: "/services/private-label",
     prompt: "How does private label work?",
   },
   {
-    id: "erp",
-    label: "ERP Consultation",
-    href: "/technology/erp",
-    prompt: "Tell me about ERP Solutions",
+    id: "technology",
+    label: "Technology",
+    href: "/technology",
+    prompt: "What Technology and Growth services do you offer?",
   },
   {
-    id: "website",
-    label: "Website Development",
-    href: "/technology/website-development",
-    prompt: "Tell me about website development",
-  },
-  {
-    id: "marketing",
-    label: "Digital Marketing",
-    href: "/technology/digital-marketing",
-    prompt: "Tell me about digital marketing services",
-  },
-  {
-    id: "ai",
-    label: "AI Support & Chatbots",
-    href: "/technology/ai-support",
-    prompt: "Tell me about AI Support and chatbots",
+    id: "process",
+    label: "Our process",
+    href: "/process",
+    prompt: "How does your commercial process work?",
   },
   {
     id: "quote",
-    label: "Request a Quote",
+    label: "Request a quote",
     href: "/request-quote",
     prompt: "How do I request a quotation?",
   },
   {
     id: "contact",
-    label: "Contact ADEPT",
+    label: "Contact",
     href: "/contact",
-    prompt: "How can I contact ADEPT?",
+    prompt: "How can I reach your team?",
   },
 ] as const;
 
 export const knowledgeBase: readonly KnowledgeEntry[] = [
+  {
+    id: "about-brand",
+    topic: "About ADEPT and our positioning",
+    keywords: [
+      "about",
+      "who are you",
+      "company",
+      "adept",
+      "what do you do",
+      "b2b",
+      "brand",
+      "positioning",
+      "tagline",
+      "hello",
+      "hi",
+      "hey",
+    ],
+    answer:
+      "ADEPT Fragrances is a B2B partner for fragrance brand builders. Our focus is precision and clarity: fragrance concentrates, packaging components, manufacturing support, and private label — coordinated from concept toward finished product. Alongside that, Technology & Growth covers ERP, websites, digital marketing, and AI chat support for commercial teams. We publish only confirmed facts, and commercial terms are always confirmed by quotation and email.",
+    links: [
+      { label: "About ADEPT", href: "/about" },
+      { label: "Request a quote", href: "/request-quote" },
+    ],
+  },
   {
     id: "fragrance-trading",
     topic: "Fragrance concentrates and sampling",
@@ -104,9 +121,10 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "sourcing",
       "trading",
       "scent",
+      "oil",
     ],
     answer:
-      "ADEPT offers fragrance trading: sourcing and commercial supply of fine and industrial fragrance concentrates. Support typically covers fragrance sourcing, sample evaluation, commercial supply, and application-specific selection (for example fine fragrance/perfume, personal care, home care, candles and diffusers). Commercial details such as pricing and volumes are handled through a quotation.",
+      "We source and supply fine and industrial fragrance concentrates for brand and manufacturing applications. Typical support includes fragrance selection against your brief, sample evaluation, and commercial supply. Applications we discuss include fine fragrance and perfume, personal care, home care and detergents, and candles or diffusers. Pricing and volumes are confirmed through a fragrance quotation — I am happy to point you there.",
     links: [
       { label: "Fragrance Trading", href: "/services/fragrance-trading" },
       {
@@ -130,7 +148,7 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "diffuser",
     ],
     answer:
-      "Under fragrance trading, ADEPT supports both fine fragrance concentrates (prestige scent work) and industrial / functional fragrance concentrates. Applications discussed on the site include fine fragrance and perfume, body mists and personal care, laundry and detergents, and candles and diffusers. Selection is quotation-led against your brief.",
+      "Under fragrance trading we support both fine fragrance concentrates for prestige scent work and industrial or functional concentrates for applications such as laundry, detergents, personal care, candles, and diffusers. Selection is quotation-led against your brief, so we can match application and commercial constraints carefully.",
     links: [
       { label: "Fragrance Trading", href: "/services/fragrance-trading" },
       {
@@ -156,11 +174,26 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "accessory",
       "components",
       "closure",
+      "box",
     ],
     answer:
-      "ADEPT supplies packaging and components for fragrance brands, including perfume bottles, caps, pumps and collars, labels and stickers, folding cartons, rigid boxes, accessories, and complete packaging sets. Browse the packaging section or catalogue, then submit a packaging quotation with your requirements.",
+      "We supply packaging and components for fragrance brands — perfume bottles, caps, pumps and collars, labels and stickers, folding cartons, rigid boxes, accessories, and complete packaging sets. You can browse categories on the Packaging pages or the B2B catalogue, then share sizes, finishes, and volumes on a packaging quotation.",
     links: [
       { label: "Packaging overview", href: "/packaging" },
+      { label: "B2B Catalogue", href: "/catalogue" },
+      {
+        label: "Request a packaging quote",
+        href: "/request-quote?type=PACKAGING_COMPONENTS",
+      },
+    ],
+  },
+  {
+    id: "catalogue",
+    topic: "B2B catalogue",
+    keywords: ["catalogue", "catalog", "sku", "product list", "published products"],
+    answer:
+      "Our B2B catalogue is quotation-based — not a retail cart. Products appear only when names, references, and specifications are verified. If nothing is published yet, you can still request a packaging or fragrance quotation and we will work from your brief.",
+    links: [
       { label: "Catalogue", href: "/catalogue" },
       {
         label: "Request a packaging quote",
@@ -183,11 +216,11 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "chilling",
     ],
     answer:
-      "Toll manufacturing is production support for brands that need blending, processing, filling, and packaging executed against an agreed manufacturing brief. Capabilities discussed project by project include blending, maceration, chilling and filtration, filling, packaging, and batch production. Final availability depends on product type, materials, and confirmed arrangements — please use the quotation form rather than assuming capacity.",
+      "Toll manufacturing is production support when you need blending, processing, filling, and packaging against an agreed brief. We discuss capabilities project by project — including blending, maceration, chilling and filtration, filling, packaging, and batch production. Availability depends on product type, materials, and confirmed arrangements, so a quotation is the right next step.",
     links: [
       { label: "Toll Manufacturing", href: "/services/toll-manufacturing" },
       {
-        label: "Request a toll manufacturing quote",
+        label: "Discuss manufacturing",
         href: "/request-quote?type=TOLL_MANUFACTURING",
       },
     ],
@@ -202,15 +235,55 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "brief to shelf",
       "white label",
       "brand line",
+      "finished product",
     ],
     answer:
-      "Private label is a coordinated path from brief toward finished product: concept development, fragrance selection, sampling and evaluation, packaging and bottle coordination, label and artwork practicalities, manufacturing against approved specifications, and finished-product delivery per confirmed order instructions. Start with a private-label quotation so the commercial team can scope your project.",
+      "Private label is a coordinated path from brief toward finished goods: concept direction, fragrance selection, sampling, packaging and bottle alignment, label practicalities, manufacturing against approved specifications, and delivery per confirmed order instructions. Share your concept notes and timeline on a private-label quotation and we will outline next steps.",
     links: [
       { label: "Private Label", href: "/services/private-label" },
       {
-        label: "Request a private label quote",
+        label: "Start a private label quote",
         href: "/request-quote?type=PRIVATE_LABEL",
       },
+    ],
+  },
+  {
+    id: "complete-project",
+    topic: "Coordinated fragrance projects",
+    keywords: [
+      "complete",
+      "full project",
+      "one project",
+      "everything",
+      "end to end",
+      "from concept",
+      "finished product",
+      "all in one",
+    ],
+    answer:
+      "Many clients coordinate fragrance, packaging, and production as one project — concentrate, bottle, pump, collar, cap, label, and presentation box aligned together. You can start with a single commercial inquiry and we will help clarify which divisions are needed.",
+    links: [
+      { label: "Explore our divisions", href: "/#divisions" },
+      { label: "Request a quote", href: "/request-quote" },
+    ],
+  },
+  {
+    id: "technology-overview",
+    topic: "Technology & Growth overview",
+    keywords: [
+      "technology",
+      "growth",
+      "software services",
+      "digital services",
+      "tech services",
+      "beyond manufacturing",
+      "beyond product",
+    ],
+    answer:
+      "Technology & Growth sits alongside our fragrance and packaging work. It covers four practical offerings: ERP Solutions, Website Development, Digital Marketing, and AI Support & Chatbots. Each engagement is scoped project by project so the systems and channels match how your business actually works.",
+    links: [
+      { label: "Technology & Growth", href: "/technology" },
+      { label: "Technology quotation", href: "/technology/request-quote" },
     ],
   },
   {
@@ -227,11 +300,11 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "integration",
     ],
     answer:
-      "ERP Solutions cover custom and third-party ERP for inventory, sales, purchasing, production workflows, manufacturing operations, finance and reporting, and system integrations — scoped to your operations. Engagements typically move through discovery, scope and solution design, development or implementation, then testing and handover. Use the Technology quotation form for an ERP consultation.",
+      "ERP Solutions cover custom and third-party ERP for inventory, sales, purchasing, production workflows, manufacturing operations, finance reporting, and integrations — scoped to your operations. We typically move through discovery, solution design, build or implementation, then testing and handover. Use a Technology quotation for an ERP consultation.",
     links: [
       { label: "ERP Solutions", href: "/technology/erp" },
       {
-        label: "Technology quotation (ERP)",
+        label: "ERP quotation",
         href: "/technology/request-quote?type=erp",
       },
     ],
@@ -249,11 +322,11 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "quotation website",
     ],
     answer:
-      "Website Development includes corporate, B2B, ecommerce, product catalogue, and quotation-oriented websites, with optional ERP or operational integrations where APIs and scope allow. Delivery follows requirements, design and development, testing, then launch and agreed support scope.",
+      "Website Development includes corporate and B2B sites, catalogues, quotation experiences, and ecommerce where the commercial model fits — with optional links to operational systems when APIs allow. Delivery follows requirements, design and build, testing, then launch and agreed support.",
     links: [
       { label: "Website Development", href: "/technology/website-development" },
       {
-        label: "Technology quotation (Website)",
+        label: "Website quotation",
         href: "/technology/request-quote?type=website",
       },
     ],
@@ -272,11 +345,11 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "content",
     ],
     answer:
-      "Digital Marketing support covers brand strategy, social media, creative content, search engine optimization, digital advertising, and campaign management — as practical growth support for fragrance and related brands. Planning is matched to audience, channels, and agreed budgets via a Technology quotation.",
+      "Digital Marketing support covers brand strategy, social media, creative content, SEO, paid campaigns, and campaign management — practical growth work for fragrance and related brands. We plan channels and reporting against your audience and budget through a Technology quotation.",
     links: [
       { label: "Digital Marketing", href: "/technology/digital-marketing" },
       {
-        label: "Technology quotation (Marketing)",
+        label: "Marketing quotation",
         href: "/technology/request-quote?type=marketing",
       },
     ],
@@ -294,17 +367,65 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "ai service",
     ],
     answer:
-      "ADEPT offers AI Support & Chatbots as a Technology & Growth service: website chatbots, AI customer support grounded in approved content, lead capture and qualification, knowledge grounding, human handoff paths, and website or CRM-friendly integration where systems allow. This on-site ADEPT Assistant helps visitors to adeptfragrances.com with published service guidance. To discuss a chatbot project for your own brand, use the Technology quotation form (AI Support) or email info@adeptfragrances.com.",
+      "AI Support & Chatbots help your visitors with common questions, capture project details, and hand serious enquiries to your team. Engagements are grounded in your approved content and commercial rules. If you want this for your own brand site, open an AI Support quotation and share your website and handoff preferences.",
     links: [
       { label: "AI Support & Chatbots", href: "/technology/ai-support" },
       {
-        label: "Technology quotation (AI)",
+        label: "AI Support quotation",
         href: "/technology/request-quote?type=ai",
       },
-      {
-        label: "Email ADEPT",
-        href: "mailto:info@adeptfragrances.com?subject=AI%20Support%20%26%20Chatbots",
-      },
+    ],
+  },
+  {
+    id: "process",
+    topic: "Commercial process",
+    keywords: [
+      "process",
+      "how it works",
+      "steps",
+      "workflow",
+      "timeline",
+      "brief",
+      "approval",
+      "dispatch",
+      "how do you work",
+    ],
+    answer:
+      "Our published commercial process runs through eight steps: Brief, Fragrance or Component Selection, Sampling, Approval, Production, Quality, Packing, and Dispatch. On the homepage we summarise this as four phases — brief and selection, sampling and approval, production and quality, packing and dispatch. Each stage is documented enough for procurement and brand teams to stay aligned.",
+    links: [
+      { label: "Full process", href: "/process" },
+      { label: "Request a quote", href: "/request-quote" },
+    ],
+  },
+  {
+    id: "industries",
+    topic: "Industries we serve",
+    keywords: [
+      "industries",
+      "industry",
+      "fine fragrance",
+      "personal care",
+      "home care",
+      "detergents",
+      "candles",
+      "home fragrance",
+      "categories",
+    ],
+    answer:
+      "We support categories that depend on scent: Fine Fragrance, Personal Care, Home Care and Detergents, and Candles and Home Fragrance. Each industry page outlines typical applications and relevant services so you can match your product category to the right pathway.",
+    links: [
+      { label: "Industries", href: "/industries" },
+      { label: "Request a quote", href: "/request-quote" },
+    ],
+  },
+  {
+    id: "insights",
+    topic: "Insights and guidance",
+    keywords: ["insights", "articles", "blog", "guidance", "education"],
+    answer:
+      "Insights are educational notes for commercial teams — fragrance trading, concentration, private-label manufacturing, and industrial applications — without fictional research claims. Browse the Insights section when you want practical background reading.",
+    links: [
+      { label: "Insights", href: "/insights" },
     ],
   },
   {
@@ -324,7 +445,7 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "enquiry",
     ],
     answer:
-      "I cannot provide prices, minimum order quantities, stock availability, or delivery commitments. ADEPT handles commercial terms through structured quotation forms reviewed by the team. Use the fragrance / packaging / manufacturing quote form for those services, or the Technology quote form for ERP, websites, digital marketing, and AI support.",
+      "I cannot confirm prices, minimum order quantities, stock, or delivery times here — those are reviewed by the commercial team against your brief. The quickest path is a structured quotation: use the fragrance, packaging, manufacturing, or private-label form, or the Technology form for ERP, website, marketing, and AI projects.",
     links: [
       { label: "Fragrance & manufacturing quote", href: "/request-quote" },
       {
@@ -342,60 +463,23 @@ export const knowledgeBase: readonly KnowledgeEntry[] = [
       "phone",
       "reach",
       "speak to",
-      "human",
       "talk to someone",
       "support",
-      "hello",
+      "address",
+      "location",
     ],
     answer:
-      "The official business email is info@adeptfragrances.com. You can also use the Contact page or submit a quotation form so the commercial team receives structured project details. This assistant is automated — it does not mean a staffed live agent is online.",
+      `You can reach us at ${CONTACT_EMAIL}, or use the Contact page and quotation forms so the commercial team receives a clear brief. Location details are shared during commercial discussions once verified. If you prefer, I can guide you to the right form for your project.`,
     links: [
       { label: "Contact page", href: "/contact" },
-      { label: "Email info@adeptfragrances.com", href: "mailto:info@adeptfragrances.com" },
+      { label: `Email ${CONTACT_EMAIL}`, href: `mailto:${CONTACT_EMAIL}` },
       { label: "Request a Quote", href: "/request-quote" },
-    ],
-  },
-  {
-    id: "technology-overview",
-    topic: "Technology & Growth overview",
-    keywords: [
-      "technology",
-      "growth",
-      "software services",
-      "digital services",
-      "tech services",
-    ],
-    answer:
-      "Technology & Growth covers ERP Solutions, Website Development, Digital Marketing, and AI Support & Chatbots — services that support commercial growth alongside fragrance, packaging, and manufacturing. Browse the Technology overview or open a Technology quotation for the relevant service.",
-    links: [
-      { label: "Technology & Growth", href: "/technology" },
-      { label: "Technology quotation", href: "/technology/request-quote" },
-    ],
-  },
-  {
-    id: "about-process",
-    topic: "About ADEPT and process",
-    keywords: [
-      "about",
-      "who are you",
-      "company",
-      "process",
-      "how it works",
-      "industries",
-      "b2b",
-    ],
-    answer:
-      "ADEPT Fragrances is a B2B partner for fragrance concentrates, packaging, manufacturing, and private label, with technology, marketing, and AI chatbot services to support commercial growth. You can learn more on the About, Process, and Industries pages. Specific commercial commitments are confirmed only through quotation and correspondence.",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Process", href: "/process" },
-      { label: "Industries", href: "/industries" },
     ],
   },
 ];
 
 export const FALLBACK_ANSWER =
-  "I do not have verified public information for that specific question. ADEPT publishes service descriptions on this website, and commercial details are handled by the team via quotation or email — not by this automated assistant. Please use a quotation form or email info@adeptfragrances.com.";
+  "I may not have that detail published yet. For anything commercial — pricing, volumes, or availability — please use a quotation form or email info@adeptfragrances.com and our team will follow up with verified next steps.";
 
 export const FALLBACK_LINKS: readonly ChatLink[] = [
   { label: "Request a Quote", href: "/request-quote" },
@@ -410,3 +494,6 @@ export const COMMERCIAL_REDIRECT_PATTERN =
 
 export const UNSAFE_REQUEST_PATTERN =
   /\b(password|credit\s*card|cvv|bank\s*account|wire\s*transfer|payment\s*details|upload\s*(passport|id|document)|ssn|social\s*security)\b/i;
+
+/** @deprecated Kept for any residual imports — prefer WELCOME_MESSAGE. */
+export const ASSISTANT_DISCLAIMER = WELCOME_MESSAGE;
