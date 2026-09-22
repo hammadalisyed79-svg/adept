@@ -9,7 +9,6 @@ type Props = {
   sizes?: string;
   fill?: boolean;
   aspectClassName?: string;
-  /** Disable hover scale (e.g. static heroes) */
   hoverScale?: boolean;
 };
 
@@ -24,7 +23,7 @@ export function MediaImage({
   hoverScale = true,
 }: Props) {
   const asset = getMedia(mediaKey);
-  const unoptimized = asset.src.endsWith(".svg");
+  const isSvg = asset.src.endsWith(".svg");
   const scaleClass = hoverScale
     ? "motion-reduce:transform-none motion-safe:group-hover:scale-[1.03]"
     : "";
@@ -37,9 +36,11 @@ export function MediaImage({
           alt={asset.alt}
           fill
           priority={priority}
+          loading={priority ? "eager" : "lazy"}
           sizes={sizes}
-          unoptimized={unoptimized}
-          className={`transition-transform duration-soft ${scaleClass} ${imgClassName}`}
+          unoptimized={isSvg}
+          quality={85}
+          className={`h-full w-full ${imgClassName} transition-transform duration-soft ${scaleClass}`}
         />
       </div>
     );
@@ -52,8 +53,10 @@ export function MediaImage({
       width={1600}
       height={1200}
       priority={priority}
+      loading={priority ? "eager" : "lazy"}
       sizes={sizes}
-      unoptimized={unoptimized}
+      unoptimized={isSvg}
+      quality={85}
       className={`${imgClassName} ${className}`}
     />
   );

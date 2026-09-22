@@ -49,10 +49,8 @@ export default function HomePage() {
               aspectClassName="aspect-[4/3] md:aspect-[5/4]"
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="border border-charcoal/10"
+              imgClassName="object-cover object-center"
             />
-            <p className="mt-3 text-xs tracking-wideish text-charcoal-muted">
-              Visual placeholder — replace with approved ADEPT photography
-            </p>
           </div>
         </Container>
       </section>
@@ -92,9 +90,9 @@ export default function HomePage() {
           />
           <PackagingVisualGrid className="mt-12" />
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/packaging">All packaging</Button>
-            <Button href="/catalogue" variant="secondary">
-              B2B catalogue
+            <Button href="/request-quote?type=PACKAGING_COMPONENTS">Request a Quote</Button>
+            <Button href="/packaging" variant="secondary">
+              All packaging
             </Button>
           </div>
         </Container>
@@ -197,7 +195,7 @@ export default function HomePage() {
             title="A clear commercial process"
             description="From first inquiry to dispatch — each stage reduces ambiguity for brand and procurement teams."
           />
-          <ProcessTimeline className="mt-12" />
+          <ProcessTimeline compact className="mt-12" />
           <div className="mt-10">
             <Button href="/process" variant="secondary">
               See the full process
@@ -246,7 +244,7 @@ export default function HomePage() {
 
       <QuoteCta
         title="Request a quotation"
-        description="Brief fragrance, packaging, or manufacturing requirements in one inquiry. Existing fragrance and manufacturing inquiry types remain fully supported."
+        description="Brief fragrance, packaging, or manufacturing requirements in one inquiry."
       />
 
       <Section>
@@ -255,7 +253,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Contact"
               title="Speak with our commercial team"
-              description="Email, telephone, or WhatsApp — use the channel that suits your procurement process."
+              description="Email is the primary channel for commercial inquiries."
             />
           </div>
           <div className="space-y-3 text-sm text-charcoal-muted">

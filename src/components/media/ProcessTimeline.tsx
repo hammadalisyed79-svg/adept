@@ -1,17 +1,17 @@
 import { processSteps } from "@/content/process";
 
 type Props = {
-  /** Limit steps shown (homepage preview) */
+  /** Homepage: short copy only */
+  compact?: boolean;
   limit?: number;
   className?: string;
 };
 
-export function ProcessTimeline({ limit, className = "" }: Props) {
+export function ProcessTimeline({ compact = false, limit, className = "" }: Props) {
   const steps = limit ? processSteps.slice(0, limit) : processSteps;
 
   return (
     <div className={className}>
-      {/* Wide desktop horizontal — xl+ only (8 columns are too narrow at 1024) */}
       <ol className="hidden xl:grid xl:grid-cols-8 xl:gap-3">
         {steps.map((step, i) => (
           <li key={step.number} className="relative flex flex-col">
@@ -25,12 +25,13 @@ export function ProcessTimeline({ limit, className = "" }: Props) {
               {step.number}
             </span>
             <h3 className="mt-4 font-display text-base leading-snug text-charcoal">{step.title}</h3>
-            <p className="mt-2 text-xs leading-relaxed text-charcoal-muted">{step.description}</p>
+            <p className="mt-2 text-xs leading-relaxed text-charcoal-muted">
+              {compact ? step.short : step.description}
+            </p>
           </li>
         ))}
       </ol>
 
-      {/* Laptop / tablet / mobile vertical */}
       <ol className="relative space-y-0 border-l border-charcoal/15 pl-6 xl:hidden">
         {steps.map((step) => (
           <li key={step.number} className="relative pb-8 last:pb-0">
@@ -42,7 +43,7 @@ export function ProcessTimeline({ limit, className = "" }: Props) {
             </span>
             <h3 className="font-display text-xl text-charcoal">{step.title}</h3>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal-muted">
-              {step.description}
+              {compact ? step.short : step.description}
             </p>
           </li>
         ))}

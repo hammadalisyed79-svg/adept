@@ -9,7 +9,7 @@ type Props = {
 
 export function PackagingVisualGrid({ className = "" }: Props) {
   return (
-    <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-4 ${className}`}>
+    <div className={`grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4 ${className}`}>
       {packagingCategories.map((cat) => {
         const mediaKey = (packagingMediaBySlug[cat.slug] ?? "packagingComponents") as MediaKey;
         return (
@@ -20,12 +20,14 @@ export function PackagingVisualGrid({ className = "" }: Props) {
           >
             <MediaImage
               mediaKey={mediaKey}
-              aspectClassName="aspect-[3/4]"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              imgClassName="object-cover opacity-90 transition duration-soft group-hover:opacity-100"
+              aspectClassName="aspect-square lg:aspect-[3/4]"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
+              imgClassName="object-cover object-center opacity-95 transition duration-soft group-hover:opacity-100"
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/85 via-charcoal/40 to-transparent px-4 pb-4 pt-16">
-              <p className="font-display text-lg text-ivory md:text-xl">{cat.title}</p>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/90 via-charcoal/45 to-transparent px-3 pb-3 pt-12 md:px-4 md:pb-4 md:pt-16">
+              <p className="font-display text-sm leading-snug text-ivory md:text-lg lg:text-xl">
+                {cat.title}
+              </p>
             </div>
           </Link>
         );

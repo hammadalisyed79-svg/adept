@@ -21,7 +21,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to our commercial team"
-        description="Use the inquiry form for project briefs, or reach us by the channels listed below once verified."
+        description={`Email ${company.email} for fragrance trading, packaging, toll manufacturing, and private-label inquiries — or use the form.`}
       />
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
@@ -40,7 +40,7 @@ export default function ContactPage() {
                     {company.email}
                   </a>
                 </li>
-                {!isTelephonePlaceholder() ? (
+                {!isTelephonePlaceholder() && (
                   <li>
                     <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
                       Telephone
@@ -52,17 +52,8 @@ export default function ContactPage() {
                       {company.telephone}
                     </a>
                   </li>
-                ) : (
-                  <li>
-                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
-                      Telephone
-                    </span>
-                    <p className="mt-1 text-sm text-charcoal-muted">
-                      Production telephone pending configuration.
-                    </p>
-                  </li>
                 )}
-                {!isWhatsAppPlaceholder() ? (
+                {!isWhatsAppPlaceholder() && (
                   <li>
                     <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
                       WhatsApp
@@ -79,15 +70,6 @@ export default function ContactPage() {
                         Message on WhatsApp
                       </Button>
                     </div>
-                  </li>
-                ) : (
-                  <li>
-                    <span className="block text-xs uppercase tracking-wideish text-champagne-deep">
-                      WhatsApp
-                    </span>
-                    <p className="mt-1 text-sm text-charcoal-muted">
-                      WhatsApp number pending configuration.
-                    </p>
                   </li>
                 )}
               </ul>

@@ -31,9 +31,11 @@ export default function PackagingIndexPage() {
           />
           <PackagingVisualGrid className="mt-12" />
           <div className="mt-10 flex flex-wrap gap-3">
-            <Button href="/catalogue">Browse catalogue</Button>
-            <Button href="/request-quote?type=PACKAGING_COMPONENTS" variant="secondary">
+            <Button href="/request-quote?type=PACKAGING_COMPONENTS">
               Request packaging quotation
+            </Button>
+            <Button href="/catalogue" variant="secondary">
+              Catalogue
             </Button>
           </div>
         </Container>

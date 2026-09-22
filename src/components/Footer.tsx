@@ -19,11 +19,6 @@ export function Footer() {
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-ivory/70">
             {company.positioning}
           </p>
-          {!company.legalNameVerified && (
-            <p className="mt-4 text-xs leading-relaxed text-ivory/45">
-              Legal entity name is proposed and pending verification.
-            </p>
-          )}
         </div>
 
         <div>

@@ -1,14 +1,13 @@
 /**
  * Central media registry for ADEPT visuals.
- * Replace `src` with approved photography under /public/images/adept/
- * without editing page layouts.
+ * Prefer photorealistic PNG under /public/images/adept/.
+ * SVG files remain only as fallbacks if a PNG is missing.
  */
 
 export type MediaAsset = {
   id: string;
   src: string;
   alt: string;
-  /** When true, image is decorative and should use empty alt in UI if preferred */
   decorative?: boolean;
   placeholderNote?: string;
 };
@@ -18,110 +17,113 @@ const base = "/images/adept";
 export const media = {
   heroFragranceSolutions: {
     id: "hero-fragrance-solutions",
-    src: `${base}/hero-fragrance-solutions.svg`,
-    alt: "Editorial composition suggesting perfume bottle, closure, concentrate and packaging elements for a complete fragrance brand solution",
-    placeholderNote: "Replace with approved ADEPT product photography",
+    src: `${base}/hero-fragrance-solutions.png`,
+    alt: "Studio composition of perfume bottle, premium cap, spray pump, amber fragrance concentrate, label and rigid box on an ivory background",
   },
   fragranceTrading: {
     id: "fragrance-trading",
-    src: `${base}/fragrance-trading.svg`,
-    alt: "Professional fragrance concentrate evaluation setting",
+    src: `${base}/fragrance-trading.png`,
+    alt: "Amber fragrance concentrate bottles with evaluation blotters in a professional sampling setting",
   },
   packagingComponents: {
     id: "packaging-components",
-    src: `${base}/packaging-components.svg`,
-    alt: "Perfume packaging components including bottle, cap and pump forms",
+    src: `${base}/packaging-components.png`,
+    alt: "Perfume bottle with caps and spray pump components on an ivory studio surface",
   },
   tollManufacturing: {
     id: "toll-manufacturing",
-    src: `${base}/toll-manufacturing.svg`,
-    alt: "Abstract representation of fragrance processing and filling environment — illustrative placeholder, not a verified ADEPT facility photograph",
+    src: `${base}/toll-manufacturing.png`,
+    alt: "Illustrative stainless-steel fragrance processing environment — not a verified ADEPT facility photograph",
   },
   privateLabel: {
     id: "private-label",
-    src: `${base}/private-label.svg`,
-    alt: "Finished fragrance presentation with coordinated outer packaging",
+    src: `${base}/private-label.png`,
+    alt: "Finished perfume bottle with coordinated ivory presentation box",
   },
   perfumeBottles: {
     id: "perfume-bottles",
-    src: `${base}/perfume-bottles.svg`,
-    alt: "Glass perfume bottle silhouettes",
+    src: `${base}/perfume-bottles.png`,
+    alt: "Assortment of clear glass perfume bottles",
   },
-  caps: { id: "caps", src: `${base}/caps.svg`, alt: "Perfume cap and closure forms" },
+  caps: {
+    id: "caps",
+    src: `${base}/caps.png`,
+    alt: "Assortment of perfume caps and closures",
+  },
   pumpsCollars: {
     id: "pumps-collars",
-    src: `${base}/pumps-collars.svg`,
-    alt: "Spray pump and collar components",
+    src: `${base}/pumps-collars.png`,
+    alt: "Perfume spray pumps and collar components",
   },
   labelsStickers: {
     id: "labels-stickers",
-    src: `${base}/labels-stickers.svg`,
-    alt: "Label and sticker material treatments",
+    src: `${base}/labels-stickers.png`,
+    alt: "Label and sticker material samples for fragrance packaging",
   },
   foldingCartons: {
     id: "folding-cartons",
-    src: `${base}/folding-cartons.svg`,
-    alt: "Folding carton packaging forms",
+    src: `${base}/folding-cartons.png`,
+    alt: "Folding carton packaging for fragrance products",
   },
   rigidBoxes: {
     id: "rigid-boxes",
-    src: `${base}/rigid-boxes.svg`,
-    alt: "Rigid presentation box forms",
+    src: `${base}/rigid-boxes.png`,
+    alt: "Rigid presentation boxes for perfume packaging",
   },
   accessories: {
     id: "accessories",
-    src: `${base}/accessories.svg`,
+    src: `${base}/accessories.png`,
     alt: "Fragrance packaging accessories",
   },
   completePackagingSet: {
     id: "complete-packaging-set",
-    src: `${base}/complete-packaging-set.svg`,
-    alt: "Coordinated complete packaging set composition",
+    src: `${base}/complete-packaging-set.png`,
+    alt: "Coordinated complete packaging set with bottle, pump, cap, label and box",
   },
   fragranceOils: {
     id: "fragrance-oils",
-    src: `${base}/fragrance-oils.svg`,
-    alt: "Fragrance concentrate and laboratory glassware",
+    src: `${base}/fragrance-oils.png`,
+    alt: "Amber fragrance concentrate bottles and laboratory glassware",
   },
   manufacturingFilling: {
     id: "manufacturing-filling",
-    src: `${base}/manufacturing-filling.svg`,
-    alt: "Illustrative filling process visual — placeholder, not a verified ADEPT facility photograph",
+    src: `${base}/manufacturing-filling.png`,
+    alt: "Illustrative filling operation — not a verified ADEPT facility photograph",
   },
   manufacturingMixing: {
     id: "manufacturing-mixing",
-    src: `${base}/manufacturing-mixing.svg`,
-    alt: "Illustrative mixing process visual — placeholder, not a verified ADEPT facility photograph",
+    src: `${base}/manufacturing-mixing.png`,
+    alt: "Illustrative mixing vessel — not a verified ADEPT facility photograph",
   },
   qualityControl: {
     id: "quality-control",
-    src: `${base}/quality-control.svg`,
-    alt: "Illustrative quality inspection visual — placeholder",
+    src: `${base}/quality-control.png`,
+    alt: "Illustrative quality inspection — not a verified ADEPT facility photograph",
   },
   completeBrandSolution: {
     id: "complete-brand-solution",
-    src: `${base}/complete-brand-solution.svg`,
+    src: `${base}/complete-brand-solution.png`,
     alt: "Fragrance concentrate with bottle, pump, cap, label and box as one coordinated project",
   },
   industryFineFragrance: {
     id: "industry-fine-fragrance",
-    src: `${base}/industry-fine-fragrance.svg`,
-    alt: "Fine fragrance category visual",
+    src: `${base}/industry-fine-fragrance.png`,
+    alt: "Fine fragrance perfume bottle on a studio surface",
   },
   industryPersonalCare: {
     id: "industry-personal-care",
-    src: `${base}/industry-personal-care.svg`,
-    alt: "Personal care fragrance category visual",
+    src: `${base}/industry-personal-care.png`,
+    alt: "Personal care fragrance packaging on a studio surface",
   },
   industryHomeCare: {
     id: "industry-home-care",
-    src: `${base}/industry-home-care.svg`,
-    alt: "Home care and detergents fragrance category visual",
+    src: `${base}/industry-home-care.png`,
+    alt: "Home care fragrance product packaging",
   },
   industryCandles: {
     id: "industry-candles",
-    src: `${base}/industry-candles.svg`,
-    alt: "Candles and home fragrance category visual",
+    src: `${base}/industry-candles.png`,
+    alt: "Candle and home fragrance vessels",
   },
 } as const satisfies Record<string, MediaAsset>;
 
@@ -131,7 +133,6 @@ export function getMedia(key: MediaKey): MediaAsset {
   return media[key];
 }
 
-/** Map packaging category slug → media key */
 export const packagingMediaBySlug: Record<string, MediaKey> = {
   "perfume-bottles": "perfumeBottles",
   caps: "caps",
