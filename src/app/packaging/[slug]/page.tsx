@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
-import { packagingMediaBySlug, type MediaKey } from "@/content/media";
+import { getMedia, packagingMediaBySlug, type MediaKey } from "@/content/media";
 import { getPackagingCategory, packagingCategories } from "@/content/packaging";
-import { getSiteUrl } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,16 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = getPackagingCategory(slug);
   if (!category) return {};
-  return {
+  const mediaKey = (packagingMediaBySlug[category.slug] ?? "packagingComponents") as MediaKey;
+  return pageMetadata({
     title: category.title,
     description: category.metaDescription,
-    alternates: { canonical: category.href },
-    openGraph: {
-      title: category.title,
-      description: category.metaDescription,
-      url: `${getSiteUrl()}${category.href}`,
-    },
-  };
+    path: category.href,
+    image: getMedia(mediaKey).src,
+    imageAlt: getMedia(mediaKey).alt,
+  });
 }
 
 export default async function PackagingCategoryPage({ params }: Props) {

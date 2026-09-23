@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { erpHowWeWork, erpOfferings } from "@/content/technology";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "ERP Solutions",
   description:
-    "Custom ERP development and third-party ERP implementation for inventory, sales, purchasing, production, finance reporting, and integrations.",
-  alternates: { canonical: "/technology/erp" },
-};
+    "Custom ERP development and third-party implementation for inventory, sales, purchasing, production, and reporting.",
+  path: "/technology/erp",
+  image: "/images/adept/technology-erp.png",
+});
 
 export default function TechnologyErpPage() {
   return (

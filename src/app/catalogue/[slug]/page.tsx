@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProduct } from "@/content/catalogue";
 import { getPackagingCategory } from "@/content/packaging";
-import { getSiteUrl } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -13,16 +13,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getPublishedProduct(slug);
   if (!product) return { title: "Product" };
-  return {
+  return pageMetadata({
     title: product.name,
     description: product.description,
-    alternates: { canonical: `/catalogue/${product.slug}` },
-    openGraph: {
-      title: product.name,
-      description: product.description,
-      url: `${getSiteUrl()}/catalogue/${product.slug}`,
-    },
-  };
+    path: `/catalogue/${product.slug}`,
+  });
 }
 
 export default async function CatalogueProductPage({ params }: Props) {

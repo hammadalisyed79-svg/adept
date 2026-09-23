@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
@@ -6,12 +7,12 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 import { industries } from "@/content/industries";
 import { industryMediaBySlug } from "@/content/media";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Industries",
   description:
-    "Fragrance solutions for fine fragrance, personal care, home care and detergents, and candles and home fragrance.",
-  alternates: { canonical: "/industries" },
-};
+    "Fragrance solutions for fine fragrance, personal care, home care, detergents, candles, and home fragrance brands.",
+  path: "/industries",
+});
 
 export default function IndustriesPage() {
   return (

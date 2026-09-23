@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Cookie Notice",
-  description: `How ${company.name} uses cookies and similar technologies on this website.`,
-  alternates: { canonical: "/cookies" },
-};
+  description:
+    "How ADEPT Fragrances uses cookies and similar technologies on this website.",
+  path: "/cookies",
+});
 
 export default function CookiesPage() {
   return (

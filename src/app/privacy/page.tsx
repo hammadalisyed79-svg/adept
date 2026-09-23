@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-  description: `How ${company.name} collects and uses information from website visitors, inquiries, and commercial guidance chat.`,
-  alternates: { canonical: "/privacy" },
-};
+  description:
+    "How ADEPT Fragrances collects and uses information from website visitors, inquiries, and commercial guidance chat.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

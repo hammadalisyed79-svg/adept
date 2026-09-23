@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { TechnologyInquiryForm } from "@/components/forms/TechnologyInquiryForm";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Button } from "@/components/ui/Button";
@@ -6,13 +7,12 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 import { resolveTechnologyTypeParam } from "@/lib/validation/technology-inquiry";
 
-export const metadata: Metadata = {
-  title: "Discuss Your Technology Project",
+export const metadata: Metadata = pageMetadata({
+  title: "Technology Project Inquiry",
   description:
-    "Request a consultation for ERP solutions, website development, digital marketing, or AI support from ADEPT Fragrances Technology & Growth.",
-  alternates: { canonical: "/technology/request-quote" },
-  robots: { index: true, follow: true },
-};
+    "Request a consultation for ERP, website development, digital marketing, or AI support from ADEPT Fragrances.",
+  path: "/technology/request-quote",
+});
 
 type Props = { searchParams: Promise<{ type?: string }> };
 

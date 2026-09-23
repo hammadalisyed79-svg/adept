@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { PackagingVisualGrid } from "@/components/media/PackagingVisualGrid";
 import { Button } from "@/components/ui/Button";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
-export const metadata: Metadata = {
-  title: "Packaging & Components",
+export const metadata: Metadata = pageMetadata({
+  title: "Perfume Packaging & Components",
   description:
     "Perfume bottles, caps, pumps, labels, cartons, rigid boxes, accessories, and complete packaging sets for fragrance brands.",
-  alternates: { canonical: "/packaging" },
-};
+  path: "/packaging",
+  image: "/images/adept/packaging-components.png",
+});
 
 export default function PackagingIndexPage() {
   return (

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { aiHowWeDeliver, aiOfferings } from "@/content/technology";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "AI Support & Chatbots",
   description:
-    "AI-assisted customer support and website chatbots for fragrance and B2B brands — lead capture, guided answers, and human handoff.",
-  alternates: { canonical: "/technology/ai-support" },
-};
+    "Website chatbots and AI support for guided answers, lead capture, and handoff to your commercial team.",
+  path: "/technology/ai-support",
+  image: "/images/adept/technology-ai.png",
+});
 
 export default function TechnologyAiSupportPage() {
   return (

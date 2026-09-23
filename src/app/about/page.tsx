@@ -4,12 +4,14 @@ import { QuoteCta } from "@/components/QuoteCta";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: `About ${company.name} — a B2B partner for fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth.`,
-  alternates: { canonical: "/about" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "About ADEPT Fragrances",
+  description:
+    "Discover how ADEPT Fragrances partners with brand owners on fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

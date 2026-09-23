@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getIndustry, industries } from "@/content/industries";
-import { industryMediaBySlug } from "@/content/media";
-import { getSiteUrl } from "@/lib/company";
+import { getMedia, industryMediaBySlug } from "@/content/media";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,16 +17,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const industry = getIndustry(slug);
   if (!industry) return {};
-  return {
+  const mediaKey = industryMediaBySlug[industry.slug] ?? "fragranceOils";
+  const media = getMedia(mediaKey);
+  return pageMetadata({
     title: industry.title,
     description: industry.metaDescription,
-    alternates: { canonical: `/industries/${industry.slug}` },
-    openGraph: {
-      title: industry.title,
-      description: industry.metaDescription,
-      url: `${getSiteUrl()}/industries/${industry.slug}`,
-    },
-  };
+    path: `/industries/${industry.slug}`,
+    image: media.src,
+    imageAlt: media.alt,
+  });
 }
 
 export default async function IndustryDetailPage({ params }: Props) {

@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { QuoteCta } from "@/components/QuoteCta";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { articles, getArticle } from "@/content/articles";
-import { getSiteUrl } from "@/lib/company";
+import { articleJsonLd, pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -16,18 +17,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
-  return {
+  return pageMetadata({
     title: article.title,
     description: article.description,
-    alternates: { canonical: `/insights/${article.slug}` },
-    openGraph: {
-      title: article.title,
-      description: article.description,
-      type: "article",
-      url: `${getSiteUrl()}/insights/${article.slug}`,
-      publishedTime: article.publishedAt,
-    },
-  };
+    path: `/insights/${article.slug}`,
+    type: "article",
+    publishedTime: article.publishedAt,
+  });
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -37,6 +33,14 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: article.title,
+          description: article.description,
+          path: `/insights/${article.slug}`,
+          publishedAt: article.publishedAt,
+        })}
+      />
       <PageHero
         eyebrow="Insights"
         title={article.title}

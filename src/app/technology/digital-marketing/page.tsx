@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { marketingApproach, marketingOfferings } from "@/content/technology";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Digital Marketing",
   description:
-    "Brand strategy, social media, creative content, SEO, digital advertising, and campaign management for fragrance and related brands.",
-  alternates: { canonical: "/technology/digital-marketing" },
-};
+    "Brand strategy, content, social, SEO, advertising, and campaign support for fragrance and related brands.",
+  path: "/technology/digital-marketing",
+  image: "/images/adept/technology-marketing.png",
+});
 
 export default function TechnologyDigitalMarketingPage() {
   return (

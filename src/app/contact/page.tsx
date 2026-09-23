@@ -8,12 +8,13 @@ import {
   isTelephonePlaceholder,
   isWhatsAppPlaceholder,
 } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description: `Contact ${company.name} at ${company.email} for fragrance, packaging, manufacturing, private label, and Technology & Growth inquiries.`,
-  alternates: { canonical: "/contact" },
-};
+  description: `Contact ADEPT Fragrances at ${company.email} for fragrance, packaging, manufacturing, private label, or Technology & Growth inquiries.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

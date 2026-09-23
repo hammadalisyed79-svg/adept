@@ -12,14 +12,17 @@ import { divisionMediaByHref, industryMediaBySlug } from "@/content/media";
 import { technologyServices } from "@/content/technology";
 import { company } from "@/lib/company";
 import { divisions } from "@/lib/navigation";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: {
-    absolute: `${company.heroHeadline.replace(/\.\s*$/, "")} | ${company.name}`,
-  },
-  description: company.heroSupporting,
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Home",
+  absoluteTitle: `${company.heroHeadline.replace(/\.\s*$/, "")} | ${company.name}`,
+  description:
+    "B2B fragrance concentrates, packaging, manufacturing, private label, and Technology & Growth — from brief to finished product with ADEPT Fragrances.",
+  path: "/",
+  image: "/images/adept/hero-fragrance-solutions.png",
+  imageAlt: "Fragrance solutions from ADEPT Fragrances",
+});
 
 export default function HomePage() {
   return (

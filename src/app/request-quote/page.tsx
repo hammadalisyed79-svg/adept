@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Button } from "@/components/ui/Button";
@@ -6,13 +7,12 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 import { inquiryTypes } from "@/lib/validation/inquiry";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Request a Quote",
   description:
     "Submit a B2B quotation inquiry for fragrance trading, packaging components, toll manufacturing, or private label.",
-  alternates: { canonical: "/request-quote" },
-  robots: { index: true, follow: true },
-};
+  path: "/request-quote",
+});
 
 type Props = { searchParams: Promise<{ type?: string }> };
 

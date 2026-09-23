@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
-export const metadata: Metadata = {
-  title: "Private Label",
+export const metadata: Metadata = pageMetadata({
+  title: "Private Label Fragrances",
   description:
-    "Private-label fragrance development from concept and sampling through manufacturing and delivery.",
-  alternates: { canonical: "/services/private-label" },
-};
+    "Private-label fragrance pathways from concept and sampling through packaging, manufacturing, and delivery.",
+  path: "/services/private-label",
+  image: "/images/adept/private-label.png",
+});
 
 const story = [
   { label: "Idea", mediaKey: "privateLabel" as const },

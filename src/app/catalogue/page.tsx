@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Button } from "@/components/ui/Button";
@@ -6,12 +7,12 @@ import { Container, PageHero, Section } from "@/components/ui/Section";
 import { getPublishedProducts } from "@/content/catalogue";
 import { packagingCategories } from "@/content/packaging";
 
-export const metadata: Metadata = {
-  title: "B2B Catalogue",
+export const metadata: Metadata = pageMetadata({
+  title: "B2B Packaging Catalogue",
   description:
-    "Quotation-based catalogue of fragrance packaging components. Products appear only when specifications are verified.",
-  alternates: { canonical: "/catalogue" },
-};
+    "Quotation-based fragrance packaging catalogue — products listed when names, references, and specifications are ready.",
+  path: "/catalogue",
+});
 
 export default function CataloguePage() {
   const products = getPublishedProducts();

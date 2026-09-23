@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { company } from "@/lib/company";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Commercial Terms",
-  description: `How ${company.name} approaches quotation, sampling, supply, delivery, and quality for B2B engagements.`,
-  alternates: { canonical: "/commercial-terms" },
-};
+  description:
+    "How ADEPT Fragrances approaches quotation, sampling, supply, delivery, and quality for B2B engagements.",
+  path: "/commercial-terms",
+});
 
 export default function CommercialTermsPage() {
   return (

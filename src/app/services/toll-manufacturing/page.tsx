@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Toll Manufacturing",
   description:
-    "Fragrance blending, processing, filling and packaging support for brand manufacturing requirements.",
-  alternates: { canonical: "/services/toll-manufacturing" },
-};
+    "Blending, processing, filling, and packaging support scoped to your fragrance manufacturing brief.",
+  path: "/services/toll-manufacturing",
+  image: "/images/adept/toll-manufacturing.png",
+});
 
 const core = [
   {

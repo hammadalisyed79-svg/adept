@@ -3,7 +3,13 @@ import type { Metadata } from "next";
 import { AdeptAssistant } from "@/components/chatbot/AdeptAssistant";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { company, getSiteUrl, isTelephonePlaceholder } from "@/lib/company";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { company, getSiteUrl } from "@/lib/company";
+import {
+  DEFAULT_OG_IMAGE,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -25,10 +31,23 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: company.name,
+    default: `${company.name} | Fragrance, Packaging & Manufacturing`,
     template: `%s | ${company.name}`,
   },
   description: company.positioning,
+  applicationName: company.name,
+  authors: [{ name: company.name, url: siteUrl }],
+  creator: company.name,
+  publisher: company.name,
+  keywords: [
+    "fragrance concentrates",
+    "perfume packaging",
+    "toll manufacturing",
+    "private label fragrance",
+    "B2B fragrance supplier",
+    "ADEPT Fragrances",
+    "Technology & Growth",
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -36,27 +55,30 @@ export const metadata: Metadata = {
     siteName: company.name,
     title: company.name,
     description: company.positioning,
+    images: [DEFAULT_OG_IMAGE],
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: company.name,
+    description: company.positioning,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   alternates: { canonical: siteUrl },
+  category: "business",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: company.name,
-    url: siteUrl,
-    email: company.email,
-    description: company.positioning,
-    ...(company.addressVerified && company.address
-      ? { address: { "@type": "PostalAddress", streetAddress: company.address } }
-      : {}),
-    ...(!isTelephonePlaceholder()
-      ? { telephone: company.telephone }
-      : {}),
-  };
-
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body className="min-h-screen bg-ivory font-sans text-charcoal antialiased">
@@ -67,13 +89,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Header />
-        <main id="main" className="pb-24 sm:pb-20">{children}</main>
+        <main id="main" className="pb-24 sm:pb-20">
+          {children}
+        </main>
         <Footer />
         <AdeptAssistant />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
-        />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
       </body>
     </html>
   );

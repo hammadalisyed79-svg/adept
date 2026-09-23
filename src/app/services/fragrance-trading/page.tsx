@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Fragrance Trading",
   description:
-    "Fine and industrial fragrance concentrates, sourcing, sampling, and commercial supply for B2B buyers.",
-  alternates: { canonical: "/services/fragrance-trading" },
-};
+    "Fine and industrial fragrance concentrates — sourcing, sampling, and commercial supply for B2B buyers.",
+  path: "/services/fragrance-trading",
+  image: "/images/adept/fragrance-trading.png",
+});
 
 const offerings = [
   {

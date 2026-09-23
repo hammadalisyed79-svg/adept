@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Container, PageHero, Section } from "@/components/ui/Section";
 import { articles } from "@/content/articles";
 
-export const metadata: Metadata = {
-  title: "Insights",
+export const metadata: Metadata = pageMetadata({
+  title: "Fragrance Insights",
   description:
-    "Educational articles on fragrance trading, concentration, private-label manufacturing, and industrial applications.",
-  alternates: { canonical: "/insights" },
-};
+    "Practical articles for commercial teams on fragrance trading, concentration, private label, and industrial applications.",
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   return (

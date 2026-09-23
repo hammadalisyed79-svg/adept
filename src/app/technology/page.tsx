@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { technologyServices } from "@/content/technology";
 
-export const metadata: Metadata = {
-  title: "Technology & Growth Solutions",
+export const metadata: Metadata = pageMetadata({
+  title: "Technology & Growth",
   description:
-    "ERP, website development, digital marketing, and AI chatbots for fragrance and related businesses — from ADEPT Fragrances.",
-  alternates: { canonical: "/technology" },
-};
+    "ERP, website development, digital marketing, and AI chatbots for fragrance and related B2B businesses.",
+  path: "/technology",
+  image: "/images/adept/technology-growth.png",
+});
 
 export default function TechnologyOverviewPage() {
   return (

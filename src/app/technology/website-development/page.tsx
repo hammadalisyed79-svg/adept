@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { QuoteCta } from "@/components/QuoteCta";
 import { MediaImage } from "@/components/media/MediaImage";
 import { Container, PageHero, Section, SectionHeading } from "@/components/ui/Section";
 import { websiteFromBriefToLaunch, websiteOfferings } from "@/content/technology";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Website Development",
   description:
-    "Corporate, B2B, ecommerce, catalogue, and quotation websites — with optional ERP and website integration where supported.",
-  alternates: { canonical: "/technology/website-development" },
-};
+    "Corporate, B2B, catalogue, quotation, and ecommerce websites — with optional operational system links.",
+  path: "/technology/website-development",
+  image: "/images/adept/technology-website.png",
+});
 
 export default function TechnologyWebsitePage() {
   return (
